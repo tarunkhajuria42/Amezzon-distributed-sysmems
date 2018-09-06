@@ -2,9 +2,9 @@
 
 
 
-### What is this repository for? ###
+### Some of the python resources for reading ###
 
-* Quick summary
+* [Distributed Computing with Python](https://drive.google.com/open?id=115Hs4O6-BiMrb40p58haebFY4W0GpdcH)
 * Version
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
