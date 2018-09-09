@@ -11,7 +11,7 @@
 
 ### Will Use ###
 + [Socket](https://docs.python.org/2/library/socket.html) ([Quick Guide](https://www.tutorialspoint.com/python/python_networking.htm))
-
++ [More on Socket](https://realpython.com/python-sockets/)
 ### Under Consideration ###
 * **Encryption, Keys and Certificates**
 	* [OpenSSl](https://pyopenssl.org/en/stable/api.html)
