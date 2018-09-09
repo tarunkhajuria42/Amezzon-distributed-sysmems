@@ -7,39 +7,21 @@
 * Tarun Khajuria
 * Tek Raj Chhetri
 
+## Team tools##
+* [Drive](https://drive.google.com/drive/folders/1E4KhN9Q_ASr_p6-0iwQXxvGoVNMOeEoO)
+* [Project Documentation](https://docs.google.com/document/d/1_FYtaMBkz3X2jvTtq3LkN7ntc4-EUExfeoFuS4Wp3JI/edit#heading=h.oije7prghzkl)
+
 ## Python Libraries ##
 
 ### Will Use ###
-+ [Socket](https://docs.python.org/2/library/socket.html) ([Quick Guide](https://www.tutorialspoint.com/python/python_networking.htm))
-+ [More on Socket](https://realpython.com/python-sockets/)
++ [Socket](https://docs.python.org/2/library/socket.html) ([Quick Guide](https://www.tutorialspoint.com/python/python_networking.htm), [More on Socket](https://realpython.com/python-sockets/)) 
+
 ### Under Consideration ###
 * **Encryption, Keys and Certificates**
 	* [OpenSSl](https://pyopenssl.org/en/stable/api.html)
 	* [Paramiko](http://www.paramiko.org/)
 * **Data Structures and Analysis**
 	* [Pandas](http://pandas.pydata.org/)
-
-## Project Structure ##
-- /server
-	- *Main.py*
-	- /key
-	- /crl
-	- /log
-		- *connlogs.txt*
-
-- /client
-	- *Main.py*
-	- /key
-	- /crl
-	- /log
-		- *connlogs.txt*
-		
-### Folder description ###
-* **server** - Folder for server side code.
-* **client** - Folder for client side code.
-* **key** - Folder for privet and public keys.
-* **crl** - Folder for certificates.
-* **log** - Folder for all types of logs.
 
 ## Some of the python resources for reading ##
 
