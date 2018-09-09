@@ -1,15 +1,18 @@
 # Distributed Systems Project #
 
 ## Team members ##
-* Aleksei Kop√µlov
+* Aleksei Kopılov
 * Cedric De Donder
 * Hitihami Koralalage Niroshima Udayangani
 * Tarun Khajuria
 * Tek Raj Chhetri
 
 ## Python Libraries ##
-+ [Socket](https://docs.python.org/2/library/socket.html)
-	* [Python - Network Programming](https://www.tutorialspoint.com/python/python_networking.htm)
+
+### Will Use ###
++ [Socket](https://docs.python.org/2/library/socket.html) ([Quick Guide](https://www.tutorialspoint.com/python/python_networking.htm))
+
+### Under Consideration ###
 * [OpenSSl](https://pyopenssl.org/en/stable/api.html)
 * [Pandas](http://pandas.pydata.org/)
 
