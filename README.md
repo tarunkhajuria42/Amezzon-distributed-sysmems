@@ -13,8 +13,11 @@
 + [Socket](https://docs.python.org/2/library/socket.html) ([Quick Guide](https://www.tutorialspoint.com/python/python_networking.htm))
 
 ### Under Consideration ###
-* [OpenSSl](https://pyopenssl.org/en/stable/api.html)
-* [Pandas](http://pandas.pydata.org/)
+* **Encryption, Keys and Certificates**
+	* [OpenSSl](https://pyopenssl.org/en/stable/api.html)
+	* [Paramiko](http://www.paramiko.org/)
+* **Data Structures and Analysis**
+	* [Pandas](http://pandas.pydata.org/)
 
 ## Project Structure ##
 - /server
