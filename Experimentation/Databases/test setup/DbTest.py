@@ -6,4 +6,3 @@ cursor.execute("SELECT VERSION()")
 data = cursor.fetchone()
 print("Database version: %s" % data)
 db.close()
-
