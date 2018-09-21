@@ -1,4 +1,6 @@
-create database amezzon;
+create database if not exists amezzon;
+
+use amezzon;
 
 create table if not exists person
 (
