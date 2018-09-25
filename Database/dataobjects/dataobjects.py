@@ -2,8 +2,8 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Numeric, DateTime, c
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-__ENGINE = create_engine("mysql+pymysql://testuser@localhost/amezzon")  # TODO switch to configParser
-Session = sessionmaker(bind=__ENGINE)
+engine = create_engine("mysql+pymysql://testuser@localhost/amezzon")  # TODO switch to configParser
+Session = sessionmaker(bind=engine)
 __BASE = declarative_base()
 
 
@@ -95,4 +95,4 @@ class TransactionType(__BASE):
         self.transaction_type = transaction_type
 
 
-__BASE.metadata.create_all(__ENGINE)
+__BASE.metadata.create_all(engine)
