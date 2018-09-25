@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from base import Base
 
+from pile import Pile
+
 
 # noinspection SpellCheckingInspection
 class Product(Base):
@@ -12,7 +14,7 @@ class Product(Base):
     product_name = Column("product_name", String(50))
     description = Column("product_description", String(255))
 
-    pile = relationship("Pile", uselist=False, back_populates="product")
+    pile = relationship(Pile, primaryjoin=id == Pile.product_id)
 
     def __init__(self, product_type, product_name, description):
         self.product_type = product_type

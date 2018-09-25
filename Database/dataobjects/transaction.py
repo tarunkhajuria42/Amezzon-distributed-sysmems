@@ -2,6 +2,9 @@ from sqlalchemy import Column, Integer, String, Numeric, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from base import Base
 
+from product import Product
+from person import Person
+
 
 # noinspection SpellCheckingInspection
 class Transaction(Base):
@@ -15,6 +18,5 @@ class Transaction(Base):
     transaction_quantity = Column("transaction_quantity", Integer)
     transaction_timestamp = Column("transaction_timestamp", DateTime)
 
-    type = relationship("TransactionType", back_populates="transactions")
-    client = relationship("Person", back_populates="transactions")
-    product = relationship("Product")
+    client = relationship(Person, primaryjoin=transaction_client == Person.id)
+    product = relationship(Product, primaryjoin=transaction_product == Product.id)

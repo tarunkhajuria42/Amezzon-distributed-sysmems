@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from base import Base
 
+from transaction import Transaction
+
 
 # noinspection SpellCheckingInspection
 class Person(Base):
@@ -14,7 +16,7 @@ class Person(Base):
     last_name = Column("person_lastname", String(250))
     mail = Column("person_mail", String(250))
 
-    transactions = relationship("Transaction")
+    transactions = relationship(Transaction, primaryjoin=id == Transaction.transaction_client)
 
     def __init__(self, username, passwordhash, first_name, last_name, mail):
         self.username = username
