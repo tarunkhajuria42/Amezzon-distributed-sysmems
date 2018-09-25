@@ -11,4 +11,5 @@ session.commit()
 
 q = session.query(Person).all()
 
-print(q)
+for p in q:
+    print(p)

@@ -25,6 +25,12 @@ class Person(__BASE):
         self.last_name = last_name
         self.mail = mail
 
+    def __eq__(self, other):
+        return eq(self.id, other.id)
+
+    def __str__(self):
+        return "Person: " + str({k: self.__dict__[k] for k in ("username", "first_name", "last_name")})
+
 
 # noinspection SpellCheckingInspection
 class Pile(__BASE):
@@ -40,6 +46,12 @@ class Pile(__BASE):
         self.sell_price = sell_price
         self.buy_price = buy_price
 
+    def __eq__(self, other):
+        return eq(self.id, other.id)
+
+    def __str__(self):
+        return "Pile: " + str({k: self.__dict__[k] for k in "product_id"})
+
 
 class Product(__BASE):
     __tablename__ = "product"
@@ -54,6 +66,12 @@ class Product(__BASE):
         self.product_name = product_name
         self.description = description
 
+    def __eq__(self, other):
+        return eq(self.id, other.id)
+
+    def __str__(self):
+        return "Product: " + str({k: self.__dict__[k] for k in ("product_name", "product_type")})
+
 
 class ProductType(__BASE):
     __tablename__ = "product_type"
@@ -62,6 +80,12 @@ class ProductType(__BASE):
 
     def __init__(self, product_type):
         self.product_type = product_type
+
+    def __eq__(self, other):
+        return eq(self.product_type, other.product_type)
+
+    def __str__(self):
+        return "ProductType: " + str(self.__dict__)
 
 
 # noinspection SpellCheckingInspection
@@ -84,6 +108,12 @@ class Transaction(__BASE):
         self.transaction_quantity = quantity
         self.transaction_timestamp = timestamp
 
+    def __eq__(self, other):
+        return eq(self.id, other.id)
+
+    def __str__(self):
+        return "Transaction: " + str(self.__dict__)  # TODO specify
+
 
 # noinspection SpellCheckingInspection
 class TransactionType(__BASE):
@@ -93,6 +123,12 @@ class TransactionType(__BASE):
 
     def __init__(self, transaction_type):
         self.transaction_type = transaction_type
+
+    def __eq__(self, other):
+        return eq(self.transaction_type, other.transaction_type)
+
+    def __str__(self):
+        return "TransactionType: " + str(self.__dict__)
 
 
 __BASE.metadata.create_all(engine)
