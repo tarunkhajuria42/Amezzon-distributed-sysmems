@@ -2,19 +2,16 @@ import platform
 import os
 
 
-class FolderService:
+class FolderService(object):
 
     def __init__(self):
-        self.windows = "Windows"
-        self.linux = "Linux"
-        self.apple = "Apple"
         self.system_os = platform.system()
         self.root_path = os.getcwd()
 
     def remove_folder(self, path):
-        print path
+        pass
 
-    def creat_folder(self, path):
+    def create_folder(self, path):
         os.makedirs(self.root_path + path)
 
     def folder_exists(self, path):
