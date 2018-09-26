@@ -2,7 +2,8 @@ from managers.SetupManager import SetupManager
 
 
 def run():
-    SetupManager()
+    setup = SetupManager()
+    setup.run_setup()
 
 
 if __name__ == '__main__':
