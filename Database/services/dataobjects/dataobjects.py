@@ -112,7 +112,7 @@ class Transaction(__BASE):
         return eq(self.id, other.id)
 
     def __str__(self):
-        return "Transaction: " + str(self.__dict__)  # TODO specify
+        return "Transaction: " + str(self.__dict__)
 
 
 # noinspection SpellCheckingInspection
