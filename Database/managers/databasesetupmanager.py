@@ -2,5 +2,10 @@ from services.dataobjects.dataobjects import *
 from services.databasesetupservices import *
 
 
-def setup_database():
-    pass
+class DatabaseSetupManager(object):
+
+    def __init__(self):
+        pass
+
+    def setup_database(self):
+        pass
