@@ -9,9 +9,9 @@ LOG_NAME = 'sLogger'
 
 
 class LogService(object):
-    __logger = None
 
     def __init__(self):
+        self.__logger = None
         self.system_os = platform.system()
         self.root_path = os.getcwd()
 
