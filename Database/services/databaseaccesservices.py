@@ -1,4 +1,4 @@
-from dataobjects.dataobjects import *
+from services.dataobjects.dataobjects import *
 
 
 def username_exists(username, session):
@@ -10,4 +10,16 @@ def username_authentication_correct(username, password_hash, session):
 
 
 def get_user_by_username(username, session):
-    return session.query(Person).filer(Person.username == username).one()
+    return session.query(Person).filter(Person.username == username).one()
+
+
+def get_new_user(username, password_hash, first_name, last_name, session):
+    person = Person(username, password_hash, first_name, last_name)
+    session.save(person)
+    session.flush()
+    return person
+
+
+def add_new_person(person, session):
+    session.save(person)
+    session.flush()
