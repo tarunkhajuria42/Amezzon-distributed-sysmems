@@ -26,5 +26,9 @@ def get_transactions_by_product():
     pass
 
 
-def get_products_by_produc_type():
+def get_products_by_product_type():
+    pass
+
+
+def get_product_price():
     pass

@@ -1,4 +1,4 @@
-from dataobjects import *
+from services.dataobjects.dataobjects import *
 
 session = Session()
 
