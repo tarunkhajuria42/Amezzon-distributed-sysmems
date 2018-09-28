@@ -1,18 +1,16 @@
 from configparser import SafeConfigParser
-from services.FolderService import FolderService
-from services.LogService import LogService
 
 CONF_FILE = "conf.ini"
 TEMP_FOLDERS = "temp_folders"
 
 
 class SetupManager(object):
-    __folder_service = FolderService()
-    __log_service = LogService()
-
-    def __init__(self):
+    def __init__(self, service_manager):
         self.parser = SafeConfigParser()
         self.parser.read(CONF_FILE)
+
+        self.__folder_service = service_manager.get_folder_service()
+        self.__log_service = service_manager.get_log_service()
 
     def folder_setup(self):
         folder_dict = dict(self.parser._sections)[TEMP_FOLDERS]
