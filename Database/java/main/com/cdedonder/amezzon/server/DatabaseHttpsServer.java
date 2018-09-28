@@ -27,15 +27,15 @@ public class DatabaseHttpsServer {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
 
-            char[] password = "keystorepassword".toCharArray();
-            KeyStore ks = KeyStore.getInstance("JKS");
-            FileInputStream fis = new FileInputStream("lig.keystore");
+            char[] password = properties.getProperty("password").toCharArray();
+            KeyStore ks = KeyStore.getInstance(properties.getProperty("keystoreinstance"));
+            FileInputStream fis = new FileInputStream(properties.getProperty("keystore"));
             ks.load(fis, password);
 
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance(properties.getProperty("kmf"));
             kmf.init(ks, password);
 
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(properties.getProperty("tmf"));
             tmf.init(ks);
 
             sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
