@@ -30,10 +30,6 @@ class Person(object):
     def first_name(self, first_name):
         self._first_name = first_name
 
-    @first_name.deleter
-    def first_name(self):
-        del self._first_name
-
     @property
     def last_name(self):
         return self._last_name
@@ -45,10 +41,6 @@ class Person(object):
     @last_name.setter
     def last_name(self, last_name):
         self._last_name = last_name
-
-    @last_name.deleter
-    def last_name(self):
-        del self._last_name
 
     def get_full_name(self):
         return "{0} {1}".format(self._first_name, self._last_name)
@@ -65,10 +57,6 @@ class Person(object):
     def email(self, email):
         self._email = email
 
-    @email.deleter
-    def email(self):
-        del self._email
-
     @property
     def id_code(self):
         return self._id_code
@@ -80,13 +68,3 @@ class Person(object):
     @id_code.setter
     def id_code(self, id_code):
         self._id_code = id_code
-
-    @id_code.deleter
-    def id_code(self):
-        del self._id_code
-
-    def __eq__(self, other):
-        return (self._first_name == other.first_name and
-                self._last_name == other.last_name and
-                self._email == other.email and
-                self._id_code == other.id_code)
