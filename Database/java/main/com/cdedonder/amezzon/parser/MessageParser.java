@@ -3,8 +3,11 @@ package com.cdedonder.amezzon.parser;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class MessageParser {
+
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private final Map<String, Procedure> methodMap;
     private final Messsage messsage;
@@ -15,6 +18,7 @@ public class MessageParser {
         methodMap.put("PUT", this::parsePUT);
         methodMap.put("GET", this::parseGET);
         methodMap.put("DELETE", this::parseDELETE);
+        methodMap.put("POST", this::parseDEBUG);
     }
 
     public Messsage parse() throws IOException {
@@ -36,6 +40,12 @@ public class MessageParser {
 
     private void parseDELETE() {
         //TODO
+    }
+
+    private void parseDEBUG() {
+        LOGGER.info("Message received:\n" + messsage.getBody());
+        messsage.setResponseCode(200);
+        messsage.setResponseBody("Hello Client!");
     }
 
     @FunctionalInterface

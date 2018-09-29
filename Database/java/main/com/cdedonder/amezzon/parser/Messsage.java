@@ -30,4 +30,8 @@ public class Messsage {
     public int getResponseCode() {
         return responseCode;
     }
+
+    void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
 }

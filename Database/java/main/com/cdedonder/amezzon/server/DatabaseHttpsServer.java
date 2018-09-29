@@ -21,7 +21,10 @@ public class DatabaseHttpsServer implements Server {
     private final HttpsServer server;
 
     public DatabaseHttpsServer(Properties properties) throws IOException {
-        server = HttpsServer.create(new InetSocketAddress(properties.getProperty("host"), Integer.parseInt(properties.getProperty("port"))), 0);
+        String host = properties.getProperty("host");
+        int port = Integer.parseInt(properties.getProperty("port"));
+        server = HttpsServer.create(new InetSocketAddress(host, port), 0);
+        LOGGER.info("Created HTTPS server at " + host + ":" + port);
         server.createContext("/", new HttpExchangeHandler());
         server.setExecutor(Executors.newFixedThreadPool(Integer.parseInt(properties.getProperty("threads"))));
         try {
@@ -63,6 +66,8 @@ public class DatabaseHttpsServer implements Server {
 
     @Override
     public void start() {
+        LOGGER.info("Starting server...");
         server.start();
+        LOGGER.info("Server started.");
     }
 }

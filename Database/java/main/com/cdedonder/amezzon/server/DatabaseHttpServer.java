@@ -18,14 +18,14 @@ public class DatabaseHttpServer implements Server {
         String host = properties.getProperty("host");
         int port = Integer.parseInt(properties.getProperty("port"));
         server = HttpServer.create(new InetSocketAddress(host, port), 0);
-        LOGGER.info("Created server at" + host + ":" + port);
+        LOGGER.info("Created HTTP server at " + host + ":" + port);
         server.createContext("/", new HttpExchangeHandler());
         server.setExecutor(Executors.newFixedThreadPool(Integer.parseInt(properties.getProperty("threads"))));
     }
 
     @Override
     public void start() {
-        LOGGER.info("Starting server.");
+        LOGGER.info("Starting server...");
         server.start();
         LOGGER.info("Server started.");
     }
