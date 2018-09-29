@@ -14,7 +14,7 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-public class DatabaseHttpsServer {
+public class DatabaseHttpsServer implements Server {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -61,6 +61,7 @@ public class DatabaseHttpsServer {
         }
     }
 
+    @Override
     public void start() {
         server.start();
     }

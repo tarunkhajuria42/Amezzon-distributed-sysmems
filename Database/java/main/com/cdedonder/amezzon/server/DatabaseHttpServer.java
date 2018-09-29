@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Properties;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
 
-public class DatabaseHttpServer {
-
-    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+public class DatabaseHttpServer implements Server {
 
     private final HttpServer server;
 
@@ -20,16 +17,7 @@ public class DatabaseHttpServer {
         server.setExecutor(Executors.newFixedThreadPool(Integer.parseInt(properties.getProperty("threads"))));
     }
 
-    public static Properties defaultProperties() {
-        Properties properties = new Properties();
-        try {
-            properties.load(DatabaseHttpServer.class.getResourceAsStream("default.properties"));
-        } catch (IOException e) {
-            LOGGER.severe("Cannot read default properties:\n" + e.getMessage());
-        }
-        return properties;
-    }
-
+    @Override
     public void start() {
         server.start();
     }
