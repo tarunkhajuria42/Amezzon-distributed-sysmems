@@ -15,10 +15,9 @@ public class MessageParser {
     public MessageParser(Messsage messsage) {
         this.messsage = messsage;
         methodMap = new HashMap<>();
-        methodMap.put("PUT", this::parsePUT);
+        methodMap.put("POST", this::parsePOST);
         methodMap.put("GET", this::parseGET);
         methodMap.put("DELETE", this::parseDELETE);
-        methodMap.put("POST", this::parseDEBUG);
     }
 
     public Messsage parse() throws IOException {
@@ -30,7 +29,12 @@ public class MessageParser {
         return messsage;
     }
 
-    private void parsePUT() {
+    private void parsePOST() {
+        //DEBUG
+        LOGGER.info("Message received:\n" + messsage.getBody());
+        messsage.setResponseCode(200);
+        messsage.setResponseBody("Hello Client!");
+        //DEBUG ENDS
         //TODO
     }
 
@@ -40,12 +44,6 @@ public class MessageParser {
 
     private void parseDELETE() {
         //TODO
-    }
-
-    private void parseDEBUG() {
-        LOGGER.info("Message received:\n" + messsage.getBody());
-        messsage.setResponseCode(200);
-        messsage.setResponseBody("Hello Client!");
     }
 
     @FunctionalInterface
