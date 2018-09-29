@@ -19,7 +19,7 @@ public class DatabaseLogger {
 
         logger.setLevel(Level.INFO);
 
-        FileHandler fileHandler = new FileHandler("log.txt");
+        FileHandler fileHandler = new FileHandler("dblog.txt");
         SimpleFormatter formatter = new SimpleFormatter();
         fileHandler.setFormatter(formatter);
         logger.addHandler(fileHandler);

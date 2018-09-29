@@ -27,7 +27,8 @@ public class Main {
         try {
             DatabaseLogger.setup();
         } catch (IOException e) {
-            throw new RuntimeException("Cannot create logger instance:\n" + e.getMessage());
+            System.err.println("Cannot create logger instance:\n" + e.getMessage());
+            System.exit(1);
         }
 
         options = new Options();
