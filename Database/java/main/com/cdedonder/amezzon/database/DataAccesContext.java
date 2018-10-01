@@ -16,6 +16,10 @@ public interface DataAccesContext extends AutoCloseable {
 
     TransactionTypeDAO getTransactionTypeDAO() throws DataAccessException;
 
+    void commit() throws DataAccessException;
+
+    void rollback() throws DataAccessException;
+
     @Override
     void close() throws DataAccessException;
 }

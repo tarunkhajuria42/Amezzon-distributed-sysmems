@@ -47,6 +47,24 @@ public class MySQLDAC implements DataAccesContext {
     }
 
     @Override
+    public void commit() throws DataAccessException {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public void rollback() throws DataAccessException {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
     public void close() throws DataAccessException {
         try {
             connection.close();
@@ -54,4 +72,6 @@ public class MySQLDAC implements DataAccesContext {
             throw new DataAccessException(e);
         }
     }
+
+
 }

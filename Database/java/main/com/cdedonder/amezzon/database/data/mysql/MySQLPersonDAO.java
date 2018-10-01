@@ -47,20 +47,42 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
                 }
             }
         } catch (SQLException e) {
+            try {
+                rollback();
+            } catch (SQLException f) {
+                throw new DataAccessException("Exceptions " + e.getMessage() + ", " + f.getMessage()); //DEBUG
+            }
             throw new DataAccessException(e);
         }
     }
 
     @Override
     public void update(Person person, boolean atomic) throws DataAccessException {
-
+        try {
+            try (PreparedStatement update = prepare("UPDATE person SET person_username=?, person_passwordHash=?, " +
+                    "person_firstname=?, person_lastname=?, person_mail=? WHERE person_id=?")) {
+                update.setString(1, person.getUsername());
+                update.setString(2, person.getPasswordHash());
+                update.setString(3, person.getFirstName());
+                update.setString(4, person.getLastName());
+                update.setString(5, person.getMail());
+                update.setInt(6, person.getId());
+                update.executeUpdate();
+                commit(atomic);
+            }
+        } catch (SQLException e) {
+            try {
+                rollback();
+            } catch (SQLException f) {
+                throw new DataAccessException("Exceptions " + e.getMessage() + ", " + f.getMessage()); //DEBUG
+            }
+            throw new DataAccessException(e);
+        }
     }
 
     @Override
     public boolean delete(Person person, boolean atomic) throws DataAccessException {
-        try {
-            try (PreparedStatement update = prepare("")) //TODO
-        }
+
     }
 
     @Override
