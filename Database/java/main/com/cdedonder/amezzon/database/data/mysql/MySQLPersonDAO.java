@@ -27,7 +27,8 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
                     }
                 }
             }
-            try (PreparedStatement insert = prepareWithKeys("INSERT INTO person (person_username, person_passwordhash, person_firstname, person_lastname, person_mail VALUES (?,?,?,?,?")) {
+            try (PreparedStatement insert = prepareWithKeys("INSERT INTO person (person_username, " +
+                    "person_passwordhash, person_firstname, person_lastname, person_mail VALUES (?,?,?,?,?")) {
                 insert.setString(1, person.getUsername());
                 insert.setString(2, person.getPasswordHash());
                 insert.setString(3, person.getFirstName());
@@ -57,7 +58,9 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
 
     @Override
     public boolean delete(Person person, boolean atomic) throws DataAccessException {
-        return false;
+        try {
+            try (PreparedStatement update = prepare("")) //TODO
+        }
     }
 
     @Override
