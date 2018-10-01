@@ -3,17 +3,18 @@ package com.cdedonder.amezzon.database;
 import com.cdedonder.amezzon.database.data.*;
 
 public interface DataAccesContext extends AutoCloseable {
-    PersonDAO getPersonDAO();
 
-    PileDAO getPileDAO();
+    PersonDAO getPersonDAO() throws DataAccessException;
 
-    ProductDAO getProductDAO();
+    PileDAO getPileDAO() throws DataAccessException;
 
-    ProductTypeDAO getProductTypeDAO();
+    ProductDAO getProductDAO() throws DataAccessException;
 
-    TransactionDAO getTransactionDAO();
+    ProductTypeDAO getProductTypeDAO() throws DataAccessException;
 
-    TransactionTypeDAO getTransactionTypeDAO();
+    TransactionDAO getTransactionDAO() throws DataAccessException;
+
+    TransactionTypeDAO getTransactionTypeDAO() throws DataAccessException;
 
     @Override
     void close() throws DataAccessException;

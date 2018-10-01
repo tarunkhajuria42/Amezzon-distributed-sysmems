@@ -3,6 +3,7 @@ package com.cdedonder.amezzon.database.mysql;
 import com.cdedonder.amezzon.database.DataAccesContext;
 import com.cdedonder.amezzon.database.DataAccessException;
 import com.cdedonder.amezzon.database.data.*;
+import com.cdedonder.amezzon.database.data.mysql.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,33 +17,33 @@ public class MySQLDAC implements DataAccesContext {
     }
 
     @Override
-    public PersonDAO getPersonDAO() {
-        return null;
+    public PersonDAO getPersonDAO() throws DataAccessException {
+        return new MySQLPersonDAO(connection);
     }
 
     @Override
-    public PileDAO getPileDAO() {
-        return null;
+    public PileDAO getPileDAO() throws DataAccessException {
+        return new MySQLPileDAO(connection);
     }
 
     @Override
-    public ProductDAO getProductDAO() {
-        return null;
+    public ProductDAO getProductDAO() throws DataAccessException {
+        return new MySQLProductDAO(connection);
     }
 
     @Override
     public ProductTypeDAO getProductTypeDAO() {
-        return null;
+        return new MySQLProductTypeDAO(connection);
     }
 
     @Override
     public TransactionDAO getTransactionDAO() {
-        return null;
+        return new MySQLTransactionDAO(connection);
     }
 
     @Override
     public TransactionTypeDAO getTransactionTypeDAO() {
-        return null;
+        return new MySQLTransactionTypeDAO(connection);
     }
 
     @Override
