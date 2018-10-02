@@ -8,6 +8,7 @@ class FolderService(object):
         self.system_os = platform.system()
         self.root_path = os.getcwd()
 
+    # Todo: remove folders
     def remove_folder(self, path):
         pass
 
