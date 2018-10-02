@@ -17,17 +17,17 @@ public class MySQLDAC implements DataAccesContext {
     }
 
     @Override
-    public PersonDAO getPersonDAO() throws DataAccessException {
+    public PersonDAO getPersonDAO() {
         return new MySQLPersonDAO(connection);
     }
 
     @Override
-    public PileDAO getPileDAO() throws DataAccessException {
+    public PileDAO getPileDAO() {
         return new MySQLPileDAO(connection);
     }
 
     @Override
-    public ProductDAO getProductDAO() throws DataAccessException {
+    public ProductDAO getProductDAO() {
         return new MySQLProductDAO(connection);
     }
 
