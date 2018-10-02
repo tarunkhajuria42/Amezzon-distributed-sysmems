@@ -81,4 +81,13 @@ public class MySQLDAC implements DataAccesContext {
             throw new DataAccessException(e);
         }
     }
+
+    @Override
+    public void endTransaction() throws DataAccessException {
+        try {
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
 }

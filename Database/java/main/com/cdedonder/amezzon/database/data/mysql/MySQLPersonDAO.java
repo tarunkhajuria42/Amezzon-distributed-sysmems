@@ -23,7 +23,7 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
             "person_lastname, person_mail FROM person WHERE person_id=?";
     private final static String READ_PERSON_BY_USERNAME = "SELECT person_id, person_username, person_passwordhash, person_firstname, " +
             "person_lastname, person_mail FROM person WHERE person_username=?";
-    private final static String PERSON_EXISTS = "SELECT count(*) FROM person WHERE person_id=?";
+    private final static String PERSON_EXISTS = "SELECT 1 FROM person WHERE person_id=?";
 
     public MySQLPersonDAO(Connection connection) {
         super(connection);

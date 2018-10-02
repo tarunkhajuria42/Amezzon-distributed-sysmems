@@ -22,6 +22,8 @@ public interface DataAccesContext extends AutoCloseable {
 
     void startTransaction() throws DataAccessException;
 
+    void endTransaction() throws DataAccessException;
+
     @Override
     void close() throws DataAccessException;
 }
