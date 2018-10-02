@@ -82,8 +82,15 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
 
     @Override
     public boolean delete(Person person, boolean atomic) throws DataAccessException {
+        try {
 
-    }
+        } catch (SQLException e) {
+            try {
+                rollback();
+            } catch (SQLException f) {
+                throw new DataAccessException("Exceptions " + e.getMessage() + ", " + f.getMessage()); //DEBUG
+            }
+        }
 
     @Override
     public Person read(int id) throws DataAccessException {
