@@ -52,4 +52,8 @@ public class Person extends AbstractDTO {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

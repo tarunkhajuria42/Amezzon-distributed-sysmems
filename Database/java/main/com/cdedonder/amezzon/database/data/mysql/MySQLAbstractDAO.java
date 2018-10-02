@@ -3,6 +3,7 @@ package com.cdedonder.amezzon.database.data.mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public abstract class MySQLAbstractDAO {
 
@@ -12,11 +13,11 @@ public abstract class MySQLAbstractDAO {
         this.connection = connection;
     }
 
-    protected Connection getConnection() {
-        return connection;
+    protected PreparedStatement prepare(String sql) throws SQLException {
+        return prepare(sql, false);
     }
 
-    protected PreparedStatement prepare(String sql) throws SQLException {
-        return connection.prepareStatement(sql);
+    protected PreparedStatement prepare(String sql, boolean keys) throws SQLException {
+        return keys ? connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS) : connection.prepareStatement(sql);
     }
 }

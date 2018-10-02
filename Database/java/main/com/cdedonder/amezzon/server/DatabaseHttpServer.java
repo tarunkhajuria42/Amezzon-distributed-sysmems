@@ -8,29 +8,25 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-public class DatabaseHttpServer {
+public class DatabaseHttpServer implements Server {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private final HttpServer server;
 
     public DatabaseHttpServer(Properties properties) throws IOException {
-        server = HttpServer.create(new InetSocketAddress(properties.getProperty("host"), Integer.parseInt(properties.getProperty("port"))), 0);
+        String host = properties.getProperty("host");
+        int port = Integer.parseInt(properties.getProperty("port"));
+        server = HttpServer.create(new InetSocketAddress(host, port), 0);
+        LOGGER.info("Created HTTP server at " + host + ":" + port);
         server.createContext("/", new HttpExchangeHandler());
         server.setExecutor(Executors.newFixedThreadPool(Integer.parseInt(properties.getProperty("threads"))));
     }
 
-    public static Properties defaultProperties() {
-        Properties properties = new Properties();
-        try {
-            properties.load(DatabaseHttpServer.class.getResourceAsStream("default.properties"));
-        } catch (IOException e) {
-            LOGGER.severe("Cannot read default properties:\n" + e.getMessage());
-        }
-        return properties;
-    }
-
+    @Override
     public void start() {
+        LOGGER.info("Starting server...");
         server.start();
+        LOGGER.info("Server started.");
     }
 }

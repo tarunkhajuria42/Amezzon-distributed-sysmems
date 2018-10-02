@@ -3,6 +3,7 @@ package com.cdedonder.amezzon.database.mysql;
 import com.cdedonder.amezzon.database.DataAccesContext;
 import com.cdedonder.amezzon.database.DataAccessException;
 import com.cdedonder.amezzon.database.data.*;
+import com.cdedonder.amezzon.database.data.mysql.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,38 +18,74 @@ public class MySQLDAC implements DataAccesContext {
 
     @Override
     public PersonDAO getPersonDAO() {
-        return null;
+        return new MySQLPersonDAO(connection);
     }
 
     @Override
     public PileDAO getPileDAO() {
-        return null;
+        return new MySQLPileDAO(connection);
     }
 
     @Override
     public ProductDAO getProductDAO() {
-        return null;
+        return new MySQLProductDAO(connection);
     }
 
     @Override
     public ProductTypeDAO getProductTypeDAO() {
-        return null;
+        return new MySQLProductTypeDAO(connection);
     }
 
     @Override
     public TransactionDAO getTransactionDAO() {
-        return null;
+        return new MySQLTransactionDAO(connection);
     }
 
     @Override
     public TransactionTypeDAO getTransactionTypeDAO() {
-        return null;
+        return new MySQLTransactionTypeDAO(connection);
+    }
+
+    @Override
+    public void commit() throws DataAccessException {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public void rollback() throws DataAccessException {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
     }
 
     @Override
     public void close() throws DataAccessException {
         try {
             connection.close();
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public void startTransaction() throws DataAccessException {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public void endTransaction() throws DataAccessException {
+        try {
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
             throw new DataAccessException(e);
         }

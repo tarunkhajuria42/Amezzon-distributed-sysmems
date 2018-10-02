@@ -21,7 +21,12 @@ public class MySQLDAP implements DataAccesProvider {
     }
 
     private Connection getConnection(Properties properties) throws SQLException {
-        String url = null; //TODO
+        String base = properties.getProperty("urlbase");
+        String host = properties.getProperty("host");
+        String database = properties.getProperty("database");
+        String user = properties.getProperty("user");
+
+        String url = base + host + database + "?serverTimezone=UTC&useSSL=false&autoReconnect=true&user=" + user; //TODO add password
         return DriverManager.getConnection(url);
     }
 }
