@@ -1,5 +1,6 @@
 package com.cdedonder.amezzon.database.data.mysql;
 
+import com.cdedonder.amezzon.database.DataAccesContext;
 import com.cdedonder.amezzon.database.DataAccessException;
 import com.cdedonder.amezzon.database.data.Person;
 import com.cdedonder.amezzon.database.data.PersonDAO;
@@ -8,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
@@ -24,9 +28,11 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
     private final static String READ_PERSON_BY_USERNAME = "SELECT person_id, person_username, person_passwordhash, person_firstname, " +
             "person_lastname, person_mail FROM person WHERE person_username=?";
     private final static String PERSON_EXISTS = "SELECT 1 FROM person WHERE person_id=?";
+    private final static String READ_ALL = "SELECT person_id, person_username, person_passwordhash, person_firstname, person_lastname, person_mail FROM person";
+    private final static String DELETE_ALL = "DELETE FROM person";
 
-    public MySQLPersonDAO(Connection connection) {
-        super(connection);
+    public MySQLPersonDAO(Connection connection, DataAccesContext dac) {
+        super(connection, dac);
     }
 
     private static void fillStatement(PreparedStatement stmt, Person person) throws SQLException {
@@ -122,6 +128,35 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
                     }
                     throw new DataAccessException("User " + username + " not found.");
                 }
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public Collection<Person> readAll() throws DataAccessException {
+        try {
+            try (PreparedStatement stmt = prepare(READ_ALL);
+                 ResultSet set = stmt.executeQuery()) {
+                List<Person> list = new ArrayList<>();
+                while (set.next()) {
+                    Person person = new Person();
+                    fillPerson(set, person);
+                    list.add(person);
+                }
+                return list;
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public void deleteAll() throws DataAccessException {
+        try {
+            try (PreparedStatement stmt = prepare(DELETE_ALL)) {
+                stmt.executeUpdate();
             }
         } catch (SQLException e) {
             throw new DataAccessException(e);

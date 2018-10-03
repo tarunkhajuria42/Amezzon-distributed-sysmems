@@ -7,4 +7,8 @@ public class ProductType extends AbstractDTO {
     public String getProductType() {
         return productType;
     }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
 }

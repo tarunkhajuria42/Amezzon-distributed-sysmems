@@ -17,4 +17,24 @@ public class Pile extends AbstractDTO {
     public double getBuy() {
         return buy;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setSell(double sell) {
+        this.sell = sell;
+    }
+
+    public void setBuy(double buy) {
+        this.buy = buy;
+    }
 }

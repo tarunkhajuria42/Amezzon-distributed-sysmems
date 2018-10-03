@@ -2,6 +2,8 @@ package com.cdedonder.amezzon.database.data;
 
 import com.cdedonder.amezzon.database.DataAccessException;
 
+import java.util.Collection;
+
 public interface PersonDAO {
 
     Person create(Person person) throws DataAccessException;
@@ -13,6 +15,10 @@ public interface PersonDAO {
     Person read(int id) throws DataAccessException;
 
     Person read(String username) throws DataAccessException;
+
+    Collection<Person> readAll() throws DataAccessException;
+
+    void deleteAll() throws DataAccessException;
 
     default boolean exist(Person person) throws DataAccessException {
         return exist(person.getId());
