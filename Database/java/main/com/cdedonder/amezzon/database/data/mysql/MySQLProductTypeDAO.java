@@ -9,12 +9,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MySQLProductTypeDAO extends MySQLAbstractDAO implements ProductTypeDAO {
 
-    private static final String CREATE_PRODUCT_TYPE = "INSERT INTO producttype VALUES (?);";
-    private static final String DELETE_PRODUCT_TYPE = "DELETE FROM producttype WHERE producttype=?";
-    private static final String PRODUCT_TYPE_EXISTS = "SELECT 1 FROM producttype WHERE producttype=?";
+    private static final String CREATE_PRODUCT_TYPE = "INSERT INTO product_type VALUES (?);";
+    private static final String DELETE_PRODUCT_TYPE = "DELETE FROM product_type WHERE product_type=?";
+    private static final String PRODUCT_TYPE_EXISTS = "SELECT 1 FROM product_type WHERE product_type=?";
+    private static final String READ_ALL = "SELECT product_type FROM product_type";
+    private static final String DELETE_ALL = "DELETE FROM product_type";
 
     public MySQLProductTypeDAO(Connection connection, DataAccesContext dac) {
         super(connection, dac);
@@ -65,6 +70,35 @@ public class MySQLProductTypeDAO extends MySQLAbstractDAO implements ProductType
         type.setProductType(productType);
         if (exists(type)) return type;
         throw new DataAccessException("Product type '" + productType + "' does not exist.");
+    }
+
+    @Override
+    public void deleteAll() throws DataAccessException {
+        try {
+            try (PreparedStatement stmt = prepare(DELETE_ALL)) {
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public Collection<ProductType> readAll() throws DataAccessException {
+        try {
+            try (PreparedStatement stmt = prepare(READ_ALL);
+                 ResultSet set = stmt.executeQuery()) {
+                List<ProductType> list = new ArrayList<>();
+                while (set.next()) {
+                    ProductType type = new ProductType();
+                    type.setProductType(set.getString("product_type"));
+                    list.add(type);
+                }
+                return list;
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
     }
 
 
