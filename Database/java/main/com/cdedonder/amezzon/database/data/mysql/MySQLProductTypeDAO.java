@@ -100,6 +100,4 @@ public class MySQLProductTypeDAO extends MySQLAbstractDAO implements ProductType
             throw new DataAccessException(e);
         }
     }
-
-
 }
