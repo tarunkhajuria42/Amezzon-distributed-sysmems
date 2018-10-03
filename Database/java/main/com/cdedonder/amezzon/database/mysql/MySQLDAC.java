@@ -18,32 +18,32 @@ public class MySQLDAC implements DataAccesContext {
 
     @Override
     public PersonDAO getPersonDAO() {
-        return new MySQLPersonDAO(connection);
+        return new MySQLPersonDAO(connection, this);
     }
 
     @Override
     public PileDAO getPileDAO() {
-        return new MySQLPileDAO(connection);
+        return new MySQLPileDAO(connection, this);
     }
 
     @Override
     public ProductDAO getProductDAO() {
-        return new MySQLProductDAO(connection);
+        return new MySQLProductDAO(connection, this);
     }
 
     @Override
     public ProductTypeDAO getProductTypeDAO() {
-        return new MySQLProductTypeDAO(connection);
+        return new MySQLProductTypeDAO(connection, this);
     }
 
     @Override
     public TransactionDAO getTransactionDAO() {
-        return new MySQLTransactionDAO(connection);
+        return new MySQLTransactionDAO(connection, this);
     }
 
     @Override
     public TransactionTypeDAO getTransactionTypeDAO() {
-        return new MySQLTransactionTypeDAO(connection);
+        return new MySQLTransactionTypeDAO(connection, this);
     }
 
     @Override

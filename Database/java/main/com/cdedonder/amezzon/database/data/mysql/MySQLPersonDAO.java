@@ -1,5 +1,6 @@
 package com.cdedonder.amezzon.database.data.mysql;
 
+import com.cdedonder.amezzon.database.DataAccesContext;
 import com.cdedonder.amezzon.database.DataAccessException;
 import com.cdedonder.amezzon.database.data.Person;
 import com.cdedonder.amezzon.database.data.PersonDAO;
@@ -25,8 +26,8 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
             "person_lastname, person_mail FROM person WHERE person_username=?";
     private final static String PERSON_EXISTS = "SELECT 1 FROM person WHERE person_id=?";
 
-    public MySQLPersonDAO(Connection connection) {
-        super(connection);
+    public MySQLPersonDAO(Connection connection, DataAccesContext dac) {
+        super(connection, dac);
     }
 
     private static void fillStatement(PreparedStatement stmt, Person person) throws SQLException {

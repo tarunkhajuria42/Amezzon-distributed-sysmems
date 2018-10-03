@@ -1,5 +1,6 @@
 package com.cdedonder.amezzon.database.data.mysql;
 
+import com.cdedonder.amezzon.database.DataAccesContext;
 import com.cdedonder.amezzon.database.DataAccessException;
 import com.cdedonder.amezzon.database.data.ProductType;
 import com.cdedonder.amezzon.database.data.ProductTypeDAO;
@@ -15,8 +16,8 @@ public class MySQLProductTypeDAO extends MySQLAbstractDAO implements ProductType
     private static final String DELETE_PRODUCT_TYPE = "DELETE FROM producttype WHERE producttype=?";
     private static final String PRODUCT_TYPE_EXISTS = "SELECT 1 FROM producttype WHERE producttype=?";
 
-    public MySQLProductTypeDAO(Connection connection) {
-        super(connection);
+    public MySQLProductTypeDAO(Connection connection, DataAccesContext dac) {
+        super(connection, dac);
     }
 
     @Override
@@ -57,4 +58,14 @@ public class MySQLProductTypeDAO extends MySQLAbstractDAO implements ProductType
             throw new DataAccessException(e);
         }
     }
+
+    @Override
+    public ProductType read(String productType) throws DataAccessException {
+        ProductType type = new ProductType();
+        type.setProductType(productType);
+        if (exists(type)) return type;
+        throw new DataAccessException("Product type '" + productType + "' does not exist.");
+    }
+
+
 }
