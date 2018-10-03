@@ -1,7 +1,9 @@
 package com.cdedonder.amezzon.database.data;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
+
+import java.io.IOException;
 
 abstract class AbstractDTO {
 
@@ -16,7 +18,10 @@ abstract class AbstractDTO {
     }
 
     protected static final ObjectMapper objectMapper = new ObjectMapper();
-    protected static final ObjectReader objectReader = objectMapper.reader();
 
-    public abstract String toJSON();
+    static {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+    }
+
+    public abstract String toJSON() throws IOException;
 }

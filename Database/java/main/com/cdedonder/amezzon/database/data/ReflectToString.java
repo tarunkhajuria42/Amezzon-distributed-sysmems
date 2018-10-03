@@ -13,6 +13,7 @@ final class ReflectToString {
             Field[] fields = classObject.getDeclaredFields();
             StringBuilder sb = new StringBuilder(classObject.getCanonicalName());
             for (Field f : fields) {
+                f.setAccessible(true);
                 sb.append(f.getName()).append(": ").append(f.get(obj)).append("\n");
             }
             return sb.toString();

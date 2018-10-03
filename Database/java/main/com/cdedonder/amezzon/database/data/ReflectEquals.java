@@ -14,7 +14,9 @@ final class ReflectEquals {
         try {
             for (Field f : fields) {
                 f.setAccessible(true);
-                if (!f.get(obj1).equals(f.get(obj2))) return false;
+                Object f1 = f.get(obj1);
+                Object f2 = f.get(obj2);
+                if ((f1 == null && f2 == null) || (f1 != null && f1.equals(f2))) return false;
             }
         } catch (IllegalAccessException e) {
             LOGGER.severe("Cannot use reflection to check 'equals':\n" + e.getMessage());

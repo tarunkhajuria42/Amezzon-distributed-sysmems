@@ -1,5 +1,7 @@
 package com.cdedonder.amezzon.database.data;
 
+import java.io.IOException;
+
 public class Pile extends AbstractDTO {
 
     private int id;
@@ -36,5 +38,10 @@ public class Pile extends AbstractDTO {
 
     public void setBuy(double buy) {
         this.buy = buy;
+    }
+
+    @Override
+    public String toJSON() throws IOException {
+        return objectMapper.writeValueAsString(this);
     }
 }

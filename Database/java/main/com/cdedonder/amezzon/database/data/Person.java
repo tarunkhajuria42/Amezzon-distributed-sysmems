@@ -60,11 +60,11 @@ public class Person extends AbstractDTO {
     }
 
     public static Person fromJSON(String json) throws IOException {
-        return objectReader.readValue(json);
+        return objectMapper.readValue(json, Person.class);
     }
 
     @Override
-    public String toJSON() {
+    public String toJSON() throws IOException {
         return objectMapper.writeValueAsString(this);
     }
 }

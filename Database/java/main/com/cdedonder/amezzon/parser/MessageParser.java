@@ -15,7 +15,7 @@ public class MessageParser {
     public MessageParser(Messsage messsage) {
         this.messsage = messsage;
         methodMap = new HashMap<>();
-        methodMap.put("POST", this::parsePOST);
+        methodMap.put("PUT", this::parsePUT);
         methodMap.put("GET", this::parseGET);
         methodMap.put("DELETE", this::parseDELETE);
     }
@@ -29,7 +29,7 @@ public class MessageParser {
         return messsage;
     }
 
-    private void parsePOST() {
+    private void parsePUT() {
         //DEBUG
         LOGGER.info("Message received:\n" + messsage.getBody());
         messsage.setResponseCode(200);
