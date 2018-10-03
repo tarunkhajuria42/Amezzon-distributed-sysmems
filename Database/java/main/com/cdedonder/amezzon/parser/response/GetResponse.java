@@ -1,4 +1,4 @@
-package com.cdedonder.amezzon.parser;
+package com.cdedonder.amezzon.parser.response;
 
 import java.util.List;
 
