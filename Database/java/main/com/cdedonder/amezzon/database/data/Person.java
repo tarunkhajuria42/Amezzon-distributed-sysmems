@@ -1,5 +1,7 @@
 package com.cdedonder.amezzon.database.data;
 
+import java.io.IOException;
+
 public class Person extends AbstractDTO {
 
     private int id;
@@ -55,5 +57,14 @@ public class Person extends AbstractDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public static Person fromJSON(String json) throws IOException {
+        return objectReader.readValue(json);
+    }
+
+    @Override
+    public String toJSON() {
+        return objectMapper.writeValueAsString(this);
     }
 }
