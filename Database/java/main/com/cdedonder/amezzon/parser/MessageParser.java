@@ -30,6 +30,7 @@ public class MessageParser {
         methodMap.put("GET", this::parseGET);
         methodMap.put("DELETE", this::parseDELETE);
 
+
         classHandlerMap = new HashMap<>();
         classHandlerMap.put("person", new PersonClassHandler());
         classHandlerMap.put("pile", new PileClassHandler());
