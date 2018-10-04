@@ -8,17 +8,13 @@ import com.cdedonder.amezzon.parser.InternalResponse;
 import com.cdedonder.amezzon.parser.request.DeleteRequest;
 import com.cdedonder.amezzon.parser.request.GetRequest;
 import com.cdedonder.amezzon.parser.request.PutRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
 public class PersonClassHandler extends AbstractClassHandler {
 
-    private final ObjectMapper objectMapper;
-
     public PersonClassHandler(DataAccesContext dac) {
         super(dac);
-        objectMapper = new ObjectMapper();
     }
 
     @Override

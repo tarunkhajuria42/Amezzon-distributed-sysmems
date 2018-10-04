@@ -1,5 +1,9 @@
 package com.cdedonder.amezzon.parser;
 
+import com.cdedonder.amezzon.database.DataAccesContext;
+import com.cdedonder.amezzon.database.DataAccesProvider;
+import com.cdedonder.amezzon.database.DataAccessException;
+import com.cdedonder.amezzon.database.mysql.MySQLDAP;
 import com.cdedonder.amezzon.parser.classhandler.*;
 import com.cdedonder.amezzon.parser.request.DeleteRequest;
 import com.cdedonder.amezzon.parser.request.GetRequest;
@@ -9,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class MessageParser {
@@ -30,14 +35,22 @@ public class MessageParser {
         methodMap.put("GET", this::parseGET);
         methodMap.put("DELETE", this::parseDELETE);
 
+        DataAccesProvider dap = new MySQLDAP();
+        Properties properties = new Properties();
+        DataAccesContext dac = null; //TODO CLEANUP
+        try {
+            properties.load(getClass().getResourceAsStream("database.properties"));
+            dac = dap.getDataAccessContext(properties);
+        } catch (DataAccessException | IOException ignored) {
+        }
 
         classHandlerMap = new HashMap<>();
-        classHandlerMap.put("person", new PersonClassHandler());
-        classHandlerMap.put("pile", new PileClassHandler());
-        classHandlerMap.put("product", new ProductClassHandler());
-        classHandlerMap.put("producttype", new ProductTypeClassHandler());
-        classHandlerMap.put("transaction", new TransactionClassHandler());
-        classHandlerMap.put("transactiontype", new TransactionTypeClassHandler());
+        classHandlerMap.put("person", new PersonClassHandler(dac));
+        classHandlerMap.put("pile", new PileClassHandler(dac));
+        classHandlerMap.put("product", new ProductClassHandler(dac));
+        classHandlerMap.put("producttype", new ProductTypeClassHandler(dac));
+        classHandlerMap.put("transaction", new TransactionClassHandler(dac));
+        classHandlerMap.put("transactiontype", new TransactionTypeClassHandler(dac));
 
         objectMapper = new ObjectMapper();
     }
@@ -71,7 +84,7 @@ public class MessageParser {
 
         void execute() throws IOException;
 
-        default Procedure andThen(final Procedure after) {
+        /*default Procedure andThen(final Procedure after) {
             return () -> {
                 execute();
                 after.execute();
@@ -83,6 +96,6 @@ public class MessageParser {
                 before.execute();
                 execute();
             };
-        }
+        }*/
     }
 }

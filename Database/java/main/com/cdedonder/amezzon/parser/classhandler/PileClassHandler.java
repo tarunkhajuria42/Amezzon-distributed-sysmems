@@ -1,11 +1,17 @@
 package com.cdedonder.amezzon.parser.classhandler;
 
+import com.cdedonder.amezzon.database.DataAccesContext;
 import com.cdedonder.amezzon.parser.InternalResponse;
 import com.cdedonder.amezzon.parser.request.DeleteRequest;
 import com.cdedonder.amezzon.parser.request.GetRequest;
 import com.cdedonder.amezzon.parser.request.PutRequest;
 
-public class PileClassHandler implements ClassHandler {
+public class PileClassHandler extends AbstractClassHandler {
+
+    public PileClassHandler(DataAccesContext dac) {
+        super(dac);
+    }
+
     @Override
     public InternalResponse put(PutRequest putRequest) {
         return null;
