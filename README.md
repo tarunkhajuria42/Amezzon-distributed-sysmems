@@ -18,7 +18,7 @@
 + More:https://www.binarytides.com/python-socket-programming-tutorial/
 ### Under Consideration ###
 * **Encryption, Keys and Certificates**
-	* [OpenSSl](https://pyopenssl.org/en/stable/api.html)
+	* [OpenSSl](https://pyopenssl.org/en/stable/api.html) (https://devcenter.heroku.com/articles/ssl-certificate-self)
 	* [Paramiko](http://www.paramiko.org/)
 * **Data Structures and Analysis**
 	* [Pandas](http://pandas.pydata.org/)
