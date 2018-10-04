@@ -18,7 +18,13 @@
 + More:https://www.binarytides.com/python-socket-programming-tutorial/
 ### Under Consideration ###
 * **Encryption, Keys and Certificates**
-	* [OpenSSl](https://pyopenssl.org/en/stable/api.html) (https://devcenter.heroku.com/articles/ssl-certificate-self)
+	* [OpenSSl](https://pyopenssl.org/en/stable/api.html) 
+		+ [Self Signed Key Generation OpenSSL Commands](https://devcenter.heroku.com/articles/ssl-certificate-self)
+			+ openssl genrsa -des3 -out server.orig.key 2048
+			+ openssl rsa -in server.orig.key -out server.key
+			+ openssl req -new -key server.key -out server.csr
+			+ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt	
+			
 	* [Paramiko](http://www.paramiko.org/)
 * **Data Structures and Analysis**
 	* [Pandas](http://pandas.pydata.org/)
