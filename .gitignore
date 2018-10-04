@@ -73,3 +73,6 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+# mac folders
+.DS_Store
