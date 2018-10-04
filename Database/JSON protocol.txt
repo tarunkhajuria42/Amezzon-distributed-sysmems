@@ -1,0 +1,51 @@
+Define what class you are requesting in "resultclass" and specify constraints to be used by supplying the specific ID's. 
+
+*****************
+Example: you want all Transactions done by Person with ID 123 with Product A (ID 456) and B (ID 789):
+{
+    "resultclass" : "transaction",
+
+    "transaction" : null,
+    "transaction" : null,
+    "person" : [123],
+    "product" : [456,789],
+    "pile" : null,
+    "producttype" : null
+}
+EXAMPLE ENDS
+******************
+
+GET REQUEST SCHEMA:
+{
+    "resultclass" : STRING
+
+    "transaction" : [NUMBER]
+    "transaction_type" : [NUMBER]
+    "person" : [NUMBER]
+    "product" : [NUMBER]
+    "pile" : [NUMBER]
+    "producttype" : [NUMBER]
+}
+
+
+GET RESPONSE SCHEMA:
+{
+    "results" : [STRING]
+}
+
+
+PUT REQUEST SCHEMA:
+{
+    "objectclass" : STRING
+    "jsonstring" : STRING
+}
+
+DELETE REQUEST SCHEMA:
+{
+    "objectclass" : STRING
+    "jsonstring" : STRING
+    "cascade" : BOOLEAN
+}
+
+The STRINGs in GET RESPONSE, PUT and DELETE are all JSON-strings of the object.
+
