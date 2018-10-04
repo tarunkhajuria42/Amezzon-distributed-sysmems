@@ -51,7 +51,7 @@ public class PersonClassHandler extends AbstractClassHandler {
 
     @Override
     public InternalResponse get(GetRequest getRequest) {
-        return nul
+        return null;
     }
 
     @Override
