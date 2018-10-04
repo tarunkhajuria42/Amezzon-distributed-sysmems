@@ -3,6 +3,7 @@ package com.cdedonder.amezzon.database.data;
 import com.cdedonder.amezzon.database.DataAccessException;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface PersonDAO {
 
@@ -17,6 +18,8 @@ public interface PersonDAO {
     Person read(String username) throws DataAccessException;
 
     Collection<Person> readAll() throws DataAccessException;
+
+    Collection<Person> readBy(List<Integer> transactions) throws DataAccessException;
 
     void deleteAll() throws DataAccessException;
 

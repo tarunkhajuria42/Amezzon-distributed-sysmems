@@ -42,6 +42,7 @@ public class MessageParser {
             properties.load(getClass().getResourceAsStream("database.properties"));
             dac = dap.getDataAccessContext(properties);
         } catch (DataAccessException | IOException ignored) {
+            //TODO LOG
         }
 
         classHandlerMap = new HashMap<>();
