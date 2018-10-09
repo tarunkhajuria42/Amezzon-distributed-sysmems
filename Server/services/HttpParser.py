@@ -22,5 +22,6 @@ class http_parser:
 	def parse(data,size):
 		self.parser.execute(data,size)
 		return True
-
+	def parse_request(data):
+		if()
 
