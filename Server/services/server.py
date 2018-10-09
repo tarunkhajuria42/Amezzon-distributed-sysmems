@@ -18,7 +18,6 @@ class Handler(BaseHTTPRequestHandler):
         return
     def do_DELETE(self):
         return
-    def do
 
 
 
