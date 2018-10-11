@@ -1,47 +1,34 @@
-from urlparse import urlparse
-from threading import Thread
-import httplib, sys
-from Queue import Queue
+import httplib
 
-concurrent = 10
+class HttpClientService:
+    def __init__(self, url="127.0.0.1", sendrequest=""):
+        self.url = url
+        self.sendrequest = self
+
+    def connect(self):
+        try:
+            connect = httplib.HTTPSConnection(self.url)
+            return connect
+        except:
+            print "Connection Error"
 
 
-def Start():
-    while True:
-        url = q.get()
-        resp, url = getStatus(url)
-        printResult(resp, url)
-        q.task_done()
+    def sendRequest(self,connection, requests = "/"):
+        connection.request("GET", requests)
+        return connection.getresponse()
 
-def getStatus(connect_address):
-    try:
-        conn = httplib.HTTPSConnection(connect_address)
-        print(url,"trying to connect")
-        conn.request("GET", '/')
-        response = conn.getresponse()
-        return response, connect_address
-    except:
-        return "error", connect_address
 
-def printResult(response, address):
-    if response.status == 200:
-        print "Response from ",address
-        print "################################################################################"                
-        print response.read()
-        print "############################################## END ##############################"
-    else:
-        print "Bad response from server"
 
-q = Queue(concurrent * 2)
-for i in range(concurrent):
-    t = Thread(target=Start)
-    t.daemon = True
-    t.start()
-try:
-    urls = ["172.17.161.83:8080","172.17.161.83:8080"]
-    for url in urls:
-        print url
-        q.put(url)
-    q.join()
-except KeyboardInterrupt:
-    sys.exit(1)
+
+if __name__ == '__main__':
+    client = HttpClientService("www.google.com")
+    connection = client.connect()
+    if connection:
+         resp = client.sendRequest(connection,"/")
+         if resp.status == 200:
+             print resp.read()
+         else:
+             print "bad response from server"
+
+
+
