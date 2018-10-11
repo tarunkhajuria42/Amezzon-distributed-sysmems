@@ -8,7 +8,7 @@ ssl_sock = ssl.wrap_socket(s,
                            ca_certs="server.crt",
                            cert_reqs=ssl.CERT_REQUIRED)
 
-ssl_sock.connect(('localhost', 10026))
+ssl_sock.connect(('localhost', 10027))
 
 #print repr(ssl_sock.getpeername())
 #print ssl_sock.cipher()
@@ -20,8 +20,8 @@ if False: # from the Python 2.7.3 docs
 
     # Read a chunk of data.  Will not necessarily
     # read all the data returned by the server.
-    data = ssl_sock.read()
-    print(data)
+    #data = ssl_sock.read()
+    #print(data)
 
     # note that closing the SSLSocket will also close the underlying socket
     ssl_sock.close()

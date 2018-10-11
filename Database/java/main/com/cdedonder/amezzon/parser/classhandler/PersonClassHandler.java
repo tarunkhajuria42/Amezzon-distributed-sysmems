@@ -26,21 +26,25 @@ public class PersonClassHandler extends AbstractClassHandler {
 
             getDataAccessContext().startTransaction();
 
-            if (personDAO.exist(person)) {
-                personDAO.update(person);
+            if (putRequest.isUpdate()) {
+                if (personDAO.exist(person)) {
+                    personDAO.update(person);
+                } else {
+                    response.setResponseCode(201);
+                }
             } else {
-                personDAO.create(person);
+                if (personDAO.exist(person)) {
+                    response.setResponseCode(211);
+                } else {
+                    personDAO.create(person);
+                }
             }
-
             getDataAccessContext().commitTransaction();
-
-            response.setResponseCode(200);
+            response.setResponseCode(100);
         } catch (IOException e) {
-            response.setResponseCode(400);
-            response.setResponseBody("Malformed request, could not process.");
+            response.setResponseCode(321);
         } catch (DataAccessException f) {
-            response.setResponseCode(409);
-            response.setResponseBody("Internal conflict");
+            response.setResponseCode(500);
         }
         return response;
     }
@@ -59,17 +63,19 @@ public class PersonClassHandler extends AbstractClassHandler {
 
             getDataAccessContext().startTransaction();
 
-            personDAO.delete(person);
+            if (personDAO.exist(person)) {
+                personDAO.delete(person);
+            } else {
+                response.setResponseCode(201);
+            }
 
             getDataAccessContext().commitTransaction();
 
-            response.setResponseCode(200);
+            response.setResponseCode(100);
         } catch (IOException e) {
-            response.setResponseCode(400);
-            response.setResponseBody("Malformed request, could not process.");
+            response.setResponseCode(321);
         } catch (DataAccessException f) {
-            response.setResponseCode(409);
-            response.setResponseBody("Internal conflict");
+            response.setResponseCode(500);
         }
         return response;
     }

@@ -4,6 +4,15 @@ public class PutRequest {
 
     private String objectclass;
     private String jsonstring;
+    private boolean update;
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
 
     public String getObjectclass() {
         return objectclass;
