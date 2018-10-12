@@ -1,10 +1,10 @@
 #Key
-/Client/key/**
-/Server/key/**
+#/Client/key/**
+#/Server/key/**
 
 #Certificates
-/Client/crl/**
-/Server/crl/**
+#/Client/crl/**
+#/Server/crl/**
 
 #Logs
 /Client/log/**
