@@ -153,6 +153,37 @@ public class MySQLPersonDAO extends MySQLAbstractDAO implements PersonDAO {
     }
 
     @Override
+    public Collection<Person> readBy(List<Integer> transactions) throws DataAccessException {
+        String sql = "CREATE TEMPORARY TABLE transaction_ids_temp (transaction_id INT)";
+        String sql2 = "INSERT INTO transaction_ids_temp VALUES (?)";
+        String sql3 = "SELECT * FROM person INNER JOIN (SELECT person_id FROM transaction INNER JOIN transaction_ids_temp USING (transaction_id)) USING (person_id)";
+        List<Person> query = new ArrayList<>();
+        try {
+            try (PreparedStatement stmt = prepare(sql)) {
+                stmt.executeUpdate();
+            }
+            try (PreparedStatement stmt2 = prepare(sql2)) {
+                for (int i : transactions) {
+                    stmt2.setInt(1, i);
+                    stmt2.addBatch();
+                }
+                stmt2.executeBatch();
+            }
+            try (PreparedStatement stmt = prepare(sql3);
+                 ResultSet set = stmt.executeQuery()) {
+                while (set.next()) {
+                    Person person = new Person();
+                    fillPerson(set, person);
+                    query.add(person);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+        return query;
+    }
+
+    @Override
     public void deleteAll() throws DataAccessException {
         try {
             try (PreparedStatement stmt = prepare(DELETE_ALL)) {

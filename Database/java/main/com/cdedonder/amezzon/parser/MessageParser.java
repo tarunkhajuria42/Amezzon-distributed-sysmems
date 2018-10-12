@@ -14,13 +14,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 public class MessageParser {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private final Map<String, Procedure> methodMap;
+    private final Map<String, Supplier<InternalResponse>> methodMap;
     private final Map<String, ClassHandler> classHandlerMap;
 
     private final Messsage messsage;
@@ -42,6 +43,7 @@ public class MessageParser {
             properties.load(getClass().getResourceAsStream("database.properties"));
             dac = dap.getDataAccessContext(properties);
         } catch (DataAccessException | IOException ignored) {
+            //TODO LOG
         }
 
         classHandlerMap = new HashMap<>();
@@ -55,47 +57,47 @@ public class MessageParser {
         objectMapper = new ObjectMapper();
     }
 
-    public Messsage parse() throws IOException {
+    public Messsage parse() {
         if (methodMap.containsKey(messsage.getMethod().toUpperCase())) {
-            methodMap.get(messsage.getMethod().toUpperCase()).execute();
+            InternalResponse response = methodMap.get(messsage.getMethod().toUpperCase()).get();
+            messsage.setResponseCode(response.getResponseCode());
+            messsage.setResponseBody(response.getResponseBody());
         } else {
-            throw new IOException("Message method unknown: " + messsage.getMethod());
+            messsage.setResponseCode(300);
         }
         return messsage;
     }
 
-    private void parsePUT() throws IOException {
-        PutRequest putRequest = objectMapper.readValue(messsage.getBody(), PutRequest.class);
-        classHandlerMap.get(putRequest.getObjectclass()).put(putRequest);
-    }
-
-    private void parseGET() throws IOException {
-        GetRequest getRequest = objectMapper.readValue(messsage.getBody(), GetRequest.class);
-        classHandlerMap.get(getRequest.getResultclass()).get(getRequest);
-    }
-
-    private void parseDELETE() throws IOException {
-        DeleteRequest deleteRequest = objectMapper.readValue(messsage.getBody(), DeleteRequest.class);
-        classHandlerMap.get(deleteRequest.getObjectclass()).delete(deleteRequest);
-    }
-
-    @FunctionalInterface
-    private interface Procedure {
-
-        void execute() throws IOException;
-
-        /*default Procedure andThen(final Procedure after) {
-            return () -> {
-                execute();
-                after.execute();
-            };
+    private InternalResponse parsePUT() {
+        try {
+            PutRequest putRequest = objectMapper.readValue(messsage.getBody(), PutRequest.class);
+            return classHandlerMap.get(putRequest.getObjectclass()).put(putRequest);
+        } catch (IOException e) {
+            InternalResponse response = new InternalResponse();
+            response.setResponseCode(310);
+            return response;
         }
+    }
 
-        default Procedure compose(final Procedure before) {
-            return () -> {
-                before.execute();
-                execute();
-            };
-        }*/
+    private InternalResponse parseGET() {
+        try {
+            GetRequest getRequest = objectMapper.readValue(messsage.getBody(), GetRequest.class);
+            return classHandlerMap.get(getRequest.getResultclass()).get(getRequest);
+        } catch (IOException e) {
+            InternalResponse response = new InternalResponse();
+            response.setResponseCode(310);
+            return response;
+        }
+    }
+
+    private InternalResponse parseDELETE() {
+        try {
+            DeleteRequest deleteRequest = objectMapper.readValue(messsage.getBody(), DeleteRequest.class);
+            return classHandlerMap.get(deleteRequest.getObjectclass()).delete(deleteRequest);
+        } catch (IOException e) {
+            InternalResponse response = new InternalResponse();
+            response.setResponseCode(310);
+            return response;
+        }
     }
 }

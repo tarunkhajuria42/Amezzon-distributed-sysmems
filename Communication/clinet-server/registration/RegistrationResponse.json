@@ -1,0 +1,10 @@
+{
+  "data": {
+    "error_messages": [
+      {
+        "registration_error_message": "__STRING__",
+        "login_error_message": "__STRING__"
+      }
+    ]
+  }
+}
