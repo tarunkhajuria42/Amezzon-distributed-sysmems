@@ -1,5 +1,6 @@
 import httplib
 
+
 class HttpClientService:
     def __init__(self, url="127.0.0.1", sendrequest=""):
         self.url = url
@@ -12,12 +13,9 @@ class HttpClientService:
         except:
             print "Connection Error"
 
-
-    def sendRequest(self,connection, requests = "/"):
+    def sendRequest(self, connection, requests="/"):
         connection.request("GET", requests)
         return connection.getresponse()
-
-
 
 
 if __name__ == '__main__':
@@ -25,6 +23,3 @@ if __name__ == '__main__':
     connection = client.connect()
     if connection:
         print "connected with tarun"
-
-
-
