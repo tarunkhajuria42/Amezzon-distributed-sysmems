@@ -4,6 +4,7 @@
       {
         "login_error_message": "__STRING__"
       }
-    ]
+    ],
+    "token":"__STRING__"
   }
 }
