@@ -1,0 +1,53 @@
+100 - ALL OK NO RESPONSE REQUESTED
+101 - ALL OK RESULTS AVAILABLE
+102 - ALL OK NO RESULTS --empty query result
+
+
+200 - Object does not exist (generic)
+201 - Person does not exist
+202 - Product does not exist
+203 - Transaction does not exist
+204 - Pile does not exist
+205 - Product type does not exist
+206 - Transaction type does not exist
+
+210 - Object already exists (generic)
+211 - Person already exists
+212 - Product already exists
+213 - Transaction already exists
+214 - Pile already exists
+215 - Product Type already exists
+216 - Transaction Type already exists
+
+220 - Constraint conflict (generic) --illegal combination of constraints
+
+
+300 - REQUEST ERROR (generic)
+
+310 - Malformed message
+
+320 - Malformed object
+321 - Malformed Person
+322 - Malformed Product
+323 - Malformed Transaction
+324 - Malformed Pile
+325 - Malformed Product type
+326 - Malformed Transaction type
+
+330 - Inconsistent object
+331 - Inconsistent Person
+332 - Inconsistent Product
+333 - Inconsistent Transaction
+334 - Inconsistent Pile
+335 - Inconsistent Product Type
+336 - Inconsistent Transaction Type
+
+
+400 - ILLEGAL ACTION (generic)
+401 - Illegal Insert
+402 - Illegal Update
+403 - Illegal Delete
+404 - Illegal Query
+
+
+500 - Internal error
