@@ -1,0 +1,19 @@
+{
+  "data":{
+    "error_messages": [
+      {
+        "message":"__STRING__"
+      }
+    ],
+    "transaction_price_history":[
+      {
+        "buy_price":"__NUMBER__",
+        "sell_price":"__NUMBER__",
+        "time_stamp":"__STRING__"
+      }
+    ],
+    "product_quantity":"__INTEGER__",
+    "buy_price":"__NUMBER__",
+    "sell_price":"__NUMBER__"
+  }
+}

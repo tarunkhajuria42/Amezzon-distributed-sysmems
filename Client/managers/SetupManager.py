@@ -2,7 +2,7 @@ import os
 
 from configparser import SafeConfigParser
 
-CONF_FILE = "conf.ini"
+CONF_FILE = "folder_config.ini"
 TEMP_FOLDERS = "temp_folders"
 
 

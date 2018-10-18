@@ -42,9 +42,6 @@ class Person(object):
     def last_name(self, last_name):
         self._last_name = last_name
 
-    def get_full_name(self):
-        return "{0} {1}".format(self._first_name, self._last_name)
-
     @property
     def email(self):
         return self._email
@@ -68,3 +65,6 @@ class Person(object):
     @id_code.setter
     def id_code(self, id_code):
         self._id_code = id_code
+
+    def get_full_name(self):
+        return "{0} {1}".format(self._first_name, self._last_name)
