@@ -5,8 +5,8 @@ import com.sun.net.httpserver.HttpsParameters;
 import com.sun.net.httpserver.HttpsServer;
 
 import javax.net.ssl.*;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -32,7 +32,7 @@ public class DatabaseHttpsServer implements Server {
 
             char[] password = properties.getProperty("password").toCharArray();
             KeyStore ks = KeyStore.getInstance(properties.getProperty("keystoreinstance"));
-            FileInputStream fis = new FileInputStream(properties.getProperty("keystore"));
+            InputStream fis = getClass().getResourceAsStream(properties.getProperty("keystore"));
             ks.load(fis, password);
 
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(properties.getProperty("kmf"));
