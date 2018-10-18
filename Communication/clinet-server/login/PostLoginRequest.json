@@ -1,0 +1,7 @@
+{
+  "action": "login",
+  "data":{
+    "username":"__STRING__",
+    "password":"__STRING__"
+  }
+}
