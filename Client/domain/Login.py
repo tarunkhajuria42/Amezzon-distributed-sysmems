@@ -1,31 +1,19 @@
-from domain.GenericO import GenericO
+from domain.GenericModel import GenericModel
 
 
-class Login(GenericO):
+class Login(GenericModel):
     def __init__(self, user_name=None, password=None):
-        self._user_name = user_name
-        self._password = password
+        self.user_name = user_name
+        self.password = password
 
-    @property
-    def user_name(self):
-        return self._user_name
+    def get_user_name(self):
+        return self.user_name
 
-    @user_name.getter
-    def user_name(self):
-        return self._user_name
+    def set_user_name(self, user_name):
+        self.user_name = user_name
 
-    @user_name.setter
-    def user_name(self, user_name):
-        self._user_name = user_name
+    def get_password(self):
+        return self.password
 
-    @property
-    def password(self):
-        return self._password
-
-    @password.getter
-    def password(self):
-        return self._password
-
-    @password.setter
-    def password(self, password):
-        self._password = password
+    def set_password(self, password):
+        self.password = password

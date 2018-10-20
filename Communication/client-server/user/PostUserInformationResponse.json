@@ -3,7 +3,7 @@
     "error_messages": [
       {
         "message":"__STRING__",
-        "field_name":"__STRING__"
+        "type":"__STRING__"
       }
     ]
   }

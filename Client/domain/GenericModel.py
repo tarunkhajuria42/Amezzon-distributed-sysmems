@@ -1,4 +1,4 @@
-class GenericO(object):
+class GenericModel(object):
     def __eq__(self, other):
         eq = True
         for attribute in self.__dict__:

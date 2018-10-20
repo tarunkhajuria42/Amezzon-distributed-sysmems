@@ -2,8 +2,8 @@
   "data": {
     "error_messages": [
       {
-        "registration_error_message": "__STRING__",
-        "login_error_message": "__STRING__"
+        "type":"__STRING__",
+        "message": "__STRING__"
       }
     ],
     "token":"__STRING__"

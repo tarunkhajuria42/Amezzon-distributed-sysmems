@@ -1,38 +1,44 @@
-from domain.GenericO import GenericO
+from domain.GenericModel import GenericModel
 from domain.Person import Person
 from domain.TransactionType import TransactionType
 
 
-class Transaction(GenericO):
-    def __init__(self, id=None, transaction_type=TransactionType(), person=Person(), price=None, quantity=None,
-                 date_time=None):
-        self._id = id
-        self._transaction_type = transaction_type
-        self._person = person
-        self._price = price
-        self._quantity = quantity
-        self._date_time = date_time
+class Transaction(GenericModel):
+    def __init__(self, id=None, transaction_type=TransactionType(), person=Person(), price=None,
+                 quantity=None, date_time=None):
+        self.id = id
+        self.transaction_type = transaction_type
+        self.person = person
+        self.price = price
+        self.quantity = quantity
+        self.date_time = date_time
 
-    @property
-    def id(self):
-        return self._id
+    def get_id(self):
+        return self.id
 
-    @id.getter
-    def id(self):
-        return self._id
+    def set_id(self, id):
+        self.id = id
 
-    @id.setter
-    def id(self, id):
-        self._id = id
+    def get_transaction_type(self):
+        return self.transaction_type
 
-    @property
-    def transaction_type(self):
-        return self._transaction_type
+    def set_transaction_type(self, transaction_type):
+        self.transaction_type = transaction_type
 
-    @transaction_type.getter
-    def transaction_type(self):
-        return self._transaction_type
+    def get_person(self):
+        return self.person
 
-    @transaction_type.setter
-    def transaction_type(self, transaction_type=TransactionType()):
-        self._transaction_type = transaction_type
+    def set_person(self, person):
+        self.person = person
+
+    def get_quantity(self):
+        return self.quantity
+
+    def set_quantity(self, quantity):
+        self.quantity = quantity
+
+    def get_date_time(self):
+        return self.date_time
+
+    def set_date_time(self, date_time):
+        self.date_time = date_time

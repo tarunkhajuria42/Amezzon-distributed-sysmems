@@ -3,7 +3,7 @@ import logging
 import os
 from logging.config import fileConfig
 
-LOG_CONFIG_FILE = '/logging_config.ini'
+LOG_CONFIG_FILE = 'conf/logging_config.ini'
 LOG_FILE = 'client.log'
 LOG_NAME = 'sLogger'
 
@@ -11,7 +11,7 @@ LOG_NAME = 'sLogger'
 class LogService(object):
 
     def __init__(self):
-        self.__logger = None
+        self._logger = None
         self.system_os = platform.system()
         self.root_path = os.getcwd()
 
@@ -20,7 +20,7 @@ class LogService(object):
 
     def set_logger(self):
         fileConfig(self.root_path + LOG_CONFIG_FILE)
-        self.__logger = logging.getLogger(LOG_NAME)
+        self._logger = logging.getLogger(LOG_NAME)
 
     def log_event(self, message):
-        self.__logger.debug(message)
+        self._logger.debug(message)

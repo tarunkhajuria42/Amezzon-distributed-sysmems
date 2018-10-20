@@ -21,6 +21,3 @@ presentation = Builder.load_file("main.kv")
 class MainApp(App):
     def build(self):
         return presentation
-
-
-MainApp().run()

@@ -1,5 +1,5 @@
-from managers.SetupManager import SetupManager
-from managers.ServiceManager import ServiceManager
+from manager.SetupManager import SetupManager
+from manager.ServiceManager import ServiceManager
 
 
 def run():

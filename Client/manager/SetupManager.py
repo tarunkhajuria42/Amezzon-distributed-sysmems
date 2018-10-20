@@ -1,5 +1,3 @@
-import os
-
 from configparser import SafeConfigParser
 
 CONF_FILE = "folder_config.ini"
@@ -11,20 +9,18 @@ class SetupManager(object):
         self.parser = SafeConfigParser()
         self.parser.read(CONF_FILE)
 
-        print os.getcwd()
-
-        self._folder_service = service_manager.folder_service
-        self._log_service = service_manager.log_service
+        self.folder_service = service_manager.get_folder_service()
+        self.log_service = service_manager.get_log_service()
 
     def folder_setup(self):
         print self.parser.sections()
         folder_dict = dict(self.parser._sections)[TEMP_FOLDERS]
         for label in folder_dict:
-            if not self._folder_service.folder_exists(folder_dict[label]):
-                self._folder_service.create_folder(folder_dict[label])
+            if not self.folder_service.folder_exists(folder_dict[label]):
+                self.folder_service.create_folder(folder_dict[label])
 
     def log_setup(self):
-        self._log_service.set_logger()
+        self.log_service.set_logger()
 
     def run_setup(self):
         self.folder_setup()
