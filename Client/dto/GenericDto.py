@@ -1,7 +1,5 @@
 import json
 
-from dto.ErrorMessage import Message
-
 
 class GenericDto(object):
     class CustomRequest(object):

@@ -6,7 +6,9 @@ class LoginDto(object):
     class PostRequest(GenericDto.CustomRequest):
         def __init__(self, action=None, username=None, password=None):
             GenericDto.CustomRequest.__init__(
-                self, action=action, data=self.Data(username=username, password=password)
+                self, action=action, data=self.Data(
+                    username=username, password=password
+                )
             )
 
         class Data(object):
@@ -31,7 +33,8 @@ class LoginDto(object):
             GenericDto.CustomResponse.__init__(
                 self, data=self.Data(
                     error_messages=error_messages
-                ))
+                )
+            )
             self.token = token
 
         def get_token(self):

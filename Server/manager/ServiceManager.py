@@ -1,13 +1,10 @@
 from configparser import SafeConfigParser
-
-from service.ConnectionService import ConnectionService
 from service.FolderService import FolderService
 from service.LogService import LogService
 
-
 FOLDER_CONF_FILE = 'conf/folder_config.ini'
 LOG_CONF_FILE = 'conf/logging_config.ini'
-CLIENT_CONF_FILE = 'conf/client_config.ini'
+SERVER_CONF_FILE = 'conf/server_config.ini'
 
 
 class ServiceManager(object):
@@ -22,10 +19,9 @@ class ServiceManager(object):
         self.log_config.read(LOG_CONF_FILE)
         self.log_service = LogService()
 
-        """Connection service"""
-        self.connection_config = SafeConfigParser()
-        self.connection_config.read(CLIENT_CONF_FILE)
-        self.connection_service = ConnectionService()
+        """SetUp log related service and configurations"""
+        self.server_config = SafeConfigParser()
+        self.server_config.read(SERVER_CONF_FILE)
 
     def get_folder_service(self):
         return self.folder_service
@@ -39,8 +35,5 @@ class ServiceManager(object):
     def get_log_config(self):
         return self.log_config
 
-    def get_connection_config(self):
-        return self.connection_config
-
-    def get_connection_service(self):
-        return self.connection_service
+    def get_server_config(self):
+        return self.server_config

@@ -3,10 +3,9 @@ TEMP_FOLDERS = "temp_folders"
 
 class SetupManager(object):
     def __init__(self, service_manager):
-        self._folder_service = service_manager.folder_service
-        self._folder_config = service_manager.folder_config
-
-        self._log_service = service_manager.log_service
+        self._folder_service = service_manager.get_folder_service()
+        self._folder_config = service_manager.get_folder_config()
+        self._log_service = service_manager.get_log_service()
 
     def folder_setup(self):
         folder_dict = dict(self._folder_config._sections)[TEMP_FOLDERS]

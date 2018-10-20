@@ -11,7 +11,7 @@ LOG_NAME = 'sLogger'
 class LogService(object):
 
     def __init__(self):
-        self._logger = None
+        self.logger = None
         self.system_os = platform.system()
         self.root_path = os.getcwd()
 
@@ -19,8 +19,8 @@ class LogService(object):
         return os.path.exists(self.root_path + LOG_FILE)
 
     def set_logger(self):
-        fileConfig(self.root_path + LOG_CONFIG_FILE)
-        self._logger = logging.getLogger(LOG_NAME)
+        fileConfig(LOG_CONFIG_FILE)
+        self.logger = logging.getLogger(LOG_NAME)
 
     def log_event(self, message):
-        self._logger.debug(message)
+        self.logger.debug(message)

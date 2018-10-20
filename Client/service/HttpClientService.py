@@ -21,5 +21,6 @@ class HttpClientService:
 if __name__ == '__main__':
     client = HttpClientService("localhost:8080")
     connection = client.connect()
+    client.sendRequest(connection=connection)
     if connection:
         print "connected with tarun"
