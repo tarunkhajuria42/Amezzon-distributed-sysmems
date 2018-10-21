@@ -1,45 +1,27 @@
-from domain.GenericO import GenericO
+from domain.GenericModel import GenericModel
 from domain.Product import Product
 
 
-class Pile(GenericO):
+class Pile(GenericModel):
     def __init__(self, id=None, product=Product(), amount=None):
-        self._id = id
-        self._product = product
-        self._amount = amount
+        self.id = id
+        self.product = product
+        self.amount = amount
 
-    @property
-    def id(self):
-        return self._id
+    def get_id(self):
+        return self.id
 
-    @id.getter
-    def id(self):
-        return self._id
+    def set_id(self, id):
+        self.id = id
 
-    @id.setter
-    def id(self, id):
-        self._id = id
+    def get_product(self):
+        return self.product
 
-    @property
-    def product(self):
-        return self._product
+    def set_product(self, product):
+        self.product = product
 
-    @product.getter
-    def product(self):
-        return self._product
+    def get_amount(self):
+        return self.amount
 
-    @product.setter
-    def product(self, product=Product()):
-        self._product = product
-
-    @property
-    def amount(self):
-        return self._amount
-
-    @amount.getter
-    def amount(self):
-        return self._amount
-
-    @amount.setter
-    def amount(self, amount):
-        self._amount = amount
+    def set_amount(self, amount):
+        self.amount = amount

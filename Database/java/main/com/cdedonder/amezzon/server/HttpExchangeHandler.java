@@ -9,11 +9,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 public class HttpExchangeHandler implements HttpHandler {
 
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        LOGGER.info("Message received.");
         String method = exchange.getRequestMethod();
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
@@ -27,5 +31,6 @@ public class HttpExchangeHandler implements HttpHandler {
         try (PrintWriter writer = new PrintWriter(exchange.getResponseBody(), true)) {
             writer.println(messsage.getResponseBody());
         }
+        LOGGER.info("Message answered.");
     }
 }

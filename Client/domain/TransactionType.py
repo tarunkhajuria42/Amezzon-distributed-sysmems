@@ -1,28 +1,19 @@
-class TransactionType(object):
+from domain.GenericModel import GenericModel
+
+
+class TransactionType(GenericModel):
     def __init__(self, id=None, name=None):
-        self._id = id
-        self._name = name
+        self.id = id
+        self.name = name
 
-    @property
-    def id(self):
-        return self._id
+    def get_id(self):
+        return self.id
 
-    @id.getter
-    def id(self):
-        return self._id
+    def set_id(self, id):
+        self.id = id
 
-    @id.setter
-    def id(self, id):
-        self._id = id
+    def get_name(self):
+        return self.name
 
-    @property
-    def name(self):
-        return self._name
-
-    @name.getter
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        self._name = name
+    def set_name(self, name):
+        self.name = name

@@ -1,0 +1,16 @@
+{
+  "data": {
+    "error_messages": [
+      {
+        "error_message": "__STRING__",
+        "statement_id": "__INTEGER__"
+      }
+    ],
+    "result_list": [
+      {
+        "statement_id": "__INTEGER__",
+        "result_message": "__QUERYRESULT__"
+      }
+    ]
+  }
+}

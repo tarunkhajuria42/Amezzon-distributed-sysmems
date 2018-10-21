@@ -1,6 +1,6 @@
-from managers.SetupManager import SetupManager
-from managers.ServiceManager import ServiceManager
-from managers.ServerManager import ServerManager
+from manager.SetupManager import SetupManager
+from manager.ServiceManager import ServiceManager
+from manager.ConnectionManager import ConnectionManager
 
 
 def run():
@@ -10,7 +10,7 @@ def run():
     set_up_manager.run_setup()
 
     # todo: wait for setup manager to finish all functions then run
-    server = ServerManager(service_manager=service_manager)
+    server = ConnectionManager(service_manager=service_manager)
     server.run()
 
 
