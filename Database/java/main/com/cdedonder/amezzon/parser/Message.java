@@ -1,12 +1,12 @@
 package com.cdedonder.amezzon.parser;
 
-public class Messsage {
+public class Message {
 
     private final String method, body;
     private String responseBody;
     private int responseCode;
 
-    public Messsage(String method, String body) {
+    public Message(String method, String body) {
         this.method = method;
         this.body = body;
     }
