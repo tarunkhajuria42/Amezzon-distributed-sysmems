@@ -1,13 +1,12 @@
-from dto.ErrorMessage import ErrorMessages
-from dto.GenericDto import GenericDto
+from dto.client.ErrorMessage import ErrorMessages
+from dto.client.GenericDto import GenericDto
 from resource.DtoResource import ACTION_USER_INFORMATION
 
 
 class UserInformationDto(object):
     class GetRequest(GenericDto.CustomAuthRequest):
-        def __init__(self, token=None, data=None):
-            GenericDto.CustomAuthRequest.__init__(
-                self, action=ACTION_USER_INFORMATION, token=token, data=data)
+        def __init__(self, token=None):
+            GenericDto.CustomAuthRequest.__init__(self, action=ACTION_USER_INFORMATION, token=token, data=self.Data())
 
         class Data(object):
             def __init__(self):
@@ -18,8 +17,8 @@ class UserInformationDto(object):
                      username=None, id_number=None, error_messages=None):
             GenericDto.CustomResponse.__init__(
                 self, data=self.Data(
-                    first_name=first_name, last_name=last_name, mail=mail,
-                    username=username, id_number=id_number, error_messages=error_messages
+                    first_name=first_name, last_name=last_name, mail=mail, username=username,
+                    id_number=id_number, error_messages=error_messages
                 )
             )
 
@@ -102,7 +101,9 @@ class UserInformationDto(object):
     class PostResponse(GenericDto.CustomResponse):
         def __init__(self, error_messages=None):
             GenericDto.CustomResponse.__init__(
-                self, data=self.Data(error_messages=error_messages)
+                self, data=self.Data(
+                    error_messages=error_messages
+                )
             )
 
         class Data(ErrorMessages):

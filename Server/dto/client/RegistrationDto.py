@@ -1,5 +1,5 @@
-from GenericDto import GenericDto
-from dto.ErrorMessage import ErrorMessages
+from dto.client.ErrorMessage import ErrorMessages
+from dto.client.GenericDto import GenericDto
 from resource.DtoResource import ACTION_REGISTRATION
 
 
@@ -52,8 +52,8 @@ class RegistrationDto(object):
             def get_id_code(self):
                 return self.id_code
 
-            def set_id_code(self, id_number):
-                self.id_code = id_number
+            def set_id_code(self, id_code):
+                self.id_code = id_code
 
             def get_username(self):
                 return self.username
