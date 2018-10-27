@@ -1,22 +1,22 @@
 {
-  "data":{
+  "data": {
     "error_messages": [
       {
         "message": "__STRING__",
         "message_connection": "__STRING__"
       }
     ],
-    "product_list":[
+    "product_list": [
       {
-        "product_id":"__NUMBER__",
-        "product_name":"__STRING__",
-        "product_type":"__STRING__",
-        "product_description":"__STRING__",
-        "product_quantity":"__INTEGER__",
-        "buy_price":"__NUMBER__",
-        "sell_price":"__NUMBER__"
+        "product_id": "__NUMBER__",
+        "product_name": "__STRING__",
+        "product_type": "__STRING__",
+        "product_description": "__STRING__",
+        "product_quantity": "__INTEGER__",
+        "buy_price": "__NUMBER__",
+        "sell_price": "__NUMBER__"
       }
     ],
-    "response_date_time":"__STRING__"
+    "response_date_time": "__STRING__"
   }
 }

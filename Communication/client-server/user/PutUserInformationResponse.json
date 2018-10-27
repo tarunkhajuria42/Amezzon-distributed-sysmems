@@ -1,9 +1,9 @@
 {
-  "data":{
+  "data": {
     "error_messages": [
       {
-        "message":"__STRING__",
-        "type":"__STRING__"
+        "message": "__STRING__",
+        "type": "__STRING__"
       }
     ]
   }
