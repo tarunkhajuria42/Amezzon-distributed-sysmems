@@ -37,8 +37,10 @@ public class TransactionPool {
     public QueryResult processStatement(String token, String statement){
         map.get(token).offer(statement);
         //FIXME
+        return null;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public synchronized void remove(String uuid, Connection connection){
         try {
             connection.close();
