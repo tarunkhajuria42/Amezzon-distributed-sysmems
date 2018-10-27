@@ -1,5 +1,9 @@
 package com.cdedonder.amezzon.parser;
 
+import com.cdedonder.amezzon.database.TransactionPool;
+import com.cdedonder.amezzon.parser.dto.DatabaseStatementRequest;
+import com.cdedonder.amezzon.parser.dto.DatabaseStatementResponse;
+import com.cdedonder.amezzon.parser.dto.InitializeTransactionResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,8 +22,12 @@ public class MessageParser {
 
     private HashMap<String, BiConsumer<Message, JsonNode>> parserMap;
 
+    private final TransactionPool transactionPool;
+
     public MessageParser() {
         objectMapper = new ObjectMapper();
+
+        transactionPool = new TransactionPool();
 
         parserMap = new HashMap<>();
         parserMap.put("initialize transaction", this::initializeTransaction);
@@ -33,26 +41,45 @@ public class MessageParser {
             JsonNode node = objectMapper.readTree(new StringReader(body));
             String actionString = node.get("action").asText();
             parserMap.get(actionString).accept(message, node.get("data"));
-        }catch (IOException e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace(); //TODO
         }
         return message;
     }
 
-    private void initializeTransaction(Message message, JsonNode data){
-
+    private void initializeTransaction(Message message, JsonNode data) {
+        try {
+            String token = transactionPool.newTransactionInstance();
+            InitializeTransactionResponse response = new InitializeTransactionResponse();
+            response.setToken(token);
+            String json = wrapInData(objectMapper.writeValueAsString(response));
+            message.setResponseCode(200);
+            message.setResponseBody(json);
+        } catch (Exception e) {
+            e.printStackTrace(); //TODO
+        }
     }
 
-    private void databaseStatement(Message message, JsonNode data){
-
+    private void databaseStatement(Message message, JsonNode data) {
+        try {
+            DatabaseStatementRequest request = objectMapper.treeToValue(data, DatabaseStatementRequest.class);
+            DatabaseStatementResponse response = new DatabaseStatementResponse();
+            //FIXME
+        }catch (Exception e){
+            e.printStackTrace(); //TODO
+        }
     }
 
     //DEBUG
-    private void debugMessage(Message message, JsonNode data){
+    private void debugMessage(Message message, JsonNode data) {
         LOGGER.info("Received debug message");
         String text = data.asText();
         LOGGER.info("Message reads: " + text);
         message.setResponseCode(200);
         message.setResponseBody("Well received: " + text);
+    }
+
+    private static String wrapInData(String json) {
+        return "{\"data\": " + json + "}";
     }
 }

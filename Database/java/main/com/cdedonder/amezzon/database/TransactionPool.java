@@ -1,5 +1,7 @@
 package com.cdedonder.amezzon.database;
 
+import com.cdedonder.amezzon.parser.dto.QueryResult;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,7 +22,7 @@ public class TransactionPool {
         ds = DataSourceFactory.getMySQLDataSource();
     }
 
-    public String newTransactionInstance(){
+    public synchronized String newTransactionInstance(){
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
         String uuid = UUID.randomUUID().toString();
         try {
@@ -32,11 +34,12 @@ public class TransactionPool {
         return uuid;
     }
 
-    public void processStatement(String token, String statement){
+    public QueryResult processStatement(String token, String statement){
         map.get(token).offer(statement);
+        //FIXME
     }
 
-    public void remove(String uuid, Connection connection){
+    public synchronized void remove(String uuid, Connection connection){
         try {
             connection.close();
         }catch (SQLException e){
