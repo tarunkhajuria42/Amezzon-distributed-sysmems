@@ -14,7 +14,7 @@ public class HttpsConnectionTest {
 
     public static void main(String[] args) {
 
-        String https_url = "https://127.0.0.1:8123";
+        /*String https_url = "https://127.0.0.1:8123";
         URL url;
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
         try {
@@ -22,7 +22,7 @@ public class HttpsConnectionTest {
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 
             SSLContext SSL_CONTEXT = SSLContext.getInstance("TLSv1.2");
-            KeyManager[] km = getKeyManager();
+            //KeyManager[] km = getKeyManager();
             TestClass test = new TestClass();
             SSL_CONTEXT.init(km, new TrustManager[]{test}, new SecureRandom());
             connection.setSSLSocketFactory(SSL_CONTEXT.getSocketFactory());
@@ -45,7 +45,7 @@ public class HttpsConnectionTest {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private static KeyManager[] getKeyManager(String filepath, String password, String keyPassword) {

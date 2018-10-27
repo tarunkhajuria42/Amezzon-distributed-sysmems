@@ -13,3 +13,15 @@ class GenericDtoParser(object):
 
     def response_post(self):
         return None
+    
+    def request_put(self):
+        return None
+
+    def response_put(self):
+        return None
+
+    def request_delete(self):
+        return None
+
+    def response_delete(self):
+        return None

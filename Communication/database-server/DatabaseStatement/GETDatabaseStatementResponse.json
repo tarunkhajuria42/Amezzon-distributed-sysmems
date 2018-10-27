@@ -6,6 +6,11 @@
         "message_connection": "__STRING__"
       }
     ],
-    "token":"__STRING__"
+    "result_list": [
+      {
+        "statement_id": "__INTEGER__",
+        "result_message": "__QUERYRESULT__"
+      }
+    ]
   }
 }
