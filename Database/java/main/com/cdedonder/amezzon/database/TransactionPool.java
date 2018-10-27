@@ -1,9 +1,9 @@
 package com.cdedonder.amezzon.database;
 
-
-import com.mysql.cj.jdbc.MysqlDataSource;
-
+import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -11,25 +11,37 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class TransactionPool {
 
     private final ConcurrentHashMap<String, BlockingQueue<String>> map;
-    private final ConnectionPool
-
+    private DataSource ds;
 
     //https://www.journaldev.com/2509/java-datasource-jdbc-datasource-example
 
     public TransactionPool(){
         map = new ConcurrentHashMap<>();
-
-        MysqlDataSource ds = new MysqlDataSource();
-        //TODO
+        ds = DataSourceFactory.getMySQLDataSource();
     }
 
     public String newTransactionInstance(){
         BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
-        TransactionThread thread = new TransactionThread()
+        String uuid = UUID.randomUUID().toString();
+        try {
+            new TransactionThread(blockingQueue, ds.getConnection(), this, uuid);
+            map.put(uuid, blockingQueue);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return uuid;
+    }
+
+    public void processStatement(String token, String statement){
+        map.get(token).offer(statement);
     }
 
     public void remove(String uuid, Connection connection){
-        connection.close();
+        try {
+            connection.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         map.remove(uuid);
     }
 }
