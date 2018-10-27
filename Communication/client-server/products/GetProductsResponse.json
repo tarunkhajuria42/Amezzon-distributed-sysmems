@@ -2,7 +2,8 @@
   "data":{
     "error_messages": [
       {
-        "message":"__STRING__"
+        "message": "__STRING__",
+        "message_connection": "__STRING__"
       }
     ],
     "product_list":[

@@ -1,5 +1,5 @@
 from GenericDto import GenericDto
-from dto.ErrorMessage import ErrorMessages
+from dto.ErrorMessage import ErrorMessageList
 from resource.DtoResource import ACTION_REGISTRATION
 
 
@@ -81,6 +81,6 @@ class RegistrationDto(object):
         def set_token(self, token):
             self.token = token
 
-        class Data(ErrorMessages):
+        class Data(ErrorMessageList):
             def __init__(self, error_messages=None):
-                ErrorMessages.__init__(self, error_messages=error_messages)
+                ErrorMessageList.__init__(self, error_messages=error_messages)

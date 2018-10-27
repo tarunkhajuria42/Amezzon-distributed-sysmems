@@ -14,7 +14,7 @@ def run():
         password='TEST'
     )
     body = dto.toJSON()
-    response = connection_manager.send_request(body=body, method='GET')
+    response = connection_manager.send_request(body=body, method='POST')
     print response.read()
 
 

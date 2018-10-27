@@ -1,6 +1,6 @@
 from BaseHTTPServer import BaseHTTPRequestHandler
 
-from dto.client.ErrorMessage import ErrorMessages
+from dto.ErrorMessage import ErrorMessageList
 from dto.client.LoginDto import LoginDto
 from parser.ClientRequestParser import ClientRequestParser
 
@@ -25,14 +25,14 @@ class HttpHandlerService(BaseHTTPRequestHandler):
         parser = ClientRequestParser(json_string=body, method='POST')
         request_dto = parser.get_body()
 
-        print request_dto.toJSON()
+        print request_dto.get_action()
 
         self.send_response(200)
         self.end_headers()
 
         response_dto = LoginDto.PostResponse(
             token='TEST',
-            error_messages=ErrorMessages()
+            error_messages=ErrorMessageList()
         )
         self.wfile.write(response_dto.toJSON())
         return
