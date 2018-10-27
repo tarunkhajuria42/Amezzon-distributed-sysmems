@@ -32,10 +32,14 @@ public class HttpExchangeHandler implements HttpHandler {
             sb.append(line);
         }
         String body = sb.toString();
-        Message message = messageParser.parse(new Message(method, body));
-        exchange.sendResponseHeaders(message.getResponseCode(), 0);
-        try (PrintWriter writer = new PrintWriter(exchange.getResponseBody(), true)) {
-            writer.println(message.getResponseBody());
+        try {
+            Message message = messageParser.parse(new Message(method, body));
+            exchange.sendResponseHeaders(message.getResponseCode(), 0);
+            try (PrintWriter writer = new PrintWriter(exchange.getResponseBody(), true)) {
+                writer.println(message.getResponseBody());
+            }
+        }catch (Exception e){
+            LOGGER.severe(e.toString());
         }
         LOGGER.info("Message answered.");
     }

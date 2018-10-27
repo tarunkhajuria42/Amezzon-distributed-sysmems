@@ -1,10 +1,6 @@
 {
   "data": {
-    "error_messages": [
-      {
-        "error_message": "__STRING__"
-      }
-    ],
+    "error_messages": ["__STRING__"],
     "token": "__STRING__"
   }
 }
