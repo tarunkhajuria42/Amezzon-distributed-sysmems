@@ -1,5 +1,5 @@
-from dto.ErrorMessage import ErrorMessages
-from dto.GenericDto import GenericDto
+from dto.client.ErrorMessage import ErrorMessages
+from dto.client.GenericDto import GenericDto
 from resource.DtoResource import ACTION_LOGIN
 
 
