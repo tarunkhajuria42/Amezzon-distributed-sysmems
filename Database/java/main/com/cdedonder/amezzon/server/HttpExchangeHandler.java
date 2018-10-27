@@ -1,7 +1,7 @@
 package com.cdedonder.amezzon.server;
 
 import com.cdedonder.amezzon.parser.MessageParser;
-import com.cdedonder.amezzon.parser.Messsage;
+import com.cdedonder.amezzon.parser.Message;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -15,6 +15,12 @@ public class HttpExchangeHandler implements HttpHandler {
 
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+    private MessageParser messageParser;
+
+    public HttpExchangeHandler(){
+        messageParser = new MessageParser();
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         LOGGER.info("Message received.");
@@ -26,10 +32,14 @@ public class HttpExchangeHandler implements HttpHandler {
             sb.append(line);
         }
         String body = sb.toString();
-        Messsage messsage = new MessageParser(new Messsage(method, body)).parse();
-        exchange.sendResponseHeaders(messsage.getResponseCode(), 0);
-        try (PrintWriter writer = new PrintWriter(exchange.getResponseBody(), true)) {
-            writer.println(messsage.getResponseBody());
+        try {
+            Message message = messageParser.parse(new Message(method, body));
+            exchange.sendResponseHeaders(message.getResponseCode(), 0);
+            try (PrintWriter writer = new PrintWriter(exchange.getResponseBody(), true)) {
+                writer.println(message.getResponseBody());
+            }
+        }catch (Exception e){
+            LOGGER.severe(e.toString());
         }
         LOGGER.info("Message answered.");
     }
