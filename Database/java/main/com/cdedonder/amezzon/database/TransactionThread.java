@@ -4,6 +4,8 @@ import com.cdedonder.amezzon.parser.dto.QueryResult;
 import com.cdedonder.amezzon.util.BidirectionalTransferQueue;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class TransactionThread extends Thread {
@@ -32,7 +34,25 @@ public class TransactionThread extends Thread {
                     if(stmt.execute()){
                         //QUERY
                         try(ResultSet resultSet = stmt.getResultSet()){
-
+                            ResultSetMetaData metaData = resultSet.getMetaData();
+                            int count = metaData.getColumnCount();
+                            List<String> column_names = new ArrayList<>(count);
+                            List<String> column_types = new ArrayList<>(count);
+                            List<List<String>> rows = new ArrayList<>();
+                            for(int i = 1; i <= count; i++){
+                                column_names.add(metaData.getColumnName(i));
+                                column_types.add(metaData.getColumnTypeName(i));
+                            }
+                            queryResult.setColumn_names(column_names);
+                            queryResult.setColumn_types(column_types);
+                            while (resultSet.next()){
+                                List<String> row = new ArrayList<>(count);
+                                for(int i = 1; i <= count; i++){
+                                    row.add(resultSet.getObject(i).toString());
+                                }
+                                rows.add(row);
+                            }
+                            queryResult.setRows(rows);
                         }
                     }else{
                         //UPDATE

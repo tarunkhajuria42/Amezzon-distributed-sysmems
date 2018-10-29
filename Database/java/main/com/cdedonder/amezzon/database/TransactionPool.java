@@ -30,7 +30,7 @@ public class TransactionPool {
             new TransactionThread(transferQueue, ds.getConnection(), this, uuid);
             map.put(uuid, transferQueue);
         }catch (SQLException e){
-            e.printStackTrace();
+            e.printStackTrace(); //DEBUG
         }
         return uuid;
     }
@@ -51,7 +51,7 @@ public class TransactionPool {
         try {
             connection.close();
         }catch (SQLException e){
-            e.printStackTrace();
+            e.printStackTrace(); //DEBUG
         }
         map.remove(uuid);
     }
