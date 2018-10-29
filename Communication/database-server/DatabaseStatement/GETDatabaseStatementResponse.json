@@ -2,8 +2,8 @@
   "data": {
     "error_messages": [
       {
-        "error_message": "__STRING__",
-        "statement_id": "__INTEGER__"
+        "message": "__STRING__",
+        "message_connection": "__STRING__"
       }
     ],
     "result_list": [

@@ -1,4 +1,6 @@
 {
-  "action": "__STRING__",
-  "data" : {}
+  "action": "init_transaction",
+  "data": {
+
+  }
 }

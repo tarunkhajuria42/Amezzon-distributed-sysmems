@@ -1,5 +1,5 @@
-from dto.client.ErrorMessage import ErrorMessages
-from dto.client.GenericDto import GenericDto
+from dto.ErrorMessage import ErrorMessageList
+from dto.GenericDto import GenericDto
 from resource.DtoResource import ACTION_LOGIN
 
 
@@ -44,6 +44,6 @@ class LoginDto(object):
         def set_token(self, token):
             self.token = token
 
-        class Data(ErrorMessages):
+        class Data(ErrorMessageList):
             def __init__(self, error_messages=None):
-                ErrorMessages.__init__(self, error_messages=error_messages)
+                ErrorMessageList.__init__(self, error_messages=error_messages)

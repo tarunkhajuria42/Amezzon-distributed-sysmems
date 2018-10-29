@@ -5,13 +5,8 @@ from manager.ConnectionManager import ConnectionManager
 
 def run():
     service_manager = ServiceManager()
-
-    set_up_manager = SetupManager(service_manager=service_manager)
-    set_up_manager.run_setup()
-
-    # todo: wait for setup manager to finish all functions then run
-    server = ConnectionManager(service_manager=service_manager)
-    server.run()
+    SetupManager(service_manager=service_manager).run_setup()
+    ConnectionManager(service_manager=service_manager).run()
 
 
 if __name__ == '__main__':

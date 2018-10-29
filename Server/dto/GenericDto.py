@@ -20,8 +20,7 @@ class GenericDto(object):
             self.data = data
 
         def toJSON(self):
-            return json.dumps(self, default=lambda o: o.__dict__,
-                              sort_keys=True, indent=4)
+            return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     class CustomAuthRequest(object):
         def __init__(self, action=None, token=None, data=None):
@@ -48,8 +47,7 @@ class GenericDto(object):
             self.data = data
 
         def toJSON(self):
-            return json.dumps(self, default=lambda o: o.__dict__,
-                              sort_keys=True, indent=4)
+            return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     class CustomResponse(object):
         def __init__(self, data=None):
@@ -62,5 +60,4 @@ class GenericDto(object):
             self.data = data
 
         def toJSON(self):
-            return json.dumps(self, default=lambda o: o.__dict__,
-                              sort_keys=True, indent=4)
+            return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
