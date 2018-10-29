@@ -4,12 +4,15 @@ import com.cdedonder.amezzon.database.TransactionPool;
 import com.cdedonder.amezzon.parser.dto.DatabaseStatementRequest;
 import com.cdedonder.amezzon.parser.dto.DatabaseStatementResponse;
 import com.cdedonder.amezzon.parser.dto.InitializeTransactionResponse;
+import com.cdedonder.amezzon.parser.dto.QueryResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -61,12 +64,22 @@ public class MessageParser {
     }
 
     private void databaseStatement(Message message, JsonNode data) {
+        //TODO error collecting
         try {
             DatabaseStatementRequest request = objectMapper.treeToValue(data, DatabaseStatementRequest.class);
+            List<DatabaseStatementResponse.ResultWrapper> results = new ArrayList<>();
+            for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatement_list()) {
+                DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
+                resultWrapper.setResult_message(transactionPool.processStatement(request.getTransaction_token(), wrapper.getStatement()));
+                resultWrapper.setStatement_id(wrapper.getStatement_id());
+                results.add(resultWrapper);
+            }
             DatabaseStatementResponse response = new DatabaseStatementResponse();
-            //FIXME
-        }catch (Exception e){
-            e.printStackTrace(); //TODO
+            response.setResult_list(results);
+            message.setResponseCode(200);
+            message.setResponseBody(wrapInData(objectMapper.writeValueAsString(response)));
+        } catch (Exception e) {
+            e.printStackTrace(); //DEBUG
         }
     }
 
