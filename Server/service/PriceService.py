@@ -1,6 +1,6 @@
 import numpy as np
 import math
-import DataBaseService
+
 class PriceService:
 	def __init__(self,price_buy=None,price_sell=None,base_buy=None,base_sell=None):
 		self.base_sell=base_sell
