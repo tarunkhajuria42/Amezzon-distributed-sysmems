@@ -23,4 +23,3 @@ FIRST_NAME = 'first_name'
 LAST_NAME = 'last_name'
 MAIL = 'mail'
 ID_CODE = 'id_code'
-
