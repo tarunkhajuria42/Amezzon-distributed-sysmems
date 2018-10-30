@@ -1,20 +1,7 @@
-#:import FadeTransition kivy.uix.screenmanager.FadeTransition
-
-MainScreen:
-    canvas.before:
-        Color:
-            rgba: 1, .95, .9, .85
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    transition: FadeTransition()
-    LoginScreen:
-    RegistrationScreen:
-
 <LoginScreen>:
-    id: login
-    display: username
-    display: password
+
+    username: username
+    password: password
 
     AnchorLayout:
         anchor_x: 'center'
@@ -43,16 +30,11 @@ MainScreen:
             BoxLayout:
                 orientation: 'horizontal'
                 Button:
-                    font_size: self.y * 0.1
+                    font_size: self.height * 0.2 + self.width * 0.05
                     text: 'Login'
+                    on_press: root.login()
 
                 Button:
-                    font_size: self.y * 0.1
+                    font_size: self.height * 0.2 + self.width * 0.05
                     text: 'Registration'
-
-
-<RegistrationScreen>:
-    id: registration
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'center'
+                    on_press: root.to_registration_screen()

@@ -1,0 +1,26 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<ScreenManager>:
+    id: screen_manager
+
+    login_screen: login_screen
+    registration_screen: registration_screen
+
+    canvas:
+        Color:
+            rgba: 1, .95, .9, .85
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    transition: FadeTransition()
+
+    LoginScreen:
+        id: login_screen
+        name: 'LoginScreen'
+        manager: screen_manager
+
+    RegistrationScreen:
+        id: registration_screen
+        name: 'RegistrationScreen'
+        manager: screen_manager
