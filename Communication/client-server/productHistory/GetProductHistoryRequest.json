@@ -1,7 +1,7 @@
 {
-  "action":"product_history",
-  "data":{
-    "product_id":"__NUMBER__",
-    "start_datetime":"__STRING__" //IF NULL start from begining
+  "action": "product_history",
+  "data": {
+    "product_id": "__NUMBER__",
+    "start_datetime": "__STRING__" //IF NULL start from begining
   }
 }

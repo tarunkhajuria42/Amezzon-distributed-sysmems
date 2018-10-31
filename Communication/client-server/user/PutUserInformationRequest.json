@@ -1,0 +1,10 @@
+{
+  "action": "user",
+  "token": "__STRIN__",
+  "data": {
+    "first_name": "__STRING__", //NULL == Do not change
+    "last_name": "__STRING__", //NULL == Do not change
+    "mail": "__STRING__", //NULL == Do not change
+    "password": "__STRING__" //NULL == Do not change
+  }
+}

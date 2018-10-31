@@ -1,0 +1,16 @@
+{
+  "data": {
+    "error_messages": [
+      {
+        "message": "__STRING__",
+        "message_connection": "__STRING__"
+      }
+    ],
+    "result_list": [
+      {
+        "statement_id": "__INTEGER__",
+        "result_message": "__QUERYRESULT__"
+      }
+    ]
+  }
+}

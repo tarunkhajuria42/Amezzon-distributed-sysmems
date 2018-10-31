@@ -1,14 +1,15 @@
 {
-  "data":{
+  "data": {
     "error_messages": [
       {
-        "message":"__STRING__"
+        "message": "__STRING__",
+        "message_connection": "__STRING__"
       }
     ],
-    "first_name":"__STRING__",
-    "last_name":"__STRING__",
-    "mail":"__STRING__",
-    "username":"__STRING__",
-    "id_number":"__NUMBER__(11)"
+    "first_name": "__STRING__",
+    "last_name": "__STRING__",
+    "mail": "__STRING__",
+    "username": "__STRING__",
+    "id_number": "__NUMBER__(11)"
   }
 }
