@@ -25,7 +25,7 @@ class HttpHandlerService(BaseHTTPRequestHandler):
         parser = ClientRequestParser(json_string=body, method='POST')
         request_dto = parser.get_body()
 
-        print request_dto.get_action()
+        print request_dto.toJSON()
 
         self.send_response(200)
         self.end_headers()

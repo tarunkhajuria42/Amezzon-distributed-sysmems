@@ -1,13 +1,13 @@
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import ScreenManager
-import LoginScreen
-import RegistrationScreen
-
+from handler.LoginScreen import LoginScreen
+from handler.RegistrationScreen import RegistrationScreen
 
 Builder.load_file("view/ScreenManager.kv")
 
 
 class ScreenManager(ScreenManager):
-    login_screen = ObjectProperty(None)
-    registration_screen = ObjectProperty(None)
+    def __init__(self, **kwargs):
+        super(ScreenManager, self).__init__(**kwargs)
+        self.login_screen = LoginScreen()
+        self.registration_screen = RegistrationScreen()
