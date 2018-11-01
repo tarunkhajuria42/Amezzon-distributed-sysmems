@@ -11,11 +11,9 @@ public class DataSourceFactory {
 
     public static DataSource getMySQLDataSource(){
         Properties props = new Properties();
-        FileInputStream fis;
         MysqlDataSource mysqlDS = null;
         try{
-            fis = new FileInputStream("db.properties");
-            props.load(fis);
+            props.load(DataSourceFactory.class.getResourceAsStream("db.properties"));
             mysqlDS = new MysqlDataSource();
             mysqlDS.setURL(props.getProperty("MYSQL_DB_URL"));
             mysqlDS.setUser(props.getProperty("MYSQL_DB_USERNAME"));

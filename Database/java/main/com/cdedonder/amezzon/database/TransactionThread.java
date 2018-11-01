@@ -27,7 +27,7 @@ public class TransactionThread extends Thread {
     public void run() {
         try {
             String statement;
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(false); //TODO specify where error occurs
             while(!"COMMIT TRANSACTION".equals(statement = transferQueue.receiveRequest().toUpperCase())){
                 try(PreparedStatement stmt = connection.prepareStatement(statement)){
                     QueryResult queryResult = new QueryResult();
