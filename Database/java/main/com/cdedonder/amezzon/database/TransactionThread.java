@@ -6,16 +6,15 @@ import com.cdedonder.amezzon.util.BidirectionalTransferQueue;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 
 public class TransactionThread extends Thread {
 
-    private BidirectionalTransferQueue<String, QueryResult> transferQueue;
+    private BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue;
     private Connection connection;
     private TransactionPool pool;
     private String uuid;
 
-    public TransactionThread(BidirectionalTransferQueue<String, QueryResult> transferQueue, Connection connection, TransactionPool pool, String uuid){
+    public TransactionThread(BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue, Connection connection, TransactionPool pool, String uuid) {
         this.transferQueue = transferQueue;
         this.connection = connection;
         this.pool = pool;
@@ -29,8 +28,9 @@ public class TransactionThread extends Thread {
             String statement;
             connection.setAutoCommit(false); //TODO specify where error occurs
             while(!"COMMIT TRANSACTION".equals(statement = transferQueue.receiveRequest().toUpperCase())){
+                QueryResult queryResult = new QueryResult();
+                QueryResultErrorMessageWrapper wrapper = new QueryResultErrorMessageWrapper();
                 try(PreparedStatement stmt = connection.prepareStatement(statement)){
-                    QueryResult queryResult = new QueryResult();
                     if(stmt.execute()){
                         //QUERY
                         try(ResultSet resultSet = stmt.getResultSet()){
@@ -54,10 +54,13 @@ public class TransactionThread extends Thread {
                             }
                             queryResult.setRows(rows);
                         }
-                    }else{
-                        //UPDATE
                     }
-                    transferQueue.offerResponse(queryResult);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    wrapper.setError_message(e.getMessage());
+                } finally {
+                    wrapper.setQueryResult(queryResult);
+                    transferQueue.offerResponse(wrapper);
                 }
             }
             connection.commit();
