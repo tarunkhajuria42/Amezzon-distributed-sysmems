@@ -8,10 +8,8 @@ class IniTransactionDto(object):
         def __init__(self):
             GenericDto.CustomRequest.__init__(
                 self, action=ACTION_INIT_TRANSACTION, data=self.Data(
-
                 )
             )
-
         class Data(object):
             def __init__(self):
                 pass

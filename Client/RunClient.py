@@ -1,4 +1,6 @@
 from kivy.app import App
+
+from dto.LoginDto import LoginDto
 from handler.ScreenManager import ScreenManager
 from manager.ConnectionManager import ConnectionManager
 from manager.ServiceManager import ServiceManager

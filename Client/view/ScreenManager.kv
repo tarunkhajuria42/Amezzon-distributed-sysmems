@@ -1,4 +1,5 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import C kivy.utils.get_color_from_hex
 
 <ScreenManager>:
     id: screen_manager
@@ -8,10 +9,10 @@
 
     canvas:
         Color:
-            rgba: 1, .95, .9, .85
+            rgba: C('#3f92db')
         Rectangle:
-            pos: self.pos
-            size: self.size
+            pos:self.pos
+            size:self.size
 
     transition: FadeTransition()
 

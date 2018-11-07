@@ -1,28 +1,29 @@
 import urllib, json
-
-class LoginService:
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-    def generateLoginresponse(self):
-        root = {}
-        root['action'] = "login"
-        subarray = {}
-        subarray['username'] = self.username
-        subarray['password'] = self.password
-        root["data"] = subarray
-        return json.dumps(root, ensure_ascii=False)
+from dto.LoginDto import LoginDto
 
 
-    def loginRequest(self):
-        getloginResponse = self.generateLoginresponse()
-        print (getloginResponse)
+class LoginService(object):
+    def __init__(self):
+        self.loginDto = LoginDto()
+        self.loginViewModel = None
 
+    def validate_input(self):
+        if self.loginViewModel.get_username().text and self.loginViewModel.get_password().text:
+            return True
+        else:
 
+            if not self.loginViewModel.get_username().text:
+                self.loginViewModel.get_username_error_message().height = 50
+                self.loginViewModel.get_username_error_message().text = 'Please provide a Username'
 
+            if not self.loginViewModel.get_password().text:
+                self.loginViewModel.get_password_error_message().height = 50
+                self.loginViewModel.get_password_error_message().text = 'Please provide a Password'
+            return False
 
-if __name__ == '__main__':
-    clients = LoginService("tekraj", "chhetri")
-    clients.loginRequest()
-    clients.generateLoginresponse()
+    def login(self, loginViewModel):
+        self.loginViewModel = loginViewModel
+        if self.validate_input():
+            print 'OK'
+            # reqDto = self.loginDto.PostRequest(username=username, password=password)
+            # res = self.connection_manager.send_request(body=reqDto.toJSON(), method='POST')
