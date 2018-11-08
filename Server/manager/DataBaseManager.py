@@ -19,13 +19,17 @@ class DatabaseManager(object):
     	return	
     def disconnect():
     	return
-    def request():
-    	self.conn.request()
+    def request_post():
+    	self.conn.request('')
     	if(self.is_connected()):
 
     	else:
     		self.connect():
-   	def receive():
+   	def request_get():
+   		return
+   	def request_DELETE():
+   		return
+   	def 
 
 
 

@@ -9,7 +9,8 @@ class UserModel:
 		self.dbConnection.post_request(login_data)
 		return token
 	def get_session(token=None):
-
+		login_data=self.transactionGenerator("Session",token)
+		response=self.dbConnection.post_request(login_data)
 		return
 	def logout(token=None):
 		return 
