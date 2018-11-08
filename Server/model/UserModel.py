@@ -2,7 +2,7 @@
 class UserModel:
 	def __init__():
 		#initialise queryGenerator
-		#initiliase 
+		#initiliase Database Connection
 		return
 	def login(username=None,password=None):
 		login_data=self.transactionGenerator("Login",username,password)
