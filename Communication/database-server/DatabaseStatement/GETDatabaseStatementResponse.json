@@ -11,6 +11,9 @@
         "statement_id": "__INTEGER__",
         "result_message": "__QUERYRESULT__"
       }
+    ],
+    "statement_error_message": [
+      "__STRING__"
     ]
   }
 }
