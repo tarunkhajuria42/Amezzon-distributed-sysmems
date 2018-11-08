@@ -12,7 +12,7 @@
         "result_message": "__QUERYRESULT__"
       }
     ],
-    "statement_error_message": [
+    "statement_error_messages": [
       "__STRING__"
     ]
   }
