@@ -1,4 +1,7 @@
+import os
 
+# Docker and Server Config
+SERVER_CONFIG = 'local' if os.getenv("CONF") is None else os.getenv("CONF")
 
 # CLIENT <---> SERVER
 ACTION_LOGIN = 'login'

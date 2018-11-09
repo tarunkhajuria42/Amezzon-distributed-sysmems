@@ -30,6 +30,16 @@
         Line:
             ellipse: self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1], self.size[1], self.size[1], 360, 540
 
+<CustomButton@Button>:
+    font_size: self.height * 0.2 + self.width * 0.05
+    background_color: C('#3f92db')
+    canvas.before:
+        Color:
+            rgba: C('#3f92db')
+        Line:
+            width: 4
+            rectangle: self.x, self.y, self.width, self.height
+
 <LoginScreen>:
     connection_manager: app.connection_manager
 
@@ -41,7 +51,7 @@
         orientation:'vertical'
 
         BoxLayout:
-            size_hint_y: 20
+            size_hint_y: 10
 
         BoxLayout:
             orientation: 'vertical'
@@ -93,7 +103,7 @@
                     BoxLayout:
                         size_hint_x: 25
             BoxLayout:
-                size_hint_y: 5
+                size_hint_y: 1
 
             BoxLayout:
                 size_hint_y: 20
@@ -136,7 +146,7 @@
                 size_hint_y: 10
 
         BoxLayout:
-            size_hint_y: 40
+            size_hint_y: 30
             orientation: 'vertical'
             canvas:
                 Color:
@@ -146,39 +156,39 @@
                     size:self.size
 
             BoxLayout:
-                size_hint_y: 20
+                size_hint_y: 10
 
                 BoxLayout:
-                    size_hint_x: 15
+                    size_hint_x: 10
 
                 BoxLayout:
-                    size_hint_x: 50
+                    size_hint_x: 20
 
-                    Button:
+                    CustomButton:
                         text_size: self.size
                         halign: 'center'
                         valign: 'center'
                         text: 'Login'
                         on_press: root.login()
 
-            BoxLayout:
-                size_hint_y: 20
+                BoxLayout:
+                    size_hint_x: 2
 
                 BoxLayout:
-                    size_hint_x: 15
+                    size_hint_x: 20
 
-                BoxLayout:
-                    size_hint_x: 50
-
-                    Button:
+                    CustomButton:
                         text_size: self.size
                         halign: 'center'
                         valign: 'center'
                         text: 'Registration'
                         on_press: root.to_registration_screen()
 
+                BoxLayout:
+                    size_hint_x: 10
+
             BoxLayout:
-                size_hint_y: 20
+                size_hint_y: 10
 
         BoxLayout:
             size_hint_y: 20

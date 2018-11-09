@@ -16,7 +16,7 @@ class HttpHandlerService(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-
+        self.wfile.write('test')
         return
 
     def do_POST(self):
@@ -34,7 +34,7 @@ class HttpHandlerService(BaseHTTPRequestHandler):
             token='TEST',
             error_messages=ErrorMessageList()
         )
-        self.wfile.write(response_dto.toJSON())
+        self.wfile.write('test')
         return
 
     def do_PUT(self):

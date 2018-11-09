@@ -1,6 +1,6 @@
 from dto.client.LoginDto import LoginDto
 from parser.client.GenericDtoParser import GenericDtoParser
-from resource.DtoResource import DATA, USERNAME, PASSWORD
+from resource.StaticResource import DATA, USERNAME, PASSWORD
 
 
 class LoginDtoParserService(GenericDtoParser):

@@ -43,4 +43,4 @@ class LoginScreen(Screen):
 
     def login(self):
         self.bind_view_model()
-        self.login_service.login(self.loginViewModel)
+        self.login_service.login(self.loginViewModel, self.connection_manager)

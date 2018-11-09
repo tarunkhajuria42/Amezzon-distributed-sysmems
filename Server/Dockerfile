@@ -1,6 +1,7 @@
-FROM python:2.7-slim
-WORKDIR /
+FROM python:2.7
 COPY . /
+WORKDIR /
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
-EXPOSE 8080
-CMD ["python", "RunServer.py"]
+EXPOSE 80
+ENV CONF docker
+CMD ["python", "-u", "RunServer.py"]

@@ -1,6 +1,6 @@
 from dto.client.RegistrationDto import RegistrationDto
 from parser.client.GenericDtoParser import GenericDtoParser
-from resource.DtoResource import DATA, LOGIN, USERNAME, PASSWORD, \
+from resource.StaticResource import DATA, LOGIN, USERNAME, PASSWORD, \
     FIRST_NAME, LAST_NAME, MAIL, ID_CODE
 
 

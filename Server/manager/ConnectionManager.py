@@ -1,8 +1,9 @@
+import os
 import ssl
 from manager.ServerThreadManager import ServerThreadManager
+from resource.StaticResource import SERVER_CONFIG
 from service.HttpHandlerService import HttpHandlerService
 
-SERVER_CONFIG = 'default'
 CRL_PATH = 'crl/yourpemfile.pem'
 
 

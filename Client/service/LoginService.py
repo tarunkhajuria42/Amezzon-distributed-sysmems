@@ -1,3 +1,5 @@
+import httplib
+import socket
 import urllib, json
 from dto.LoginDto import LoginDto
 
@@ -13,17 +15,22 @@ class LoginService(object):
         else:
 
             if not self.loginViewModel.get_username().text:
-                self.loginViewModel.get_username_error_message().height = 50
-                self.loginViewModel.get_username_error_message().text = 'Please provide a Username'
+                self.loginViewModel.get_username().hint_text = 'Login'
 
             if not self.loginViewModel.get_password().text:
-                self.loginViewModel.get_password_error_message().height = 50
-                self.loginViewModel.get_password_error_message().text = 'Please provide a Password'
+                self.loginViewModel.get_password().hint_text = 'Password'
+
             return False
 
-    def login(self, loginViewModel):
+    def login(self, loginViewModel, connection_manager):
         self.loginViewModel = loginViewModel
         if self.validate_input():
-            print 'OK'
-            # reqDto = self.loginDto.PostRequest(username=username, password=password)
-            # res = self.connection_manager.send_request(body=reqDto.toJSON(), method='POST')
+            reqDto = self.loginDto.PostRequest(
+                username=self.loginViewModel.get_username().text,
+                password=self.loginViewModel.get_password().text
+            )
+            try:
+                res = connection_manager.send_request(body=reqDto.toJSON(), method='POST')
+                print res
+            except (httplib.HTTPException, socket.error) as ex:
+                print "Error: %s" % ex
