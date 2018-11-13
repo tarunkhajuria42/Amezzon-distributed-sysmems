@@ -1,12 +1,11 @@
 from domain.GenericModel import GenericModel
 
 
-class ErrorMessages(object):
+class ErrorMessageList(object):
     def __init__(self, error_messages=None):
         if error_messages is None:
-            self.error_messages = [Message()]
-        else:
-            self.error_messages = error_messages
+            error_messages = []
+        self.error_messages = error_messages
 
     def get_error_messages(self):
         return self.error_messages
@@ -14,22 +13,22 @@ class ErrorMessages(object):
     def set_error_messages(self, error_messages):
         self.error_messages = error_messages
 
-    def add_error_message(self, type, message):
+    def add_error_message(self, message_connection, message):
         self.error_messages.append(
-            Message(type=type, message=message)
+            ErrorMessage(message_connection=message_connection, message=message)
         )
 
 
-class Message(GenericModel):
-    def __init__(self, type=None, message=None):
-        self.type = type
+class ErrorMessage(GenericModel):
+    def __init__(self, message_connection=None, message=None):
+        self.message_connection = message_connection
         self.message = message
 
     def get_type(self):
-        return self.type
+        return self.message_connection
 
     def set_type(self, type):
-        self.type = type
+        self.message_connection = type
 
     def get_message(self):
         return self.message
