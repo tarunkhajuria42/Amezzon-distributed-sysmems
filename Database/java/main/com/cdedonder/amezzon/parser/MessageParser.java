@@ -40,6 +40,7 @@ public class MessageParser {
     }
 
     public Message parse(Message message) {
+        LOGGER.info("Received message");
         try {
             String body = message.getBody();
             JsonNode node = objectMapper.readTree(new StringReader(body));
@@ -53,18 +54,21 @@ public class MessageParser {
 
     private void initializeTransaction(Message message, JsonNode data) {
         try {
+            LOGGER.info("Initialize new Transaction");
             String token = transactionPool.newTransactionInstance();
             InitializeTransactionResponse response = new InitializeTransactionResponse();
             response.setToken(token);
             String json = wrapInData(objectMapper.writeValueAsString(response));
             message.setResponseCode(200);
             message.setResponseBody(json);
+            LOGGER.info("Send Transaction token");
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
     }
 
     private void databaseStatement(Message message, JsonNode data) {
+        LOGGER.info("Received statement");
         DatabaseStatementResponse response = new DatabaseStatementResponse();
         try {
             DatabaseStatementRequest request = objectMapper.treeToValue(data, DatabaseStatementRequest.class);
