@@ -3,8 +3,8 @@ package com.cdedonder.amezzon.database;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataSourceFactory {
@@ -18,7 +18,9 @@ public class DataSourceFactory {
             mysqlDS.setURL(props.getProperty("MYSQL_DB_URL"));
             mysqlDS.setUser(props.getProperty("MYSQL_DB_USERNAME"));
             mysqlDS.setPassword(props.getProperty("MYSQL_DB_PASSWORD"));
-        }catch (IOException e){
+            mysqlDS.setUseSSL(Boolean.parseBoolean(props.getProperty("MYSQL_DB_USESSL")));
+            mysqlDS.setAutoReconnect(Boolean.parseBoolean(props.getProperty("MYSQL_DB_AUTORECONNECT")));
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
         return mysqlDS;

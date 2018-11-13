@@ -1,19 +1,20 @@
 package com.cdedonder.amezzon.database;
 
-import com.cdedonder.amezzon.parser.dto.QueryResult;
+import com.cdedonder.amezzon.logging.DatabaseLogger;
 import com.cdedonder.amezzon.util.BidirectionalTransferQueue;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.logging.Logger;
 
 public class TransactionPool {
 
-    private final ConcurrentHashMap<String, BidirectionalTransferQueue<String, QueryResult>> map;
+    private static final Logger LOGGER = DatabaseLogger.getLogger();
+
+    private final ConcurrentHashMap<String, BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper>> map;
     private DataSource ds;
 
     //https://www.journaldev.com/2509/java-datasource-jdbc-datasource-example
@@ -24,26 +25,27 @@ public class TransactionPool {
     }
 
     public synchronized String newTransactionInstance(){
-        BidirectionalTransferQueue<String, QueryResult> transferQueue = new BidirectionalTransferQueue<>();
+        BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = new BidirectionalTransferQueue<>();
         String uuid = UUID.randomUUID().toString();
         try {
             new TransactionThread(transferQueue, ds.getConnection(), this, uuid);
             map.put(uuid, transferQueue);
         }catch (SQLException e){
-            e.printStackTrace(); //DEBUG
+            LOGGER.severe(e.getMessage());
         }
         return uuid;
     }
 
-    public QueryResult processStatement(String token, String statement){
-        BidirectionalTransferQueue<String, QueryResult> transferQueue = map.get(token);
+    public QueryResultErrorMessageWrapper processStatement(String token, String statement) throws GenericServerError {
+        BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = map.get(token);
         transferQueue.offerRequest(statement);
+
         try{
-            return transferQueue.receiveResponse(); //TODO implement timeout?
-        }catch (InterruptedException e){
-            e.printStackTrace(); //DEBUG
+            return transferQueue.receiveResponse();
+        } catch (InterruptedException e) {
+            LOGGER.severe(e.getMessage());
+            throw new GenericServerError(e);
         }
-        return null;
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -51,7 +53,7 @@ public class TransactionPool {
         try {
             connection.close();
         }catch (SQLException e){
-            e.printStackTrace(); //DEBUG
+            LOGGER.severe(e.getMessage());
         }
         map.remove(uuid);
     }

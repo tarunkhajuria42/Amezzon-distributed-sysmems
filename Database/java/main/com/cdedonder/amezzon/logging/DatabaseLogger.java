@@ -8,8 +8,10 @@ import java.util.logging.SimpleFormatter;
 
 public class DatabaseLogger {
 
+    private static Logger LOGGER;
+
     public static void setup() throws IOException {
-        Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
         /*Logger rootLogger = Logger.getLogger("");
         Handler[] handlers = rootLogger.getHandlers();
@@ -17,11 +19,15 @@ public class DatabaseLogger {
             rootLogger.removeHandler(handlers[0]);
         }*/
 
-        logger.setLevel(Level.INFO);
+        LOGGER.setLevel(Level.INFO);
 
         FileHandler fileHandler = new FileHandler("dblog.txt");
         SimpleFormatter formatter = new SimpleFormatter();
         fileHandler.setFormatter(formatter);
-        logger.addHandler(fileHandler);
+        LOGGER.addHandler(fileHandler);
+    }
+
+    public static Logger getLogger() {
+        return LOGGER;
     }
 }
