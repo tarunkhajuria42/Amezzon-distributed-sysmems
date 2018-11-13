@@ -68,7 +68,7 @@ public class TransactionThread extends Thread {
             connection.commit();
             connection.setAutoCommit(true);
             pool.remove(uuid, connection);
-        } catch (SQLException e2) {
+        } catch (InterruptedException | SQLException e2) {
             LOGGER.severe(e2.getMessage());
         }
     }
