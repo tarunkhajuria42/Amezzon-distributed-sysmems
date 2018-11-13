@@ -38,10 +38,9 @@ public class Main {
 
         CommandLineParser parser = new DefaultParser();
         formatter = new HelpFormatter();
-        CommandLine cmd;
 
         try {
-            cmd = parser.parse(options, args);
+            CommandLine cmd = parser.parse(options, args);
             String type = cmd.getOptionValue("type");
             if (serverMap.containsKey(type.toLowerCase())) {
                 Properties properties = Server.defaultProperties();
