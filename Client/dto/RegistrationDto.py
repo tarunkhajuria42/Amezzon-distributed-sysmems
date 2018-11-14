@@ -1,6 +1,6 @@
 from dto.ErrorMessage import ErrorMessageList
 from dto.GenericDto import GenericDto
-from resource.DtoResource import ACTION_REGISTRATION
+from resource.StaticResource import ACTION_REGISTRATION
 
 
 class RegistrationDto(object):

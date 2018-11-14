@@ -1,26 +1,33 @@
-#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import C kivy.utils.get_color_from_hex
 
 <ScreenManager>:
-    id: screen_manager
+    id: screenManager
 
-    login_screen: login_screen
-    registration_screen: registration_screen
+    loginScreen: loginScreen
+    registrationScreen: registrationScreen
+    homeScreen: homeScreen
 
     canvas:
         Color:
-            rgba: 1, .95, .9, .85
+            rgba: C('#3f92db')
         Rectangle:
-            pos: self.pos
-            size: self.size
+            pos:self.pos
+            size:self.size
 
-    transition: FadeTransition()
+    transition: SlideTransition()
 
     LoginScreen:
-        id: login_screen
+        id: loginScreen
         name: 'LoginScreen'
-        manager: screen_manager
+        manager: screenManager
 
     RegistrationScreen:
-        id: registration_screen
+        id: registrationScreen
         name: 'RegistrationScreen'
-        manager: screen_manager
+        manager: screenManager
+
+    HomeScreen:
+        id: homeScreen
+        name: 'HomeScreen'
+        manager: screenManager

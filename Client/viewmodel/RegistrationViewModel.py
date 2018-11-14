@@ -1,14 +1,18 @@
 from viewmodel.GenericViewModel import GenericViewModel
 
 
-class RegisterViewModel(GenericViewModel):
-    def __init__(self, error_message=None, first_name=None, last_name=None,
+class RegistrationViewModel(GenericViewModel):
+    def __init__(self, error_message=None, first_name=None, last_name=None, username=None,
                  password=None, confirm_password=None, email=None, id_code=None):
         GenericViewModel.__init__(self, error_message)
+
         self.first_name = first_name
         self.last_name = last_name
+
+        self.username = username
         self.password = password
         self.confirm_password = confirm_password
+
         self.email = email
         self.id_code = id_code
 
@@ -23,6 +27,12 @@ class RegisterViewModel(GenericViewModel):
 
     def set_last_name(self, last_name):
         self.last_name = last_name
+
+    def get_username(self):
+        return self.username
+
+    def set_username(self, username):
+        self.username = username
 
     def get_password(self):
         return self.password
