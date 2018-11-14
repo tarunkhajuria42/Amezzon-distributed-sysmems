@@ -1,7 +1,7 @@
 package com.cdedonder.amezzon.server;
 
-import com.cdedonder.amezzon.parser.MessageParser;
 import com.cdedonder.amezzon.parser.Message;
+import com.cdedonder.amezzon.parser.MessageParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -23,7 +23,7 @@ public class HttpExchangeHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        LOGGER.info("Message received.");
+        LOGGER.info("Exchange received.");
         String method = exchange.getRequestMethod();
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
@@ -41,6 +41,6 @@ public class HttpExchangeHandler implements HttpHandler {
         }catch (Exception e){
             LOGGER.severe(e.toString());
         }
-        LOGGER.info("Message answered.");
+        LOGGER.info("Exchange answered.");
     }
 }

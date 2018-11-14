@@ -7,6 +7,7 @@ public class DatabaseStatementResponse {
 
     private List<ErrorMessageWrapper> error_messages;
     private List<ResultWrapper> result_list;
+    private List<String> statement_error_messages;
 
     public List<ErrorMessageWrapper> getError_messages() {
         return error_messages;
@@ -22,6 +23,14 @@ public class DatabaseStatementResponse {
 
     public void setResult_list(List<ResultWrapper> result_list) {
         this.result_list = result_list;
+    }
+
+    public List<String> getStatement_error_messages() {
+        return statement_error_messages;
+    }
+
+    public void setStatement_error_messages(List<String> statement_error_messages) {
+        this.statement_error_messages = statement_error_messages;
     }
 
     public static class ErrorMessageWrapper {
