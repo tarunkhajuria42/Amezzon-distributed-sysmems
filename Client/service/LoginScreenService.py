@@ -1,6 +1,5 @@
 import httplib
 import socket
-import urllib, json
 from dto.LoginDto import LoginDto
 
 
@@ -13,7 +12,6 @@ class LoginService(object):
         if self.loginViewModel.get_username().text and self.loginViewModel.get_password().text:
             return True
         else:
-
             if not self.loginViewModel.get_username().text:
                 self.loginViewModel.get_username().hint_text = 'Login'
 
@@ -22,15 +20,15 @@ class LoginService(object):
 
             return False
 
-    def login(self, loginViewModel, connection_manager):
+    def login(self, loginViewModel, connectionManager):
         self.loginViewModel = loginViewModel
         if self.validate_input():
-            reqDto = self.loginDto.PostRequest(
+            requestDto = self.loginDto.PostRequest(
                 username=self.loginViewModel.get_username().text,
                 password=self.loginViewModel.get_password().text
             )
             try:
-                res = connection_manager.send_request(body=reqDto.toJSON(), method='POST')
-                print res
+                response = connectionManager.send_request(body=requestDto.toJSON(), method='POST')
+                print response
             except (httplib.HTTPException, socket.error) as ex:
                 print "Error: %s" % ex
