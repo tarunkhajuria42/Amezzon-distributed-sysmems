@@ -1,5 +1,3 @@
-#:import C kivy.utils.get_color_from_hex
-
 <CustomInput@TextInput>:
     background_color: 0,0,0,0
     cursor_color: C('#ffffff')
@@ -10,13 +8,13 @@
         Color:
             rgb: C('#0f192e')
         Ellipse:
-            angle_start:180
-            angle_end:360
-            pos:(self.pos[0] - self.size[1]/2.0, self.pos[1])
+            angle_start: 180
+            angle_end: 360
+            pos: (self.pos[0] - self.size[1]/2.0, self.pos[1])
             size: (self.size[1], self.size[1])
         Ellipse:
-            angle_start:360
-            angle_end:540
+            angle_start: 360
+            angle_end: 540
             pos: (self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1])
             size: (self.size[1], self.size[1])
         Color:
@@ -33,151 +31,39 @@
 <CustomButton@Button>:
     font_size: self.height * 0.2 + self.width * 0.05
     background_color: C('#3f92db')
-    canvas.before:
+    canvas.after:
         Color:
             rgba: C('#3f92db')
         Line:
-            width: 4
+            width: 2
             rectangle: self.x, self.y, self.width, self.height
 
 <LoginScreen>:
-    connection_manager: app.connection_manager
-
+    connectionManager: app.connectionManager
     username: username
-
     password: password
 
     BoxLayout:
         orientation:'vertical'
 
         BoxLayout:
+            orientation:'vertical'
             size_hint_y: 10
 
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_y: 80
-            canvas:
-                Color:
-                    rgba: C('#18294a')
-                Rectangle:
-                    pos:self.pos
-                    size:self.size
+            BoxLayout:
+                size_hint_y: 2
 
             BoxLayout:
-                size_hint_y: 5
-
-            BoxLayout:
-                size_hint_y: 20
-                orientation:'vertical'
-                Label:
-                    size_hint_y: 8
-                    text: 'Login'
-                    color: C('#ffffff')
-                    font_size:'20dp'
-                    padding: 5,5
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'center'
+                size_hint_y: 4
 
                 BoxLayout:
-                    size_hint_y: 8
-
-                    BoxLayout:
-                        size_hint_x: 25
-
-                    BoxLayout:
-                        size_hint_x: 50
-                        canvas.before:
-                            Color:
-                                rgba: C('#0f192e')
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
-                        CustomInput:
-                            id: username
-                            multiline: False
-                            password: False
-                            font_size: self.height * 0.6
-                            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                    BoxLayout:
-                        size_hint_x: 25
-            BoxLayout:
-                size_hint_y: 1
-
-            BoxLayout:
-                size_hint_y: 20
-                orientation:'vertical'
-                Label:
-                    size_hint_y: 8
-                    text: 'Password'
-                    color: C('#ffffff')
-                    font_size:'20dp'
-                    padding: 5,5
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'center'
+                    size_hint_x: 25
 
                 BoxLayout:
-                    size_hint_y: 8
-
-                    BoxLayout:
-                        size_hint_x: 25
-
-                    BoxLayout:
-                        size_hint_x: 50
-                        canvas.before:
-                            Color:
-                                rgba: C('#0f192e')
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
-                        CustomInput:
-                            id: password
-                            multiline: False
-                            password: True
-                            font_size: self.height * 0.6
-                            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                    BoxLayout:
-                        size_hint_x: 25
-
-            BoxLayout:
-                size_hint_y: 10
-
-        BoxLayout:
-            size_hint_y: 30
-            orientation: 'vertical'
-            canvas:
-                Color:
-                    rgba: C('#18294a')
-                Rectangle:
-                    pos:self.pos
-                    size:self.size
-
-            BoxLayout:
-                size_hint_y: 10
-
-                BoxLayout:
-                    size_hint_x: 10
-
-                BoxLayout:
-                    size_hint_x: 20
+                    size_hint_x: 5
 
                     CustomButton:
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-                        text: 'Login'
-                        on_press: root.login()
-
-                BoxLayout:
-                    size_hint_x: 2
-
-                BoxLayout:
-                    size_hint_x: 20
-
-                    CustomButton:
+                        size_hint_x: 5
                         text_size: self.size
                         halign: 'center'
                         valign: 'center'
@@ -185,10 +71,129 @@
                         on_press: root.to_registration_screen()
 
                 BoxLayout:
-                    size_hint_x: 10
+                    size_hint_x: 1
 
             BoxLayout:
-                size_hint_y: 10
+                size_hint_y: 2
 
-        BoxLayout:
-            size_hint_y: 20
+        ScrollView:
+            bar_width: 0
+            size_hint_y: 50
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.parent.height * 1.01
+                canvas:
+                    Color:
+                        rgba: C('#18294a')
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+
+                BoxLayout:
+                    size_hint_y: 5
+
+                BoxLayout:
+                    size_hint_y: 20
+                    orientation:'vertical'
+                    Label:
+                        size_hint_y: 8
+                        text: 'Login'
+                        color: C('#ffffff')
+                        font_size: self.height * 0.4
+                        padding: 5,5
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'center'
+
+                    BoxLayout:
+                        size_hint_y: 8
+
+                        BoxLayout:
+                            size_hint_x: 25
+
+                        BoxLayout:
+                            size_hint_x: 50
+                            canvas.before:
+                                Color:
+                                    rgba: C('#0f192e')
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            CustomInput:
+                                id: username
+                                multiline: False
+                                password: False
+                                font_size: self.height * 0.6
+                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+
+                        BoxLayout:
+                            size_hint_x: 25
+                BoxLayout:
+                    size_hint_y: 5
+
+                BoxLayout:
+                    size_hint_y: 20
+                    orientation:'vertical'
+                    Label:
+                        size_hint_y: 8
+                        text: 'Password'
+                        color: C('#ffffff')
+                        font_size: self.height * 0.4
+                        padding: 5,5
+                        text_size: self.size
+                        halign: 'center'
+                        valign: 'center'
+
+                    BoxLayout:
+                        size_hint_y: 8
+
+                        BoxLayout:
+                            size_hint_x: 25
+
+                        BoxLayout:
+                            size_hint_x: 50
+                            canvas.before:
+                                Color:
+                                    rgba: C('#0f192e')
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                            CustomInput:
+                                id: password
+                                multiline: False
+                                password: True
+                                font_size: self.height * 0.6
+                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+
+                        BoxLayout:
+                            size_hint_x: 25
+
+                BoxLayout:
+                    size_hint_y: 10
+
+                BoxLayout:
+                    size_hint_y: 20
+                    orientation: 'vertical'
+
+                    BoxLayout:
+                        size_hint_y: 10
+
+                        BoxLayout:
+                            size_hint_x: 10
+
+                        BoxLayout:
+                            size_hint_x: 10
+
+                            CustomButton:
+                                text_size: self.size
+                                halign: 'center'
+                                valign: 'center'
+                                text: 'Login'
+                                on_press: root.login()
+
+                        BoxLayout:
+                            size_hint_x: 10
+
+                    BoxLayout:
+                        size_hint_y: 10

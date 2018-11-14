@@ -1,12 +1,14 @@
 import httplib
 import socket
 from dto.LoginDto import LoginDto
+from resource.StaticResource import HOME_SCREEN
 
 
 class LoginService(object):
     def __init__(self):
         self.loginDto = LoginDto()
         self.loginViewModel = None
+        self.loginScreen = None
 
     def validate_input(self):
         if self.loginViewModel.get_username().text and self.loginViewModel.get_password().text:
@@ -20,15 +22,21 @@ class LoginService(object):
 
             return False
 
-    def login(self, loginViewModel, connectionManager):
+    # TODO:Validate return value before moving to Home Screen
+    def login(self, loginViewModel, connectionManager, loginScreen):
+        self.loginScreen = loginScreen
         self.loginViewModel = loginViewModel
-        if self.validate_input():
-            requestDto = self.loginDto.PostRequest(
-                username=self.loginViewModel.get_username().text,
-                password=self.loginViewModel.get_password().text
-            )
-            try:
-                response = connectionManager.send_request(body=requestDto.toJSON(), method='POST')
-                print response
-            except (httplib.HTTPException, socket.error) as ex:
-                print "Error: %s" % ex
+
+        self.loginScreen.transition.direction = 'down'
+        self.loginScreen.current = HOME_SCREEN
+
+        # if self.validate_input():
+        #     requestDto = self.loginDto.PostRequest(
+        #         username=self.loginViewModel.get_username().text,
+        #         password=self.loginViewModel.get_password().text
+        #     )
+        #     try:
+        #         response = connectionManager.send_request(body=requestDto.toJSON(), method='POST')
+        #         self.loginScreen.current = REGISTRATION_SCREEN
+        #     except (httplib.HTTPException, socket.error) as ex:
+        #         print "Error: %s" % ex

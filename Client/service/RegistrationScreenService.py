@@ -8,6 +8,7 @@ class RegistrationService(object):
     def __init__(self):
         self.registrationDto = RegistrationDto()
         self.registrationViewModel = None
+        self.registrationScreen = None
 
     # TODO: Give information to user about the errors
     def validate_input(self):
@@ -45,8 +46,10 @@ class RegistrationService(object):
 
         return False
 
-    def register(self, registrationViewModel, connectionManager):
+    def register(self, registrationViewModel, connectionManager, registrationScreen):
+        self.registrationScreen = registrationScreen
         self.registrationViewModel = registrationViewModel
+
         if self.validate_input():
             requestDto = self.registrationDto.PostRequest(
                 first_name=self.registrationViewModel.get_first_name().text,

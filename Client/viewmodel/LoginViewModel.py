@@ -2,10 +2,8 @@ from viewmodel.GenericViewModel import GenericViewModel
 
 
 class LoginViewModel(GenericViewModel):
-    def __init__(self,
-                 username=None, username_error_message=None,
-                 password=None, password_error_message=None,
-                 error_message=None, error=False):
+    def __init__(self, username=None, username_error_message=None, password=None,
+                 password_error_message=None, error_message=None, error=False):
         GenericViewModel.__init__(self, error_message)
 
         self.username = username

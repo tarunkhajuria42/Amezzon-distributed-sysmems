@@ -1,5 +1,3 @@
-
-
 # CLIENT <---> SERVER
 ACTION_LOGIN = 'login'
 ACTION_REGISTRATION = 'registration'
@@ -23,3 +21,8 @@ FIRST_NAME = 'first_name'
 LAST_NAME = 'last_name'
 MAIL = 'mail'
 ID_CODE = 'id_code'
+
+# SCREENS
+LOGIN_SCREEN = 'LoginScreen'
+REGISTRATION_SCREEN = 'RegistrationScreen'
+HOME_SCREEN = 'HomeScreen'
