@@ -20,6 +20,7 @@ public class DataSourceFactory {
             mysqlDS.setPassword(props.getProperty("MYSQL_DB_PASSWORD"));
             mysqlDS.setUseSSL(Boolean.parseBoolean(props.getProperty("MYSQL_DB_USESSL")));
             mysqlDS.setAutoReconnect(Boolean.parseBoolean(props.getProperty("MYSQL_DB_AUTORECONNECT")));
+            mysqlDS.setAllowPublicKeyRetrieval(Boolean.parseBoolean(props.getProperty("MYSQL_DB_ALLOWPUBLICKEYRETRIEVAL")));
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
