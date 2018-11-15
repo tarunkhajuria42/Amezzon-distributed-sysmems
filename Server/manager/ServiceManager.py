@@ -7,6 +7,7 @@ LOG_CONF_FILE = 'conf/logging_config.ini'
 SERVER_CONF_FILE = 'conf/server_config.ini'
 
 
+
 class ServiceManager(object):
     def __init__(self):
         """SetUp folder related service and configurations"""
@@ -22,6 +23,8 @@ class ServiceManager(object):
         """SetUp log related service and configurations"""
         self.server_config = SafeConfigParser()
         self.server_config.read(SERVER_CONF_FILE)
+
+        
 
     def get_folder_service(self):
         return self.folder_service
