@@ -1,7 +1,7 @@
 from dto.ErrorMessage import ErrorMessageList
 from dto.GenericDto import GenericDto
 from dto.database.Statements import StatementList
-from resource.DtoResource import ACTION_DB_STATEMENT
+from resource.StaticResource import ACTION_DB_STATEMENT
 
 
 class DataBaseStatementDto(object):
