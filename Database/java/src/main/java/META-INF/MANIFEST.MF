@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Built-By: Cedric De Donder
+Build-Jdk: 1.8.0_191
+Created-By: Apache Maven 3.5.1
+Main-Class: com.cdedonder.amezzon.Main

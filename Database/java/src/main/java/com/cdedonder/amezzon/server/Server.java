@@ -10,7 +10,7 @@ public interface Server {
         Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         Properties properties = new Properties();
         try {
-            properties.load(DatabaseHttpServer.class.getResourceAsStream("default.properties"));
+            properties.load(DatabaseHttpServer.class.getResourceAsStream("/default.properties"));
         } catch (IOException e) {
             LOGGER.severe("Cannot read default properties:\n" + e.getMessage());
         }
