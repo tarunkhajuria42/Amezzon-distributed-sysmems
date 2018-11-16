@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
@@ -24,23 +25,28 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        try {
-            DatabaseLogger.setup();
-        } catch (IOException e) {
-            System.err.println("Cannot create logger instance:\n" + e.getMessage());
-            System.exit(1);
-        }
-
         options = new Options();
         Option httpType = new Option("t", "type", true, "use either http or https");
         httpType.setRequired(true);
         options.addOption(httpType);
+        Option logType = new Option("l", "logging", false, "set flag to use debug logging");
+        logType.setRequired(false);
+        options.addOption(logType);
+        Option displayType = new Option("d", "display-on-terminal", false, "set flag to direct logging to terminal");
+        displayType.setRequired(false);
+        options.addOption(displayType);
 
         CommandLineParser parser = new DefaultParser();
         formatter = new HelpFormatter();
 
         try {
             CommandLine cmd = parser.parse(options, args);
+            try {
+                DatabaseLogger.setup(cmd.hasOption("logging") ? Level.INFO : Level.SEVERE, cmd.hasOption("display-on-terminal"));
+            } catch (IOException e) {
+                System.err.println("Cannot create logger instance:\n" + e.getMessage());
+                System.exit(1);
+            }
             String type = cmd.getOptionValue("type");
             if (serverMap.containsKey(type.toLowerCase())) {
                 Properties properties = Server.defaultProperties();
