@@ -1,12 +1,22 @@
 package com.cdedonder.amezzon.parser.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
+@JsonPropertyOrder({"token", "error_messages"})
 public class InitializeTransactionResponse {
 
-    private List<String> error_messages;
+    @JsonProperty("error_messages")
+    private List<String> errorMessages;
     private String token;
+
+    public InitializeTransactionResponse() {
+        errorMessages = new ArrayList<>();
+    }
 
     public String getToken() {
         return token;
@@ -16,11 +26,13 @@ public class InitializeTransactionResponse {
         this.token = token;
     }
 
-    public List<String> getError_messages() {
-        return error_messages;
+    @JsonProperty("error_messages")
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
 
-    public void setError_messages(List<String> error_messages) {
-        this.error_messages = error_messages;
+    @JsonProperty("error_messages")
+    public void setErrorMessages(List<String> errorMessages) {
+        this.errorMessages = errorMessages;
     }
 }

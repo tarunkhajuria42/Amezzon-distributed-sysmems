@@ -46,8 +46,8 @@ public class TransactionThread extends Thread {
                                 column_names.add(metaData.getColumnName(i));
                                 column_types.add(metaData.getColumnTypeName(i));
                             }
-                            queryResult.setColumn_names(column_names);
-                            queryResult.setColumn_types(column_types);
+                            queryResult.setColumnNames(column_names);
+                            queryResult.setColumnTypes(column_types);
                             while (resultSet.next()) {
                                 List<String> row = new ArrayList<>(count);
                                 for (int i = 1; i <= count; i++) {
@@ -68,8 +68,10 @@ public class TransactionThread extends Thread {
             connection.commit();
             connection.setAutoCommit(true);
             pool.remove(uuid, connection);
-        } catch (InterruptedException | SQLException e2) {
+        } catch (InterruptedException e2) {
             LOGGER.severe(e2.getMessage());
+        } catch (SQLException e3) {
+            LOGGER.severe(e3.getMessage() + "\nSQL state: " + e3.getSQLState());
         }
     }
 }

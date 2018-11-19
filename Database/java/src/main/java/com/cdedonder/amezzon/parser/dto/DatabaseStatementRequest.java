@@ -1,39 +1,52 @@
 package com.cdedonder.amezzon.parser.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.List;
 
 @SuppressWarnings("unused")
+@JsonPropertyOrder({"transaction_token", "statement_list"})
 public class DatabaseStatementRequest {
 
-    private List<StatementWrapper> statement_list;
-    private String transaction_token;
+    @JsonProperty("statement_list")
+    private List<StatementWrapper> statementList;
+    @JsonProperty("transaction_token")
+    private String transactionToken;
 
+    @JsonProperty("statement_list")
     public List<StatementWrapper> getStatement_list() {
-        return statement_list;
+        return statementList;
     }
 
-    public void setStatement_list(List<StatementWrapper> statement_list) {
-        this.statement_list = statement_list;
+    @JsonProperty("statement_list")
+    public void setStatementList(List<StatementWrapper> statementList) {
+        this.statementList = statementList;
     }
 
-    public String getTransaction_token() {
-        return transaction_token;
+    @JsonProperty("transaction_token")
+    public String getTransactionToken() {
+        return transactionToken;
     }
 
-    public void setTransaction_token(String transaction_token) {
-        this.transaction_token = transaction_token;
+    @JsonProperty("transaction_token")
+    public void setTransaction_token(String transactionToken) {
+        this.transactionToken = transactionToken;
     }
 
     public static class StatementWrapper {
-        private int statement_id;
+        @JsonProperty("statement_id")
+        private int statementId;
         private String statement;
 
-        public int getStatement_id() {
-            return statement_id;
+        @JsonProperty("statement_id")
+        public int getStatementId() {
+            return statementId;
         }
 
-        public void setStatement_id(int statement_id) {
-            this.statement_id = statement_id;
+        @JsonProperty("statement_id")
+        public void setStatementId(int statementId) {
+            this.statementId = statementId;
         }
 
         public String getStatement() {

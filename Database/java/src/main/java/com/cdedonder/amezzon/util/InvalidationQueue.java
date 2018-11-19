@@ -2,6 +2,7 @@ package com.cdedonder.amezzon.util;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.function.Consumer;
 
 public class InvalidationQueue<E> {
 
@@ -31,5 +32,10 @@ public class InvalidationQueue<E> {
     public synchronized void revalidateAll() {
         validQueue.addAll(invalidQueue);
         invalidQueue.clear();
+    }
+
+    public void forEach(Consumer<? super E> consumer) {
+        validQueue.forEach(consumer);
+        invalidQueue.forEach(consumer);
     }
 }
