@@ -6,14 +6,13 @@ from parser.ClientRequestParser import ClientRequestParser
 
 
 class HttpHandlerService(BaseHTTPRequestHandler):
+
     def do_GET(self):
         content_len = int(self.headers.getheader('content-length'))
         body = self.rfile.read(content_len)
         parser = ClientRequestParser(json_string=body, method='GET')
         request_dto = parser.get_body()
-
         print request_dto.toJSON()
-
         self.send_response(200)
         self.end_headers()
 
@@ -24,12 +23,9 @@ class HttpHandlerService(BaseHTTPRequestHandler):
         body = self.rfile.read(content_len)
         parser = ClientRequestParser(json_string=body, method='POST')
         request_dto = parser.get_body()
-
         print request_dto.get_action()
-
         self.send_response(200)
         self.end_headers()
-
         response_dto = LoginDto.PostResponse(
             token='TEST',
             error_messages=ErrorMessageList()

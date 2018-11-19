@@ -1,6 +1,6 @@
 from dto.ErrorMessage import ErrorMessageList
 from dto.GenericDto import GenericDto
-from resource.DtoResource import ACTION_INIT_TRANSACTION
+from resource.StaticResource import ACTION_INIT_TRANSACTION
 
 
 class IniTransactionDto(object):
@@ -8,10 +8,8 @@ class IniTransactionDto(object):
         def __init__(self):
             GenericDto.CustomRequest.__init__(
                 self, action=ACTION_INIT_TRANSACTION, data=self.Data(
-
                 )
             )
-
         class Data(object):
             def __init__(self):
                 pass
