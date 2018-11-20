@@ -35,6 +35,9 @@ public class Main {
         Option displayType = new Option("d", "display-on-terminal", false, "set flag to direct logging to terminal");
         displayType.setRequired(false);
         options.addOption(displayType);
+        Option portNumber = new Option("p", "port", true, "specify port, default 8123");
+        portNumber.setRequired(false);
+        options.addOption(portNumber);
 
         CommandLineParser parser = new DefaultParser();
         formatter = new HelpFormatter();
@@ -50,6 +53,9 @@ public class Main {
             String type = cmd.getOptionValue("type");
             if (serverMap.containsKey(type.toLowerCase())) {
                 Properties properties = Server.defaultProperties();
+                if (cmd.hasOption("port")) {
+                    properties.setProperty("port", cmd.getOptionValue("port"));
+                }
                 try {
                     serverMap.get(type.toLowerCase()).apply(properties).start();
                 } catch (Exception e) {

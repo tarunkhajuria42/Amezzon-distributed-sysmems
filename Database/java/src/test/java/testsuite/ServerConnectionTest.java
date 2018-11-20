@@ -23,6 +23,7 @@ public class ServerConnectionTest {
             connection.setDoInput(true);
             try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
                 wr.writeBytes(message);
+                wr.flush();
             }
             System.out.println(connection.getResponseCode());
             InputStream is = connection.getInputStream();
