@@ -1,28 +1,38 @@
 package com.cdedonder.amezzon.parser.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.List;
 
 @SuppressWarnings("unused")
+@JsonPropertyOrder({"column_names", "column_types", "rows"})
 public class QueryResult {
 
-    private List<String> column_names;
-    private List<String> column_types;
+    @JsonProperty("column_names")
+    private List<String> columnNames;
+    @JsonProperty("column_types")
+    private List<String> columnTypes;
     private List<List<String>> rows;
 
-    public List<String> getColumn_names() {
-        return column_names;
+    @JsonProperty("column_names")
+    public List<String> getColumnNames() {
+        return columnNames;
     }
 
-    public void setColumn_names(List<String> column_names) {
-        this.column_names = column_names;
+    @JsonProperty("column_names")
+    public void setColumnNames(List<String> columnNames) {
+        this.columnNames = columnNames;
     }
 
-    public List<String> getColumn_types() {
-        return column_types;
+    @JsonProperty("column_types")
+    public List<String> getColumnTypes() {
+        return columnTypes;
     }
 
-    public void setColumn_types(List<String> column_types) {
-        this.column_types = column_types;
+    @JsonProperty("column_types")
+    public void setColumnTypes(List<String> columnTypes) {
+        this.columnTypes = columnTypes;
     }
 
     public List<List<String>> getRows() {

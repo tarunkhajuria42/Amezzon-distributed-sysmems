@@ -3,7 +3,6 @@ package com.cdedonder.amezzon.database;
 import com.cdedonder.amezzon.logging.DatabaseLogger;
 import com.cdedonder.amezzon.util.BidirectionalTransferQueue;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
@@ -15,25 +14,27 @@ public class TransactionPool {
     private static final Logger LOGGER = DatabaseLogger.getLogger();
 
     private final ConcurrentHashMap<String, BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper>> map;
-    private DataSource ds;
+    private DataSourceWrapper ds;
 
     //https://www.journaldev.com/2509/java-datasource-jdbc-datasource-example
 
     public TransactionPool(){
         map = new ConcurrentHashMap<>();
-        ds = DataSourceFactory.getMySQLDataSource();
+        ds = new DataSourceWrapper();
     }
 
-    public synchronized String newTransactionInstance(){
+    public synchronized String newTransactionInstance() { //TODO throw exception when connection not valid
         BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = new BidirectionalTransferQueue<>();
         String uuid = UUID.randomUUID().toString();
         try {
             new TransactionThread(transferQueue, ds.getConnection(), this, uuid);
             map.put(uuid, transferQueue);
-        }catch (SQLException e){
-            LOGGER.severe(e.getMessage());
+            return uuid;
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage() + "(returning NULL)");
+            //LOGGER.severe("SQL state: " + e.getSQLState());
         }
-        return uuid;
+        return null;
     }
 
     public QueryResultErrorMessageWrapper processStatement(String token, String statement) throws GenericServerError {

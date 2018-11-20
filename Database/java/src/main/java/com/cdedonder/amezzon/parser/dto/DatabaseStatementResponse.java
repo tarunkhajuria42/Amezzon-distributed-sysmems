@@ -1,79 +1,113 @@
 package com.cdedonder.amezzon.parser.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
+@JsonPropertyOrder({"result_list", "statement_error_messages", "error_messages"})
 public class DatabaseStatementResponse {
 
-    private List<ErrorMessageWrapper> error_messages;
-    private List<ResultWrapper> result_list;
-    private List<String> statement_error_messages;
+    @JsonProperty("error_messages")
+    private List<ErrorMessageWrapper> errorMessages;
+    @JsonProperty("result_list")
+    private List<ResultWrapper> resultList;
+    @JsonProperty("statement_error_messages")
+    private List<String> statementErrorMessages;
 
-    public List<ErrorMessageWrapper> getError_messages() {
-        return error_messages;
+    public DatabaseStatementResponse() {
+        errorMessages = new ArrayList<>();
+        resultList = new ArrayList<>();
+        statementErrorMessages = new ArrayList<>();
     }
 
-    public void setError_messages(List<ErrorMessageWrapper> error_messages) {
-        this.error_messages = error_messages;
+    @JsonProperty("errorMessage")
+    public List<ErrorMessageWrapper> getErrorMessages() {
+        return errorMessages;
     }
 
-    public List<ResultWrapper> getResult_list() {
-        return result_list;
+    @JsonProperty("error_messages")
+    public void setErrorMessages(List<ErrorMessageWrapper> errorMessages) {
+        this.errorMessages = errorMessages;
     }
 
-    public void setResult_list(List<ResultWrapper> result_list) {
-        this.result_list = result_list;
+    @JsonProperty("result_list")
+    public List<ResultWrapper> getResultList() {
+        return resultList;
     }
 
-    public List<String> getStatement_error_messages() {
-        return statement_error_messages;
+    @JsonProperty("result_list")
+    public void setResultList(List<ResultWrapper> resultList) {
+        this.resultList = resultList;
     }
 
-    public void setStatement_error_messages(List<String> statement_error_messages) {
-        this.statement_error_messages = statement_error_messages;
+    @JsonProperty("statement_error_messages")
+    public List<String> getStatementErrorMessages() {
+        return statementErrorMessages;
     }
 
+    @JsonProperty("statement_error_messages")
+    public void setStatementErrorMessages(List<String> statementErrorMessages) {
+        this.statementErrorMessages = statementErrorMessages;
+    }
+
+    @JsonPropertyOrder({"statement_id", "error_message"})
     public static class ErrorMessageWrapper {
 
-        private String error_message;
-        private int statement_id;
+        @JsonProperty("error_message")
+        private String errorMessage;
+        @JsonProperty("statement_id")
+        private int statementId;
 
-        public String getError_message() {
-            return error_message;
+        @JsonProperty("error_message")
+        public String getErrorMessage() {
+            return errorMessage;
         }
 
-        public void setError_message(String error_message) {
-            this.error_message = error_message;
+        @JsonProperty("error_message")
+        public void setErrorMessage(String errorMessage) {
+            this.errorMessage = errorMessage;
         }
 
-        public int getStatement_id() {
-            return statement_id;
+        @JsonProperty("statement_id")
+        public int getStatementId() {
+            return statementId;
         }
 
-        public void setStatement_id(int statement_id) {
-            this.statement_id = statement_id;
+        @JsonProperty("statement_id")
+        public void setStatementId(int statementId) {
+            this.statementId = statementId;
         }
     }
 
+    @JsonPropertyOrder({"statement_id", "result_message"})
     public static class ResultWrapper {
 
-        private int statement_id;
-        private QueryResult result_message;
+        @JsonProperty("statement_id")
+        private int statementId;
+        @JsonProperty("result_message")
+        private QueryResult resultMessage;
 
-        public int getStatement_id() {
-            return statement_id;
+        @JsonProperty("statement_id")
+        public int getStatementId() {
+            return statementId;
         }
 
-        public void setStatement_id(int statement_id) {
-            this.statement_id = statement_id;
+        @JsonProperty("statement_id")
+        public void setStatementId(int statementId) {
+            this.statementId = statementId;
         }
 
-        public QueryResult getResult_message() {
-            return result_message;
+        @JsonProperty("result_message")
+        public QueryResult getResultMessage() {
+            return resultMessage;
         }
 
-        public void setResult_message(QueryResult result_message) {
-            this.result_message = result_message;
+        @JsonProperty("result_message")
+        public void setResultMessage(QueryResult resultMessage) {
+            this.resultMessage = resultMessage;
         }
     }
 }

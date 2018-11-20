@@ -57,11 +57,17 @@ public class MessageParser {
             LOGGER.info("Initialize new Transaction");
             String token = transactionPool.newTransactionInstance();
             InitializeTransactionResponse response = new InitializeTransactionResponse();
-            response.setToken(token);
-            String json = wrapInData(objectMapper.writeValueAsString(response));
-            message.setResponseCode(200);
-            message.setResponseBody(json);
-            LOGGER.info("Send Transaction token");
+            if (token != null) {
+                response.setToken(token);
+                String json = wrapInData(objectMapper.writeValueAsString(response));
+                message.setResponseCode(200);
+                message.setResponseBody(json);
+                LOGGER.info("Send Transaction token");
+            } else {
+                response.getErrorMessages().add("No connections available.");
+                message.setResponseCode(300);
+            }
+            message.setResponseBody(wrapInData(objectMapper.writeValueAsString(response)));
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
@@ -75,26 +81,26 @@ public class MessageParser {
             List<DatabaseStatementResponse.ResultWrapper> results = new ArrayList<>();
             List<DatabaseStatementResponse.ErrorMessageWrapper> errors = new ArrayList<>();
             for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatement_list()) {
-                QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransaction_token(), wrapper.getStatement());
+                QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransactionToken(), wrapper.getStatement());
 
                 DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
-                resultWrapper.setResult_message(intermediateWrapper.getQueryResult());
-                resultWrapper.setStatement_id(wrapper.getStatement_id());
+                resultWrapper.setResultMessage(intermediateWrapper.getQueryResult());
+                resultWrapper.setStatementId(wrapper.getStatementId());
                 results.add(resultWrapper);
 
                 DatabaseStatementResponse.ErrorMessageWrapper errorWrapper = new DatabaseStatementResponse.ErrorMessageWrapper();
-                errorWrapper.setError_message(intermediateWrapper.getError_message());
-                errorWrapper.setStatement_id(wrapper.getStatement_id());
+                errorWrapper.setErrorMessage(intermediateWrapper.getError_message());
+                errorWrapper.setStatementId(wrapper.getStatementId());
                 errors.add(errorWrapper);
             }
-            response.setResult_list(results);
-            response.setError_messages(errors);
+            response.setResultList(results);
+            response.setErrorMessages(errors);
 
             message.setResponseCode(200);
 
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
-            response.setStatement_error_messages(new ArrayList<String>(1) {{
+            response.setStatementErrorMessages(new ArrayList<String>(1) {{
                 add(e.getMessage());
             }});
         } finally {
