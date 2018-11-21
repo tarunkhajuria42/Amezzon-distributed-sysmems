@@ -10,9 +10,6 @@
 /Client/log/**
 /Server/log/**
 
-#.pyc
-*.pyc
-
 #Idea
 .idea/**
 

@@ -1,6 +1,6 @@
 from dto.client.UserInformationDto import UserInformationDto
 from parser.client.GenericDtoParser import GenericDtoParser
-from resource.DtoResource import TOKEN, FIRST_NAME, LAST_NAME, MAIL, PASSWORD
+from resource.StaticResource import TOKEN, FIRST_NAME, LAST_NAME, MAIL, PASSWORD
 
 
 class UserInformationDtoParser(GenericDtoParser):

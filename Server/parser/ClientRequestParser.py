@@ -3,7 +3,7 @@ import json
 from parser.client.UserInformationDtoParser import UserInformationDtoParser
 from parser.client.LoginDtoParser import LoginDtoParserService
 from parser.client.RegistrationDtoParser import RegistrationDtoParserService
-from resource.DtoResource import ACTION_LOGIN, ACTION_REGISTRATION, \
+from resource.StaticResource import ACTION_LOGIN, ACTION_REGISTRATION, \
     ACTION_USER_INFORMATION, ACTION
 
 

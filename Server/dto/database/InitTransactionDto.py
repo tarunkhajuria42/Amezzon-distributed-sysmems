@@ -1,6 +1,6 @@
 from dto.ErrorMessage import ErrorMessageList
 from dto.GenericDto import GenericDto
-from resource.DtoResource import ACTION_INIT_TRANSACTION
+from resource.StaticResource import ACTION_INIT_TRANSACTION
 
 
 class IniTransactionDto(object):

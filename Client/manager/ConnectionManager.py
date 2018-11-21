@@ -9,7 +9,6 @@ HOST = 'host'
 class ConnectionManager(object):
     def __init__(self, service_manager):
         self.con_config = dict(service_manager.get_connection_config())[CONNECTION_DEFAULT]
-        self.con_service = service_manager.get_connection_service()
         self.connection = None
         self.header = {
             'Content-type': 'application/json',

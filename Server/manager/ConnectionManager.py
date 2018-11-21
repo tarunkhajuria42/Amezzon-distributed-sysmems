@@ -1,8 +1,9 @@
+import os
 import ssl
 from manager.ServerThreadManager import ServerThreadManager
+from resource.StaticResource import SERVER_CONFIG
 from service.HttpHandlerService import HttpHandlerService
 
-SERVER_CONFIG = 'default'
 CRL_PATH = 'crl/yourpemfile.pem'
 
 
@@ -17,11 +18,11 @@ class ConnectionManager(object):
             ),
             HttpHandlerService
         )
-        self.server.socket = ssl.wrap_socket(
-            sock=self.server.socket,
-            server_side=self.server_config['server_side'],
-            certfile=CRL_PATH
-            )
+        # self.server.socket = ssl.wrap_socket(
+        #     sock=self.server.socket,
+        #     server_side=self.server_config['server_side'],
+        #     certfile=CRL_PATH
+        # )
 
     def run(self):
         print 'Starting server, Accepting Clients'
