@@ -1,331 +1,81 @@
 <RegistrationScreen>:
     connectionManager: app.connectionManager
-
     first_name: first_name
     last_name: last_name
-
     email: email
-
     username: username
     password: password
     confirm_password: confirm_password
 
-    BoxLayout:
-        orientation:'vertical'
-
+    ScrollView:
         BoxLayout:
-            orientation:'vertical'
-            size_hint_y: 10
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 50
+            spacing: 15
+
+            MDTextField:
+                id: first_name
+                hint_text: "First Name"
+                required: True
+                helper_text_mode: "on_error"
+                font_size: self.parent.height * 0.035
+
+            MDTextField:
+                id: last_name
+                hint_text: "Last Name"
+                required: True
+                helper_text_mode: "on_error"
+                font_size: self.parent.height * 0.035
+
+            MDTextField:
+                id: email
+                hint_text: "Email"
+                required: True
+                helper_text_mode: "on_error"
+                font_size: self.parent.height * 0.035
+
+            MDTextField:
+                id: username
+                hint_text: "Username"
+                required: True
+                helper_text_mode: "on_error"
+                font_size: self.parent.height * 0.035
+
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                required: True
+                password: True
+                helper_text_mode: "on_error"
+                font_size: self.parent.height * 0.035
+
+            MDTextField:
+                id: confirm_password
+                hint_text: "Confirm password"
+                required: True
+                password: True
+                helper_text_mode: "on_error"
+                font_size: self.parent.height * 0.035
+                on_text: self.error=False
 
             BoxLayout:
-                size_hint_y: 2
-
-            BoxLayout:
-                size_hint_y: 4
-
-                BoxLayout:
-                    size_hint_x: 1
-
-                BoxLayout:
-                    size_hint_x: 5
-
-                    CustomButton:
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-                        text: 'Login'
-                        on_press: root.to_login_screen()
-
-                BoxLayout:
-                    size_hint_x: 25
-
-            BoxLayout:
-                size_hint_y: 2
-
-        ScrollView:
-            bar_width: 0
-            size_hint_y: 50
-            BoxLayout:
-                orientation: 'vertical'
                 size_hint_y: None
-                height: self.parent.height * 2.3
-                canvas:
-                    Color:
-                        rgba: C('#18294a')
-                    Rectangle:
-                        pos:self.pos
-                        size:self.size
+                spacing: 0.05 * self.width
 
-                BoxLayout:
-                    size_hint_y: 5
+                Widget:
+                MDRoundFlatIconButton:
+                    text: "Registration"
+                    icon: "account-plus"
+                    width: 0.4 * self.parent.width
+                    height: 0.45 * self.parent.height
+                    on_press: root.registration()
 
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation:'vertical'
-                    Label:
-                        size_hint_y: 8
-                        text: 'First Name'
-                        color: C('#ffffff')
-                        font_size: self.height * 0.4
-                        padding: 5,5
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-
-                    BoxLayout:
-                        size_hint_y: 8
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                        BoxLayout:
-                            size_hint_x: 50
-                            canvas.before:
-                                Color:
-                                    rgba: C('#0f192e')
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                            CustomInput:
-                                id: first_name
-                                multiline: False
-                                password: False
-                                font_size: self.height * 0.6
-                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                        BoxLayout:
-                            size_hint_x: 25
-                BoxLayout:
-                    size_hint_y: 5
-
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation:'vertical'
-                    Label:
-                        size_hint_y: 8
-                        text: 'Last Name'
-                        color: C('#ffffff')
-                        font_size: self.height * 0.4
-                        padding: 5,5
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-
-                    BoxLayout:
-                        size_hint_y: 8
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                        BoxLayout:
-                            size_hint_x: 50
-                            canvas.before:
-                                Color:
-                                    rgba: C('#0f192e')
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                            CustomInput:
-                                id: last_name
-                                multiline: False
-                                password: False
-                                font_size: self.height * 0.6
-                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                BoxLayout:
-                    size_hint_y: 5
-
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation:'vertical'
-                    Label:
-                        size_hint_y: 8
-                        text: 'Email'
-                        color: C('#ffffff')
-                        font_size: self.height * 0.4
-                        padding: 5,5
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-
-                    BoxLayout:
-                        size_hint_y: 8
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                        BoxLayout:
-                            size_hint_x: 50
-                            canvas.before:
-                                Color:
-                                    rgba: C('#0f192e')
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                            CustomInput:
-                                id: email
-                                multiline: False
-                                password: False
-                                font_size: self.height * 0.6
-                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                BoxLayout:
-                    size_hint_y: 5
-
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation:'vertical'
-                    Label:
-                        size_hint_y: 8
-                        text: 'Username'
-                        color: C('#ffffff')
-                        font_size: self.height * 0.4
-                        padding: 5,5
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-
-                    BoxLayout:
-                        size_hint_y: 8
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                        BoxLayout:
-                            size_hint_x: 50
-                            canvas.before:
-                                Color:
-                                    rgba: C('#0f192e')
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                            CustomInput:
-                                id: username
-                                multiline: False
-                                password: False
-                                font_size: self.height * 0.6
-                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                BoxLayout:
-                    size_hint_y: 5
-
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation:'vertical'
-                    Label:
-                        size_hint_y: 8
-                        text: 'Password'
-                        color: C('#ffffff')
-                        font_size: self.height * 0.4
-                        padding: 5,5
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-
-                    BoxLayout:
-                        size_hint_y: 8
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                        BoxLayout:
-                            size_hint_x: 50
-                            canvas.before:
-                                Color:
-                                    rgba: C('#0f192e')
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                            CustomInput:
-                                id: password
-                                multiline: False
-                                password: True
-                                font_size: self.height * 0.6
-                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                BoxLayout:
-                    size_hint_y: 5
-
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation:'vertical'
-                    Label:
-                        size_hint_y: 8
-                        text: 'Confirm Password'
-                        color: C('#ffffff')
-                        font_size: self.height * 0.4
-                        padding: 5,5
-                        text_size: self.size
-                        halign: 'center'
-                        valign: 'center'
-
-                    BoxLayout:
-                        size_hint_y: 8
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                        BoxLayout:
-                            size_hint_x: 50
-                            canvas.before:
-                                Color:
-                                    rgba: C('#0f192e')
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                            CustomInput:
-                                id: confirm_password
-                                multiline: False
-                                password: True
-                                font_size: self.height * 0.6
-                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
-
-                        BoxLayout:
-                            size_hint_x: 25
-
-                BoxLayout:
-                    size_hint_y: 10
-
-                BoxLayout:
-                    size_hint_y: 20
-                    orientation: 'vertical'
-                    canvas:
-                        Color:
-                            rgba: C('#18294a')
-                        Rectangle:
-                            pos:self.pos
-                            size:self.size
-
-                    BoxLayout:
-                        size_hint_y: 10
-
-                        BoxLayout:
-                            size_hint_x: 10
-
-                        BoxLayout:
-                            size_hint_x: 10
-
-                            CustomButton:
-                                text_size: self.size
-                                halign: 'center'
-                                valign: 'center'
-                                text: 'Registration'
-                                on_press: root.registration()
-
-                        BoxLayout:
-                            size_hint_x: 10
-
-                    BoxLayout:
-                        size_hint_y: 10
+                MDRoundFlatIconButton:
+                    text: "Login"
+                    icon: "login"
+                    width: 0.4 * self.parent.width
+                    height: 0.45 * self.parent.height
+                    on_press: root.to_login_screen()
+                Widget:

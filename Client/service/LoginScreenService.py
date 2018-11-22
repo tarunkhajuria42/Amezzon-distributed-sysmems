@@ -11,14 +11,15 @@ class LoginService(object):
         self.loginScreen = None
 
     def validate_input(self):
-        if self.loginViewModel.get_username().text and self.loginViewModel.get_password().text:
+        if (self.loginViewModel.get_username().text and
+                self.loginViewModel.get_password().text):
             return True
         else:
             if not self.loginViewModel.get_username().text:
-                self.loginViewModel.get_username().hint_text = 'Login'
+                self.loginViewModel.get_username().focus = True
 
             if not self.loginViewModel.get_password().text:
-                self.loginViewModel.get_password().hint_text = 'Password'
+                self.loginViewModel.get_password().focus = True
 
             return False
 
@@ -27,10 +28,9 @@ class LoginService(object):
         self.loginScreen = loginScreen
         self.loginViewModel = loginViewModel
 
-        self.loginScreen.transition.direction = 'down'
-        self.loginScreen.current = HOME_SCREEN
-
-        # if self.validate_input():
+        if self.validate_input():
+            self.loginScreen.transition.direction = 'down'
+            self.loginScreen.current = HOME_SCREEN
         #     requestDto = self.loginDto.PostRequest(
         #         username=self.loginViewModel.get_username().text,
         #         password=self.loginViewModel.get_password().text

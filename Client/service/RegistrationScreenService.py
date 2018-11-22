@@ -10,7 +10,6 @@ class RegistrationService(object):
         self.registrationViewModel = None
         self.registrationScreen = None
 
-    # TODO: Give information to user about the errors
     def validate_input(self):
         if (self.registrationViewModel.get_first_name().text and
                 self.registrationViewModel.get_last_name().text and
@@ -23,26 +22,30 @@ class RegistrationService(object):
             return True
         else:
             if not self.registrationViewModel.get_first_name().text:
-                self.registrationViewModel.get_first_name().hint_text = 'First Name'
+                self.registrationViewModel.get_first_name().focus = True
 
             if not self.registrationViewModel.get_last_name().text:
-                self.registrationViewModel.get_last_name().hint_text = 'Last Name'
+                self.registrationViewModel.get_last_name().focus = True
 
             if not self.registrationViewModel.get_username().text:
-                self.registrationViewModel.get_username().hint_text = 'Username'
+                self.registrationViewModel.get_username().focus = True
 
             if not self.registrationViewModel.get_password().text:
-                self.registrationViewModel.get_password().hint_text = 'Password'
+                self.registrationViewModel.get_password().focus = True
 
             if not self.registrationViewModel.get_confirm_password().text:
-                self.registrationViewModel.get_confirm_password().hint_text = 'Confirm Password'
+                self.registrationViewModel.get_confirm_password().helper_text = 'This field is required'
+                self.registrationViewModel.get_confirm_password().focus = True
 
             if not self.registrationViewModel.get_email().text:
-                self.registrationViewModel.get_email().hint_text = 'Email'
+                self.registrationViewModel.get_email().focus = True
 
             if not (self.registrationViewModel.get_password().text ==
                     self.registrationViewModel.get_confirm_password().text):
-                pass
+                self.registrationViewModel.get_confirm_password().helper_text = \
+                    'Password and confirm password must match'
+                self.registrationViewModel.get_confirm_password().focus = True
+                self.registrationViewModel.get_confirm_password().error = True
 
         return False
 

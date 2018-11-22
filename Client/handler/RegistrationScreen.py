@@ -45,5 +45,6 @@ class RegistrationScreen(Screen):
         self.bind_model()
         self.registrationService.register(
             registrationViewModel=self.registrationViewModel,
-            connectionManager=self.connectionManager
+            connectionManager=self.connectionManager,
+            registrationScreen=self.parent
         )

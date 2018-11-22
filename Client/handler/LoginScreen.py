@@ -13,7 +13,6 @@ class LoginScreen(Screen):
     def __init__(self, **kw):
         super(LoginScreen, self).__init__(**kw)
         self.connectionManager = ObjectProperty(None)
-
         self.username = ObjectProperty(None)
         self.password = ObjectProperty(None)
 
