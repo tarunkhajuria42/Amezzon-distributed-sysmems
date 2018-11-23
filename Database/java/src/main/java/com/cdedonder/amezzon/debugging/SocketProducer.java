@@ -1,5 +1,6 @@
 package com.cdedonder.amezzon.debugging;
 
+import com.cdedonder.amezzon.logging.DatabaseLogger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,8 +9,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
 public class SocketProducer {
+
+    private static final Logger LOGGER = DatabaseLogger.getLogger();
 
     private Socket socket;
     private ObjectMapper objectMapper;
@@ -19,33 +23,33 @@ public class SocketProducer {
     public SocketProducer() {
         try {
             socket = new Socket("localhost", 9111);
-            objectMapper = new ObjectMapper();
             pw = new PrintWriter(socket.getOutputStream(), true);
+            objectMapper = new ObjectMapper();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info("Database intercept not active.");
         }
     }
 
     public void sendMessage(String action, String data) {
+        if (pw == null) return;
         try {
-            System.out.println(action);
             pw.println(objectMapper.writeValueAsString(new DataTransferObject(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME), action, data)));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
         }
     }
 
     @Override
     protected void finalize() throws Throwable {
-        pw.close();
-        socket.close();
+        if (pw != null) pw.close();
+        if (socket != null) socket.close();
         super.finalize();
     }
 
+    @SuppressWarnings("unused")
     public class DataTransferObject {
 
-        private String action, data;
-        private String time;
+        private String action, data, time;
 
         public DataTransferObject(String time, String action, String data) {
             this.time = time;
