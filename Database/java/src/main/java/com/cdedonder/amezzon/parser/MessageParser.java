@@ -2,6 +2,7 @@ package com.cdedonder.amezzon.parser;
 
 import com.cdedonder.amezzon.database.QueryResultErrorMessageWrapper;
 import com.cdedonder.amezzon.database.TransactionPool;
+import com.cdedonder.amezzon.debugging.SocketProducer;
 import com.cdedonder.amezzon.logging.DatabaseLogger;
 import com.cdedonder.amezzon.parser.dto.DatabaseStatementRequest;
 import com.cdedonder.amezzon.parser.dto.DatabaseStatementResponse;
@@ -28,6 +29,8 @@ public class MessageParser {
 
     private final TransactionPool transactionPool;
 
+    private final SocketProducer socketProducer;
+
     public MessageParser() {
         objectMapper = new ObjectMapper();
 
@@ -37,15 +40,21 @@ public class MessageParser {
         parserMap.put("initialize transaction", this::initializeTransaction);
         parserMap.put("database statement", this::databaseStatement);
         //parserMap.put("debug message", this::debugMessage);
+
+        socketProducer = new SocketProducer();
     }
 
     public Message parse(Message message) {
         LOGGER.info("Received message");
+        //TODO PLUG IN GUI DEBUGGER
         try {
             String body = message.getBody();
             JsonNode node = objectMapper.readTree(new StringReader(body));
             String actionString = node.get("action").asText();
-            parserMap.get(actionString).accept(message, node.get("data"));
+            JsonNode data = node.get("data");
+            String dataString = data.asText();
+            socketProducer.sendMessage(actionString, dataString);
+            parserMap.get(actionString).accept(message, data);
         } catch (IOException e) {
             LOGGER.severe(e.getMessage());
         }

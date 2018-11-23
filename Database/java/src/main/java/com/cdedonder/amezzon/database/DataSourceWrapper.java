@@ -20,7 +20,6 @@ public class DataSourceWrapper {
     public DataSourceWrapper() {
         dataSources = new InvalidationQueue<>();
         initialize();
-        //Runtime.getRuntime().addShutdownHook(() -> dataSources.forEach(ds -> ds.close()));
     }
 
     private void initialize() {
