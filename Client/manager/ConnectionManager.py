@@ -20,7 +20,7 @@ class ConnectionManager(object):
         self.set_connection()
 
     def set_connection(self):
-        url = '{0}:{1}'.format(self.con_config[HOST], self.con_config[PORT])
+        url = '{0}:{1}'.format(self .con_config[HOST], self.con_config[PORT])
         self.connection = httplib.HTTPConnection(url)
 
     def send_request(self, body, method):
