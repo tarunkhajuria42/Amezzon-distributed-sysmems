@@ -1,5 +1,5 @@
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import Screen, ScreenManager
 
 from kivy.properties import ObjectProperty
 from kivymd.navigationdrawer import NavigationLayout, MDNavigationDrawer
@@ -15,6 +15,7 @@ class HomeScreen(Screen):
         self.connectionManager = ObjectProperty(None)
         self.navigationLayout = NavigationLayout()
         self.mdNavigationDrawer = MDNavigationDrawer()
+        self.screenManager = ScreenManager()
 
     def leave(self):
         self.parent.transition.direction = 'up'

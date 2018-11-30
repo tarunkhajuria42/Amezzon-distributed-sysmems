@@ -1,6 +1,7 @@
 <HomeScreen>:
     navigationLayout: navigationLayout
     mdNavigationDrawer: mdNavigationDrawer
+    screenManager: screenManager
     NavigationLayout:
         id: navigationLayout
 
@@ -27,9 +28,10 @@
                 title: 'App'
                 md_bg_color: app.theme_cls.primary_color
                 background_palette: 'Primary'
-                background_hue: '500'
+                background_hue: '400'
                 elevation: 10
                 left_action_items:[['menu', lambda x: root.navigationLayout.toggle_nav_drawer()]]
                 right_action_items:[['close', lambda x: root.leave()]]
 
             ScreenManager:
+                id: screenManager

@@ -6,12 +6,16 @@ from handler.MainScreen import MainScreen
 from manager.ConnectionManager import ConnectionManager
 from manager.ServiceManager import ServiceManager
 from manager.SetupManager import SetupManager
+from kivy.config import Config
 
 
 class MainApp(App):
     connectionManager = None
     theme_cls = ThemeManager()
     theme_cls.primary_palette = "Blue"
+    Config.set('graphics', 'width', '700')
+    Config.set('graphics', 'height', '600')
+    Config.write()
 
     def __init__(self, **kw):
         super(MainApp, self).__init__(**kw)
