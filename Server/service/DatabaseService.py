@@ -40,13 +40,37 @@ class DatabaseService(object):
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
 		resp=json.loads(resp)
+		print(resp)
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
 		res['Error']=resp['data']['Error_messages'][0]['message']
 		return resp['data']['result_list']['result_message']
 
 
-	
+	def make_transaction_commit(self,data=None,token=None):
+		req={}
+		req['action']="database statement"
+		statements={}
+		s_id=str(uuid.uuid1())
+		statement={}
+		statement['statement_id']=s_id
+		statement['statement']=data
+		commit={}
+		commit['statement_id']=str(uuid.uuid1())
+		commit['statement']='commit transaction'
+		statements['statement_list']=[statement,commit]
+		statements['transaction_token']=token
+		req['data']=statements
+		str_request=json.dumps(req)
+		print(str_request)
+		self.conn.request_post(str_request)
+		resp=self.conn.get_response()
+		resp=json.loads(resp)
+		print(resp)
+		res={}
+		res['Result']=resp['data']['result_list'][0]['result_message']
+		res['Error']=resp['data']['Error_messages'][0]['message']
+		return resp['data']['result_list']['result_message']
 
 
 
