@@ -1,9 +1,9 @@
 class Products_DTO(object):
-	def __init__(action=action,token=None):
+	def __init__(action=None,token=None):
 		self.action=action
 		self.token=token
 
-	def set_response(self,token=token,message=None,message_connection=None,product_list=None,response_date_time=None):
+	def set_response(self,token=None,message=None,message_connection=None,product_list=None,response_date_time=None):
 		self.token=token
 		response={}
 		data={}

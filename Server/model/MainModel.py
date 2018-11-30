@@ -1,13 +1,14 @@
 from model.UserModel import UserModel
 from model.ProductModel import ProductModel
-from manager.DatabaseManager import DatabaseManager
+from service.DatabaseService import DatabaseService
 from service.TransactionService import TransactionService
+from DTO_Parser.DTO_Parser import DTO_Parser
 class MainModel(object):
 	def __init__(self,request=None):
-		self.db=DatabaseManager()
+		self.db=DatabaseService()
 		self.transaction_service=TransactionService()
-		dto=Parser(request)
-		aciton=dto.get_action()
+		dto=DTO_Parser(request)
+		aciton=dto.action
 		if(action=='login'):
 			model=UserModel(self.transaction_service,self.db,dto)
 		elif(action=='logout'):
@@ -24,8 +25,10 @@ class MainModel(object):
 			model=UserModel(self.transaction_service,self.db,dto)
 		elif(action=='user'):
 			model=UserModel(self.transaction_service,self.db,dto)
+		else:
+			self.response="ERROR_BAD_REQUEST"
 		dto=model.response()
-		self.response=dto.toJSON()
+		self.response=dto.get_response()
 		return
 	def response(self):
 		return self.response
