@@ -14,7 +14,6 @@ class DatabaseStatement(object):
 		statement='SELECT COUNT(*) from Person where username={0}'.format(username)
 		return statement
 	def set_user(self):
-		statement=''
 		return
 	def transaction(self):
 		return

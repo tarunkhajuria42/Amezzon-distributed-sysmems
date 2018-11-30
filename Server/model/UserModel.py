@@ -18,10 +18,12 @@ class UserModel:
 				email=dto.email,firstname=dto.firstname,lastname=dto.lastname)
 		return
 
-	def _login(username=None,password=None):
+	def _login(username=None,password=None,t_token=None):
 
+		if(not t_token):
+			t_token=db.init_transaction()	
 		statement=self.transactionGenerator.getpassword(username)
-		resp=db.make_transaction(statement)
+		resp=db.make_transaction(data=statement,token=t_token)
 		if(len(resp)==0):
 			self.dto.set_response(message='wrong_input')
 			return
@@ -67,17 +69,17 @@ class UserModel:
 		return result
 
 	def _register(username=None, password=None, email=None,login=False,firstname=None,lastname=None):
-		db.init_transaction()
+		t_token=db.init_transaction()
 		statement=self.transactionGenerator._get_user(username=username)
-		resp=db.make_transaction(statement)
+		resp=db.make_transaction(data=statement,token=token)
 		if(resp==0):
 			passwordHash=self.us.hash_password(password)
 			statement=self.transactionGenerator._register(username=username,
 				password=passwordHash,email=email,firstname=firstname,lastname=lastname)
-			_login(username=username,password=password)
+			if(login):
+				_login(username=username,password=password,token=t_token)
 		else:
 			self.dto.set_response(message='user_taken')
-
 		
 	def get_response():
 		return self.dto

@@ -8,25 +8,35 @@ class DatabaseService(object):
 
 	def init_transaction(self):
 		req={}
-		req['action']="init_transaction"
+		req['action']="initialize transaction"
 		req['data']={}
 		str_request=json.dumps(req)
 		self.conn.request_post(str_request)
-		return self.conn.get_response()
+		resp=self.conn.get_response()
+		resp=json.loads(resp)
+		if('data' in resp.keys()):
+			data=resp['data']
+			if('token' in data.keys()):
+				return data['token']
+			else:
+				return False
+		else:
+			return False
+		
 
-	def make_transaction(self,data):
+	def make_transaction(self,data=None,token=None):
 		req={}
 		req['action']="database statement"
 		statements={}
-		t_id=uuid.uuid1()
-		s_id=uuid.uuid1()
+		s_id=str(uuid.uuid1())
 		statement={}
 		statement['statement_id']=s_id
 		statement['statement']=data
 		statements['statement_list']=[statement]
-		statements['transaction_token']=t_id
-		req['data']=statement
+		statements['transaction_token']=token
+		req['data']=statements
 		str_request=json.dumps(req)
+		print(str_request)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
 		resp=json.loads(resp)
