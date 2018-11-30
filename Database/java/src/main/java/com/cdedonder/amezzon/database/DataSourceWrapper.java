@@ -23,6 +23,7 @@ public class DataSourceWrapper {
     }
 
     private void initialize() {
+
         try {
             InputStream is;
             Properties properties;
@@ -49,6 +50,7 @@ public class DataSourceWrapper {
                 return dataSources.get().getConnection();
             } catch (SQLException e) {
                 dataSources.invalidate();
+                LOGGER.info("Connection invalid, trying another ...");
             }
         }
         throw new IllegalStateException("No connections available!"); //DEBUG
