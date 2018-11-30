@@ -89,18 +89,20 @@ public class MessageParser {
             DatabaseStatementRequest request = objectMapper.treeToValue(data, DatabaseStatementRequest.class);
             List<DatabaseStatementResponse.ResultWrapper> results = new ArrayList<>();
             List<DatabaseStatementResponse.ErrorMessageWrapper> errors = new ArrayList<>();
-            for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatement_list()) {
-                QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransactionToken(), wrapper.getStatement());
+            if (request.getStatementList() != null) {
+                for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatementList()) {
+                    QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransactionToken(), wrapper.getStatement());
 
-                DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
-                resultWrapper.setResultMessage(intermediateWrapper.getQueryResult());
-                resultWrapper.setStatementId(wrapper.getStatementId());
-                results.add(resultWrapper);
+                    DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
+                    resultWrapper.setResultMessage(intermediateWrapper.getQueryResult());
+                    resultWrapper.setStatementId(wrapper.getStatementId());
+                    results.add(resultWrapper);
 
-                DatabaseStatementResponse.ErrorMessageWrapper errorWrapper = new DatabaseStatementResponse.ErrorMessageWrapper();
-                errorWrapper.setErrorMessage(intermediateWrapper.getError_message());
-                errorWrapper.setStatementId(wrapper.getStatementId());
-                errors.add(errorWrapper);
+                    DatabaseStatementResponse.ErrorMessageWrapper errorWrapper = new DatabaseStatementResponse.ErrorMessageWrapper();
+                    errorWrapper.setErrorMessage(intermediateWrapper.getError_message());
+                    errorWrapper.setStatementId(wrapper.getStatementId());
+                    errors.add(errorWrapper);
+                }
             }
             response.setResultList(results);
             response.setErrorMessages(errors);
