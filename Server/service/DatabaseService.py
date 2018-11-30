@@ -8,7 +8,7 @@ class DatabaseService(object):
 
 	def init_transaction(self):
 		req={}
-		req['action']="database statement"
+		req['action']="init_transaction"
 		req['data']={}
 		str_request=json.dumps(req)
 		self.conn.request_post(str_request)

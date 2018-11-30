@@ -35,7 +35,6 @@ class DatabaseConnectionManager(object):
 
 	def request_post(self, body):
 		try:
-			print(body)
 			self.conn.request('POST', '/',body)
 		except:
 			return False
