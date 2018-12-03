@@ -31,13 +31,16 @@ public class TransactionPool {
             map.put(uuid, transferQueue);
             return uuid;
         } catch (Exception e) {
-            LOGGER.severe(e.getMessage() + "(returning NULL)");
+            LOGGER.severe(e.getMessage() + " (returning NULL)");
             //LOGGER.severe("SQL state: " + e.getSQLState());
         }
         return null;
     }
 
-    public QueryResultErrorMessageWrapper processStatement(String token, String statement) throws GenericServerError {
+    public synchronized QueryResultErrorMessageWrapper processStatement(String token, String statement) throws GenericServerError {
+        if (!map.contains(token)) {
+            throw new GenericServerError(new IllegalStateException("Token not valid"));
+        }
         BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = map.get(token);
         transferQueue.offerRequest(statement);
 

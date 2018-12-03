@@ -15,7 +15,7 @@ public class DatabaseStatementRequest {
     private String transactionToken;
 
     @JsonProperty("statement_list")
-    public List<StatementWrapper> getStatement_list() {
+    public List<StatementWrapper> getStatementList() {
         return statementList;
     }
 
@@ -30,22 +30,22 @@ public class DatabaseStatementRequest {
     }
 
     @JsonProperty("transaction_token")
-    public void setTransaction_token(String transactionToken) {
+    public void setTransactionToken(String transactionToken) {
         this.transactionToken = transactionToken;
     }
 
     public static class StatementWrapper {
         @JsonProperty("statement_id")
-        private int statementId;
+        private String statementId;
         private String statement;
 
         @JsonProperty("statement_id")
-        public int getStatementId() {
+        public String getStatementId() {
             return statementId;
         }
 
         @JsonProperty("statement_id")
-        public void setStatementId(int statementId) {
+        public void setStatementId(String statementId) {
             this.statementId = statementId;
         }
 
