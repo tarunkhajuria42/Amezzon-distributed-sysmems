@@ -8,7 +8,7 @@ class Transaction_DTO(object):
 		self.product_price=product_price
 		self.product_quantity=product_quantity
 		
-	def set_response(self,token=token,message=None,message_connection=None):
+	def set_response(self,token=None,message=None,message_connection=None):
 		self.token=token
 		response={}
 		data={}

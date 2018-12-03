@@ -1,5 +1,5 @@
 class User_Information_DTO(object):
-	def __init__(token=None,action=action):
+	def __init__(token=None,action=None):
 		self.token=token
 		self.action=action
 

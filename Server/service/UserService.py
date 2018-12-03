@@ -1,8 +1,7 @@
 import random
 import bcrypt
 
-
-class UserServices:
+class UserService:
     def __init__(self):
         return
 

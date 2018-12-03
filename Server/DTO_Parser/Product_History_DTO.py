@@ -6,7 +6,7 @@ class Product_History_DTO():
 		self.action=action
 		self.start_datetime=start_datetime
 
-	def set_response(self,token=token,message=None,message_connection=None):
+	def set_response(self,token=None,message=None,message_connection=None):
 		self.token=token
 		response={}
 		data={}

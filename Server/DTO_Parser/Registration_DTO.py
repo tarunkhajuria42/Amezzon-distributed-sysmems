@@ -1,5 +1,5 @@
 
-class Products_DTO(object):
+class Registration_DTO(object):
   def __init__(action=None,login=None,username=None,password=None,first_name=None,last_name=None,mail=None,id_code=None):
     self.action=action
     self.login=login
@@ -10,7 +10,7 @@ class Products_DTO(object):
     self.mail=mail
     self.id_code=id_code
 
-  def set_response(self,token=token,message=None,message_connection=None):
+  def set_response(self,token=None,message=None,message_connection=None):
     self.token=token
     response={}
     data={}

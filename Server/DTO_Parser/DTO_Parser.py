@@ -1,13 +1,13 @@
 """ Parser to convert data into relevant dto"""
 import json
-from DTO_Parser.Login_DTO import Login_DTO
-from DTO_Parser.Logout_DTO import Logout_DTO
-from DTO_Parser.Product_History_DTO import Product_History_DTO
-from DTO_Parser.Transaction_DTO import Transaction_DTO
-from DTO_Parser.Products_DTO import Products_DTO
-from DTO_Parser.Registration_DTO import Registration_DTO
-from DTO_Parser.User_Information_DTO import User_Information_DTO
-from DTO_Parser.User_DTO import User_DTO
+from Login_DTO import Login_DTO
+from Logout_DTO import Logout_DTO
+from Product_History_DTO import Product_History_DTO
+from Transaction_DTO import Transaction_DTO
+from Products_DTO import Products_DTO
+from Registration_DTO import Registration_DTO
+from User_Information_DTO import User_Information_DTO
+from User_DTO import User_DTO
 
 class DTO_Parser(object):
 	def __init__(self,request_string):
