@@ -6,6 +6,7 @@
     username: username
     password: password
     confirm_password: confirm_password
+    error_message: error_message
 
     ScrollView:
         BoxLayout:
@@ -13,7 +14,7 @@
             size_hint_y: None
             height: self.minimum_height
             padding: 50
-            spacing: 15
+            spacing: 10
 
             MDTextField:
                 id: first_name
@@ -59,6 +60,15 @@
                 helper_text_mode: "on_error"
                 font_size: self.parent.height * 0.035
                 on_text: self.error=False
+
+            MDLabel:
+                id: error_message
+                font_style: 'Title'
+                theme_text_color: 'Error'
+                text: ""
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1] + dp(4)
 
             BoxLayout:
                 size_hint_y: None

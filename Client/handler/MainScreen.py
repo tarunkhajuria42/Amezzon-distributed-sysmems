@@ -8,8 +8,9 @@ Builder.load_file("view/MainScreen.kv")
 
 
 class MainScreen(ScreenManager):
-    def __init__(self, **kw):
-        super(MainScreen, self).__init__(**kw)
+    def __init__(self, **kwargs):
+        super(MainScreen, self).__init__(**kwargs)
         self.loginScreen = LoginScreen()
         self.registrationScreen = RegistrationScreen()
         self.homeScreen = HomeScreen()
+        self.token = None

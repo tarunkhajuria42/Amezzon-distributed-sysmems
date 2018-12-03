@@ -2,6 +2,7 @@
     connectionManager: app.connectionManager
     username: username
     password: password
+    error_message: error_message
 
     ScrollView:
         BoxLayout:
@@ -9,7 +10,7 @@
             size_hint_y: None
             height: self.minimum_height
             padding: [0.1 * self.parent.width, 0.35 * self.parent.height]
-            spacing: 15
+            spacing: 10
 
             MDTextField:
                 id: username
@@ -25,6 +26,15 @@
                 password: True
                 font_size: self.parent.height * 0.035
                 helper_text_mode: "on_error"
+
+            MDLabel:
+                id: error_message
+                font_style: 'Title'
+                theme_text_color: 'Error'
+                text: ""
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1] + dp(4)
 
             BoxLayout:
                 size_hint_y: None

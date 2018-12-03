@@ -17,8 +17,8 @@ class MainApp(App):
     Config.set('graphics', 'height', '600')
     Config.write()
 
-    def __init__(self, **kw):
-        super(MainApp, self).__init__(**kw)
+    def __init__(self, **kwargs):
+        super(MainApp, self).__init__(**kwargs)
         self.service_manager = ServiceManager()
         SetupManager(service_manager=self.service_manager).run_setup()
         self.connectionManager = ConnectionManager(service_manager=self.service_manager)

@@ -8,11 +8,9 @@ class RegistrationViewModel(GenericViewModel):
 
         self.first_name = first_name
         self.last_name = last_name
-
         self.username = username
         self.password = password
         self.confirm_password = confirm_password
-
         self.email = email
         self.id_code = id_code
 
