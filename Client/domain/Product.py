@@ -3,11 +3,13 @@ from domain.ProductType import ProductType
 
 
 class Product(GenericModel):
-    def __init__(self, id=None, name=None, description=None, product_type=ProductType()):
+    def __init__(self, id=None, name=None, description=None, buy=None, sell=None, product_type=ProductType()):
         self.id = id
         self.name = name
         self.description = description
         self.product_type = product_type
+        self.buy = buy
+        self.sell = sell
 
     def get_id(self):
         return self.id
@@ -26,6 +28,18 @@ class Product(GenericModel):
 
     def set_description(self, description):
         self.description = description
+
+    def get_buy(self):
+        return self.buy
+
+    def set_buy(self, buy):
+        self.buy = buy
+
+    def get_sell(self):
+        return self.sell
+
+    def set_sell(self, sell):
+        self.sell = sell
 
     def get_product_type(self):
         return self.product_type

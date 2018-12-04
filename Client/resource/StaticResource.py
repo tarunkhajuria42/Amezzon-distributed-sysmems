@@ -23,6 +23,10 @@ MAIL = 'mail'
 ID_CODE = 'id_code'
 
 # SCREENS
+# GENERAL
 LOGIN_SCREEN = 'LoginScreen'
 REGISTRATION_SCREEN = 'RegistrationScreen'
 HOME_SCREEN = 'HomeScreen'
+
+# HOME
+PRODUCTS_SCREEN = 'Products'

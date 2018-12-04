@@ -42,8 +42,8 @@
 #:import MDBottomNavigationItem kivymd.tabs.MDBottomNavigationItem
 #:import MDUpdateSpinner kivymd.updatespinner.MDUpdateSpinner
 
-<MainScreen>:
-    id: mainScreen
+<MainScreenManager>:
+    id: mainScreenManager
     loginScreen: loginScreen
     registrationScreen: registrationScreen
     homeScreen: homeScreen
@@ -51,14 +51,14 @@
     LoginScreen:
         id: loginScreen
         name: 'LoginScreen'
-        manager: mainScreen
+        manager: mainScreenManager
 
     RegistrationScreen:
         id: registrationScreen
         name: 'RegistrationScreen'
-        manager: mainScreen
+        manager: mainScreenManager
 
     HomeScreen:
         id: homeScreen
         name: 'HomeScreen'
-        manager: mainScreen
+        manager: mainScreenManager

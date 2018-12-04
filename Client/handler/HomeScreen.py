@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.properties import ObjectProperty
 from kivymd.navigationdrawer import NavigationLayout, MDNavigationDrawer
 
+from handler.HomeScreenManager import HomeScreenManager
 from resource.StaticResource import LOGIN_SCREEN
 
 Builder.load_file("view/HomeScreen.kv")
@@ -18,7 +19,7 @@ class HomeScreen(Screen):
 
         self.navigationLayout = NavigationLayout()
         self.mdNavigationDrawer = MDNavigationDrawer()
-        self.screenManager = ScreenManager()
+        self.homeScreenManager = HomeScreenManager()
 
         self.bind_trigger = Clock.create_trigger(self.bind_model)
 
