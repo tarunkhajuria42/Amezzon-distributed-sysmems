@@ -1,5 +1,5 @@
 class DatabaseStatement(object):
-	def __init__():
+	def __init__(self):
 		return
 	def check_session(self,token):
 		statement='SELECT COUNT(*) from session where token={0}'.format(token)
@@ -8,10 +8,10 @@ class DatabaseStatement(object):
 		statement='INSERT INTO SESSION (username,token)VALUES({0},{1})'.format(user,token)  
 		return statement
 	def get_password(self,username):
-		statement='SELECT passwordHash from Person where username= %s' %username
+		statement='SELECT person_passwordhash from person where person_username= %s' %username
 		return statement
 	def get_user(self,username):
-		statement='SELECT COUNT(*) from Person where username={0}'.format(username)
+		statement='SELECT COUNT(*) from person where person_username="{0}"'.format(username)
 		return statement
 	def set_user(self):
 		return
@@ -23,7 +23,9 @@ class DatabaseStatement(object):
 		return
 	def set_user(self):
 		return
-	def register(self,username=None,password=None,firstname=None,lastname=None,email=None):
-		statement="INSERT INTO PERSONS (username,passwordHash,firstName,lastName,mail) \
-		VALUES({0},{1},{2},{3})".format(username,password,firstname,lastname,email)
+	def register(self,username=None,password=None,firstname=None,lastname=None,mail=None):
+		statement="INSERT INTO person(person_username,person_passwordhash,perosn_firstName,person_lastName,person_mail) \
+		VALUES({0},{1},{2},{3})".format(username,password,firstname,lastname,mail)
 		return statement 
+	def commit(self):
+		statement="commit"

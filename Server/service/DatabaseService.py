@@ -40,11 +40,10 @@ class DatabaseService(object):
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
 		resp=json.loads(resp)
-		print(resp)
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
-		res['Error']=resp['data']['Error_messages'][0]['message']
-		return resp['data']['result_list']['result_message']
+		res['Error']=resp['data']['statement_error_messages']
+		return res
 
 
 	def make_transaction_commit(self,data=None,token=None):
@@ -69,8 +68,8 @@ class DatabaseService(object):
 		print(resp)
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
-		res['Error']=resp['data']['Error_messages'][0]['message']
-		return resp['data']['result_list']['result_message']
+		res['Error']=resp['data']['statement_error_messages']
+		return res
 
 
 

@@ -26,6 +26,7 @@ public class TransactionPool {
     public synchronized String newTransactionInstance() { //TODO throw exception when connection not valid
         BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = new BidirectionalTransferQueue<>();
         String uuid = UUID.randomUUID().toString();
+        LOGGER.severe(uuid);
         try {
             new TransactionThread(transferQueue, ds.getConnection(), this, uuid);
             map.put(uuid, transferQueue);
@@ -38,9 +39,10 @@ public class TransactionPool {
     }
 
     public synchronized QueryResultErrorMessageWrapper processStatement(String token, String statement) throws GenericServerError {
-        if (!map.contains(token)) {
+        LOGGER.severe(token);
+        /*if (!map.contains(token)) {
             throw new GenericServerError(new IllegalStateException("Token not valid"));
-        }
+        }*/
         BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = map.get(token);
         transferQueue.offerRequest(statement);
 
@@ -53,7 +55,7 @@ public class TransactionPool {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public synchronized void remove(String uuid, Connection connection){
+    public void remove(String uuid, Connection connection) {
         try {
             connection.close();
         }catch (SQLException e){

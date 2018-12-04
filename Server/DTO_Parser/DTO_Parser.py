@@ -15,21 +15,21 @@ class DTO_Parser(object):
 		if(self.req['action']):
 			action=self.req['action']
 			if(action=='login'):
-				_login()
+				self._login()
 			elif(action=='logout'):
-				_logout()
+				self._logout()
 			elif(action=='product_history'):
-				_product_history()
+				self._product_history()
 			elif(action=='transaction'):
-				_transaction()
+				self._transaction()
 			elif(action=='products'):
-				_products()
+				self._products()
 			elif(action=='registration'):
-				_registration()
+				self._registration()
 			elif(action=='user_information'):
-				_user_information()
+				self._user_information()
 			elif(action=='user'):
-				_user()
+				self._user()
 
 #Todo Put checks
 	def _login(self):

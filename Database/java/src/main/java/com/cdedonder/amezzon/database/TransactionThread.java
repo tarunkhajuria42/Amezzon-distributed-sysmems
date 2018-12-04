@@ -29,9 +29,10 @@ public class TransactionThread extends Thread {
     @Override
     public void run() {
         String statement;
+        QueryResultErrorMessageWrapper outerWrapper = new QueryResultErrorMessageWrapper();
         try {
             connection.setAutoCommit(false);
-            while (!"COMMIT TRANSACTION".equals(statement = transferQueue.receiveRequest().toUpperCase())) {
+            while (!"commit transaction".equals(statement = transferQueue.receiveRequest())) {
                 QueryResultErrorMessageWrapper queryResultErrorMessageWrapper = new QueryResultErrorMessageWrapper();
                 try (PreparedStatement stmt = connection.prepareStatement(statement)) {
                     if (stmt.execute()) {
@@ -63,6 +64,9 @@ public class TransactionThread extends Thread {
                     }
                 } catch (SQLException e1) {
                     connection.rollback();
+                    queryResultErrorMessageWrapper.setError_message(e1.getMessage());
+                } finally {
+                    transferQueue.offerResponse(queryResultErrorMessageWrapper);
                 }
             }
             connection.commit();
@@ -70,8 +74,20 @@ public class TransactionThread extends Thread {
             pool.remove(uuid, connection);
         } catch (InterruptedException e2) {
             LOGGER.severe(e2.getMessage());
+            outerWrapper.setError_message(e2.getMessage());
         } catch (SQLException e3) {
             LOGGER.severe(e3.getMessage() + "\nSQL state: " + e3.getSQLState());
+            outerWrapper.setError_message(e3.getMessage());
+        } finally {
+            transferQueue.offerResponse(outerWrapper);
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if (connection != null && !connection.isClosed()) {
+            connection.rollback();
+            connection.close();
         }
     }
 }
