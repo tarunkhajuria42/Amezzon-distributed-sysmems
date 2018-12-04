@@ -24,7 +24,8 @@ class UserModel:
 		t_token=self.db.init_transaction()	
 		statement=self.transactionGenerator.getpassword(username)
 		resp=self.db.make_transaction(data=statement,token=t_token)
-		if(len(resp)==0):
+		print(resp['Result']['rows'][0])
+		if(resp['Result']['rows'][0]):
 			self.dto.set_response(message='wrong_input')
 			return
 		else:
@@ -33,10 +34,10 @@ class UserModel:
 			token=uuid.uuid1()
 			statement=self.transactionGenerator.login(username,token)
 			resp=self.db.make_transaction(statement)
-			if():
+			if(len(resp['Error'])==0):
 				self.dto.response(token=token)
-			else:
-				self.dto.response(message='wrong_input')
+		else:
+			self.dto.response(message='wrong_input')
 
 	def _get_session(self,token=None):
 		statement=self.transactionGenerator.check_session(token)	
