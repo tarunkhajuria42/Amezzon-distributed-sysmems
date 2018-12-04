@@ -17,7 +17,7 @@ class UserModel:
 			reponse=self._get_details()
 		elif(dto.action=='registration'):
 			reponse=self._register(username=dto.username,password=dto.password,
-				mail=dto.mail,firstname=dto.firstname,lastname=dto.lastname)
+				mail=dto.mail,firstname=dto.firstname,lastname=dto.lastname,login=dto.login)
 		return
 
 	def _login(self,username=None,password=None):
