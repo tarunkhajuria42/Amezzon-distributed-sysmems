@@ -81,6 +81,8 @@ class UserModel:
 				resp=self.db.make_transaction_commit(data=statement,token=t_token)
 				if(login):
 					self._login(username=username,password=password)
+				else:
+					self.dto.set_response()
 			else:
 				self.dto.set_response(message='User Taken')	
 		else:
