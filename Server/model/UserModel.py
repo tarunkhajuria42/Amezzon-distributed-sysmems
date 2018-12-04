@@ -2,28 +2,28 @@ from service.UserService import UserService
 import uuid
 
 class UserModel:
-	def __init__(self,transactionGen,dbConnection,dto):
+	def __init__(self,transactionGen,dbConnection,dto,tk):
 		self.dto=dto
 		self.transactionGenerator=transactionGen
 		self.us=UserService()
 		self.db=dbConnection
+		self.tk=tk
+		print(dto.action)
 		if(dto.action=='login'):
-			response=_login(username=dto.username,password=dto.password)
+			response=self._login(username=dto.username,password=dto.password)
 		elif(dto.action=='logout'):
-			response=_logout(token=dto.token)
+			response=self._logout(token=dto.token)
 		elif(dto.action=='get_details'):
-			reponse=_get_details()
-		elif(dto.action=='register'):
-			reponse=_register(username=dto.username,password=dto.password,
-				email=dto.email,firstname=dto.firstname,lastname=dto.lastname)
+			reponse=self._get_details()
+		elif(dto.action=='registration'):
+			reponse=self._register(username=dto.username,password=dto.password,
+				mail=dto.mail,firstname=dto.firstname,lastname=dto.lastname)
 		return
 
-	def _login(username=None,password=None,t_token=None):
-
-		if(not t_token):
-			t_token=db.init_transaction()	
+	def _login(self,username=None,password=None):
+		t_token=self.db.init_transaction()	
 		statement=self.transactionGenerator.getpassword(username)
-		resp=db.make_transaction(data=statement,token=t_token)
+		resp=self.db.make_transaction(data=statement,token=t_token)
 		if(len(resp)==0):
 			self.dto.set_response(message='wrong_input')
 			return
@@ -32,56 +32,60 @@ class UserModel:
 		if(self.us.check_password(password,stored_hash)):
 			token=uuid.uuid1()
 			statement=self.transactionGenerator.login(username,token)
-			resp=db.make_transaction(statement)
+			resp=self.db.make_transaction(statement)
 			if():
 				self.dto.response(token=token)
 			else:
 				self.dto.response(message='wrong_input')
 
-	def _get_session(token=None):
+	def _get_session(self,token=None):
 		statement=self.transactionGenerator.check_session(token)	
-		db.init_transaction()
-		resp=db.make_transaction(statement)
+		dk.init_transaction()
+		resp=tk.make_transaction(statement)
 		if(resp[0]):
 			return resp[0]
 		else:
 			return False
 
-	def _logout(token=None):
+	def _logout(self,token=None):
 		uname=_get_session(token)
 		if(uname):
 			statement=self.transactionGenerator.logout(token)
-			db.init_transaction()
+			self.db.init_transaction()
 			resp=db.make_transaction(statement)
 			if(len(resp['Error'])==0):
 				return True	
 			else:
 				return False
 
-	def _get_details(token=None):
+	def _get_details(self,token=None):
 		uname=_get_session(token)
 		if(uname):
 			statement=self.transactionGenerator.get_details(username=uname)
-			db.init_transaction()
-			resp=db.make_transaction(statement)
+			self.db.init_transaction()
+			resp=self.db.make_transaction(statement)
 			if(len(resp['Error'])==0):
 				return True
 		return result
 
-	def _register(username=None, password=None, email=None,login=False,firstname=None,lastname=None):
-		t_token=db.init_transaction()
-		statement=self.transactionGenerator._get_user(username=username)
-		resp=db.make_transaction(data=statement,token=token)
-		if(resp==0):
-			passwordHash=self.us.hash_password(password)
-			statement=self.transactionGenerator._register(username=username,
-				password=passwordHash,email=email,firstname=firstname,lastname=lastname)
-			if(login):
-				_login(username=username,password=password,token=t_token)
+	def _register(self,username=None, password=None, mail=None,login=False,firstname=None,lastname=None):
+		t_token=self.db.init_transaction()
+		statement=self.transactionGenerator.get_user(username=username)
+		resp=self.db.make_transaction(data=statement,token=t_token)
+		if(len(resp['Error'])==0):
+			if(int(resp['Result']['rows'][0][0])==0):
+				passwordHash=self.us.hash_password(password)
+				statement=self.transactionGenerator.register(username=username,
+				password=passwordHash,mail=mail,firstname=firstname,lastname=lastname)
+				resp=self.db.make_transaction_commit(data=statement,token=t_token)
+				if(login):
+					self._login(username=username,password=password)
+			else:
+				self.dto.set_response(message='User Taken')	
 		else:
-			self.dto.set_response(message='user_taken')
+			self.dto.set_response(message='System Error')
 		
-	def get_response():
+	def get_response(self):
 		return self.dto
 
 

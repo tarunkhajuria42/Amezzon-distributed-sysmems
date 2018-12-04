@@ -1,17 +1,18 @@
 class ProductModel(object):
-	def __init__(self,transactionGen,dbConnection,dto):
+	def __init__(self,transactionGen,dbConnection,dto,tk):
 		self.dto=dto
 		self.transactionGenerator=transactionGen
 		self.dbConnection=dbConnection
+		self.tk=tk
 		if(dto.action=='transaction'):
-			_login()
+			_transaction()
 		elif(dto.action=='products'):
-			_logout()
+			_products()
 		elif(dto.action=='product_history'):
 			_product_history()
 		return
-
-	def _login(username=None,password=None):
+	 
+	def _transaction(username=None,password=None):
 		return token
 
 	def _get_session(token=None):
@@ -19,11 +20,8 @@ class ProductModel(object):
 		response=self.dbConnection.post_request(login_data)
 		return
 
-	def _logout(token=None):
+	def _products(token=None):
 		return
 
-	def _get_details(token=None):
+	def _product_history(token=None):
 		return
-
-	def get_response():
-		return self.dto

@@ -9,7 +9,12 @@ DATABASE_CONF_FILE='conf/database_config.ini'
 
 class DatabaseConnectionManager(object):
 
-	def __init__(self):
+	def __init__(self,db_type=None):
+		DATABASE_CONFIG=None
+		if(db_type=='token'):
+			DATABASE_CONFIG = 'token'
+		else:
+			DATABASE_CONFIG = 'default'
 		self.database_config=SafeConfigParser()
 		self.database_config.read(DATABASE_CONF_FILE)
 		self.config = dict(self.database_config._sections)[DATABASE_CONFIG]
@@ -18,6 +23,7 @@ class DatabaseConnectionManager(object):
 					"Content-type": "application/x-www-form-urlencoded",
 					"Accept": "text/plain"
  				}	
+
 	def connect(self):
 		try:
 			self.conn.connect()

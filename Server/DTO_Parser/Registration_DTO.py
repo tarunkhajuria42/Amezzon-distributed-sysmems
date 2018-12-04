@@ -1,14 +1,16 @@
+import json
 
 class Registration_DTO(object):
-  def __init__(action=None,login=None,username=None,password=None,first_name=None,last_name=None,mail=None,id_code=None):
+  def __init__(self,action=None,login=None,username=None,password=None,first_name=None,last_name=None,mail=None,id_code=None):
     self.action=action
     self.login=login
     self.username=username
     self.password=password
-    self.first_name=first_name
-    self.last_name=last_name
+    self.firstname=first_name
+    self.lastname=last_name
     self.mail=mail
-    self.id_code=id_code
+    self.idcode=id_code
+    self.response={}
 
   def set_response(self,token=None,message=None,message_connection=None):
     self.token=token
@@ -19,11 +21,11 @@ class Registration_DTO(object):
     error_messages['message_connection']=message_connection
     data['error_messages']=error_messages
     data['token']=token
-    reposne['data']=data
+    response['data']=data
     self.response=response
     return
 
-  def get_response():
+  def get_response(self):
     return json.dumps(self.response)
 
 
