@@ -1,5 +1,5 @@
 class User_DTO(object):
-	def __init__(token=None,action=None,first_name=None,last_name=None,mail=None,password=None):
+	def __init__(self,token=None,action=None,first_name=None,last_name=None,mail=None,password=None):
 		self.token=token
 		self.action=action
 		self.first_name=first_name
@@ -15,9 +15,9 @@ class User_DTO(object):
 		error_messages['message']=message
 		error_messages['message_connection']=message_connection
 		data['error_messages']=error_messages
-		resposne['data']=data
+		response['data']=data
 		self.response=response
 		return
 
-	def get_response():
+	def get_response(self):
 		return json.dumps(self.response)

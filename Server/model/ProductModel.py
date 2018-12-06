@@ -12,16 +12,16 @@ class ProductModel(object):
 			_product_history()
 		return
 	 
-	def _transaction(username=None,password=None):
+	def _transaction(self,):
 		return token
 
-	def _get_session(token=None):
+	def _get_session(self,token=None):
 		statement=self.transactionGenerator("CheckSession",token)
 		response=self.dbConnection.post_request(login_data)
 		return
 
-	def _products(token=None):
+	def _products(self,token=None):
 		return
 
-	def _product_history(token=None):
+	def _product_history(self,token=None):
 		return

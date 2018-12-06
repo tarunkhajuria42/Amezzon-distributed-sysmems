@@ -8,7 +8,6 @@ class UserModel:
 		self.us=UserService()
 		self.db=dbConnection
 		self.tk=tk
-		print(dto.action)
 		if(dto.action=='login'):
 			response=self._login(username=dto.username,password=dto.password)
 		elif(dto.action=='logout'):
@@ -22,40 +21,33 @@ class UserModel:
 
 	def _login(self,username=None,password=None):
 		t_token=self.db.init_transaction()	
-		statement=self.transactionGenerator.getpassword(username)
-		resp=self.db.make_transaction(data=statement,token=t_token)
-		print(resp['Result']['rows'][0])
-		if(resp['Result']['rows'][0]):
+		statement=self.transactionGenerator.get_password(username)
+		resp=self.db.make_transaction_commit(data=statement,token=t_token)
+		if(len(resp['Result']['rows'][0])==0):
 			self.dto.set_response(message='wrong_input')
 			return
 		else:
-			stored_hash=resp[0]
+			stored_hash=resp['Result']['rows'][0][0]
 		if(self.us.check_password(password,stored_hash)):
 			token=uuid.uuid1()
-			statement=self.transactionGenerator.login(username,token)
-			resp=self.db.make_transaction(statement)
-			if(len(resp['Error'])==0):
+			resp=tk.set_token(username=username,token=token)
+			if(resp>0):
 				self.dto.response(token=token)
+			else:
+				self.dto.response(message='system_error',message_connection='login')
 		else:
 			self.dto.response(message='wrong_input')
 
 	def _get_session(self,token=None):
-		statement=self.transactionGenerator.check_session(token)	
-		dk.init_transaction()
-		resp=tk.make_transaction(statement)
-		if(resp[0]):
-			return resp[0]
-		else:
-			return False
+		resp=tk.make_transaction(token=token)
+		return resp
 
 	def _logout(self,token=None):
 		uname=_get_session(token)
 		if(uname):
-			statement=self.transactionGenerator.logout(token)
-			self.db.init_transaction()
-			resp=db.make_transaction(statement)
-			if(len(resp['Error'])==0):
-				return True	
+			resp=tk.delete_token(token)
+			if(resp>0):
+				self.dto.set_response()	
 			else:
 				return False
 

@@ -1,5 +1,5 @@
 class Transaction_DTO(object):
-	def __init__(token=None,action=None,product_action=None,
+	def __init__(self,token=None,action=None,product_action=None,
 			product_id=None,product_price=None,product_quantity=None):
 		self.token=token
 		self.action=action
@@ -16,9 +16,9 @@ class Transaction_DTO(object):
 		error_messages['message']=message
 		error_messages['message_connection']=message_connection
 		data['error_messages']=error_messages
-		reposne['data']=data
+		response['data']=data
 		self.response=response
 		return
 
-	def get_response():
+	def get_response(self):
 		return json.dumps(self.response)

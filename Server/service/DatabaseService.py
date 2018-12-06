@@ -36,7 +36,6 @@ class DatabaseService(object):
 		statements['transaction_token']=token
 		req['data']=statements
 		str_request=json.dumps(req)
-		print(str_request)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
 		resp=json.loads(resp)
@@ -61,11 +60,9 @@ class DatabaseService(object):
 		statements['transaction_token']=token
 		req['data']=statements
 		str_request=json.dumps(req)
-		print(str_request)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
 		resp=json.loads(resp)
-		print(resp)
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
 		res['Error']=resp['data']['statement_error_messages']

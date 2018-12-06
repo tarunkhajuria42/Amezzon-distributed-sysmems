@@ -8,7 +8,7 @@ class DatabaseStatement(object):
 		statement='INSERT INTO SESSION (username,token)VALUES({0},{1})'.format(user,token)  
 		return statement
 	def get_password(self,username):
-		statement='SELECT person_passwordhash from person where person_username= %s' %username
+		statement='SELECT person_passwordhash from person where person_username= "{0}"'.format(username)
 		return statement
 	def get_user(self,username):
 		statement='SELECT COUNT(*) from person where person_username="{0}"'.format(username)

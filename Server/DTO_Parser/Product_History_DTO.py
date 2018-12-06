@@ -1,5 +1,5 @@
 class Product_History_DTO():
-	def __init__(token=None,product_id=None,
+	def __init__(self,token=None,product_id=None,
 			start_datetime=None,action=None):
 		self.token=token
 		self.product_id=product_id
@@ -22,7 +22,7 @@ class Product_History_DTO():
 		self.response=response
 		return
 		
-	def get_response():
+	def get_response(self):
 		return json.dumps(self.response)
 
 

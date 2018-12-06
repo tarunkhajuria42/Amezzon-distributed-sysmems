@@ -1,6 +1,6 @@
 
 class Login_DTO(object):
-	def __init__(username=None,password=None,action=None):
+	def __init__(self,username=None,password=None,action=None):
 		self.username=username
 		self.password=password
 		self.action=action
@@ -18,7 +18,7 @@ class Login_DTO(object):
 		self.response=response
 		return
 
-	def get_response():
+	def get_response(self):
 		return json.dumps(self.response)
 
 
