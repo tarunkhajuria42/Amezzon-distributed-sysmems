@@ -10,8 +10,7 @@ class UserService:
 
     def hash_password(self, password):
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-        return "abcd"
+        return hashed_password
 
     def check_password(self, password, hash):
-    	return True
-        #return bcrypt.checkpw(password.encode('utf-8'), hash)
+        return bcrypt.checkpw(password.encode('utf-8'), hash)

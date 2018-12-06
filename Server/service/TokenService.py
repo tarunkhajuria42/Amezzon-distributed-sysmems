@@ -4,7 +4,7 @@ import uuid
 import mysql.connector
 
 DATABASE_CONFIG = 'token'
-DATABASE_CONF_FILE='database_config.ini'
+DATABASE_CONF_FILE='conf/database_config.ini'
 
 class TokenService(object):
 	
