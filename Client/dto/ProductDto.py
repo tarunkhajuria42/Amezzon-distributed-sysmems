@@ -1,7 +1,7 @@
 from domain.Product import Product
 from dto.ErrorMessage import ErrorMessageList
 from dto.GenericDto import GenericDto
-from resource.StaticResource import ACTION_REGISTRATION, ACTION_PRODUCTS
+from resource.StaticResource import ACTION_PRODUCTS
 
 
 class ProductDto(object):
@@ -53,13 +53,3 @@ class ProductDto(object):
 
             def add_product(self, product):
                 self.product_list.append(product)
-
-
-if __name__ == '__main__':
-    pd = ProductDto.GetResponse()
-    for i in range(4):
-        p = Product(
-            id='{0}'.format(i), name='test {0}'.format(i), description='djaiodjwaoidjsiajd',
-            buy=(1 + i) * 100.00, sell=(1 + i) * 100.00
-        )
-        pd.get_data().add_product(product=p)
