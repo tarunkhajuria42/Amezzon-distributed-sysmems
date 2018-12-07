@@ -59,7 +59,8 @@ class DTO_Parser(object):
 		return
 	def _products(self):
 		data=self.req['data']
-		action=self.req['action']	
+		action=self.req['action']
+		token=self.req['token']	
 		self.DTO=Products_DTO(token=token,action=action)
 		return
 	def _registration(self):

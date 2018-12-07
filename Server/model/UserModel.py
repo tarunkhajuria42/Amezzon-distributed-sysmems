@@ -26,7 +26,7 @@ class UserModel:
 		t_token=self.db.init_transaction()	
 		resp=self.tk.check_user_session(username=username)
 		if(resp):
-			self.dto.set_response(message='already_logged_in',message_connection='login')
+			self.dto.set_response(token=resp,message='already_logged_in',message_connection='login')
 			return
 		statement=self.transactionGenerator.get_password(username=username)
 		resp=self.db.make_transaction_commit(data=statement,token=t_token)

@@ -45,7 +45,7 @@ class TokenService(object):
 		users=self.cursor.fetchall()
 		self.db.commit()
 		if(len(users)>0):
-			return True
+			return users[0][0]
 		else:
 			return False
 
