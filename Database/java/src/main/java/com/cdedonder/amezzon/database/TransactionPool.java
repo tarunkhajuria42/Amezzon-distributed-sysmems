@@ -16,14 +16,12 @@ public class TransactionPool {
     private final ConcurrentHashMap<String, BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper>> map;
     private DataSourceWrapper ds;
 
-    //https://www.journaldev.com/2509/java-datasource-jdbc-datasource-example
-
-    public TransactionPool(){
+    public TransactionPool() {
         map = new ConcurrentHashMap<>();
         ds = new DataSourceWrapper();
     }
 
-    public synchronized String newTransactionInstance() { //TODO throw exception when connection not valid
+    public String newTransactionInstance() {
         BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = new BidirectionalTransferQueue<>();
         String uuid = UUID.randomUUID().toString();
         LOGGER.severe(uuid);
@@ -33,24 +31,28 @@ public class TransactionPool {
             return uuid;
         } catch (Exception e) {
             LOGGER.severe(e.getMessage() + " (returning NULL)");
-            //LOGGER.severe("SQL state: " + e.getSQLState());
         }
         return null;
     }
 
-    public synchronized QueryResultErrorMessageWrapper processStatement(String token, String statement) throws GenericServerError {
-        LOGGER.severe(token);
-        /*if (!map.contains(token)) {
-            throw new GenericServerError(new IllegalStateException("Token not valid"));
-        }*/
-        BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = map.get(token);
-        transferQueue.offerRequest(statement);
-
-        try{
-            return transferQueue.receiveResponse();
-        } catch (InterruptedException e) {
-            LOGGER.severe(e.getMessage());
-            throw new GenericServerError(e);
+    public QueryResultErrorMessageWrapper processStatement(String token, String statement) {
+        QueryResultErrorMessageWrapper response;
+        if (map.containsKey(token)) {
+            BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = map.get(token);
+            try {
+                transferQueue.offerRequest(statement, 300);
+                return transferQueue.receiveResponse(300);
+            } catch (InterruptedException e) {
+                LOGGER.severe(e.getMessage());
+                response = new QueryResultErrorMessageWrapper();
+                response.setError_message(e.getMessage());
+                return response;
+            }
+        } else {
+            response = new QueryResultErrorMessageWrapper();
+            response.setError_message("Token not valid");
+            LOGGER.info("Invalid token");
+            return response;
         }
     }
 
@@ -58,7 +60,7 @@ public class TransactionPool {
     public void remove(String uuid, Connection connection) {
         try {
             connection.close();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.severe(e.getMessage());
         }
         map.remove(uuid);
