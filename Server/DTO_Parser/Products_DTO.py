@@ -1,5 +1,6 @@
+import json
 class Products_DTO(object):
-	def __init__(action=None,token=None):
+	def __init__(self,action=None,token=None):
 		self.action=action
 		self.token=token
 
@@ -13,11 +14,11 @@ class Products_DTO(object):
 		data['error_messages']=error_messages
 		data['product_list']=product_list
 		data['response_date_time']=response_date_time
-		reposne['data']=data
+		response['data']=data
 		self.response=response
 		return
 
-	def get_response():
+	def get_response(self):
 		return json.dumps(self.response)
 
 

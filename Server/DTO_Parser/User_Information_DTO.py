@@ -1,11 +1,11 @@
+import json
 class User_Information_DTO(object):
-	def __init__(token=None,action=None):
+	def __init__(self,token=None,action=None):
 		self.token=token
 		self.action=action
 
 	def set_response(self,message=None,message_connection=None,first_name=None,
 							last_name=None,mail=None,username=None,id_number=None):
-		self.token=token
 		response={}
 		data={}
 		error_messages={}
@@ -17,11 +17,11 @@ class User_Information_DTO(object):
 		data['last_name']=last_name
 		data['mail']=mail
 		data['id_number']=id_number
-		resposne['data']=data
+		response['data']=data
 		self.response=response
 		return
 
-	def get_response():
+	def get_response(self):
 		return json.dumps(self.response)
 
 

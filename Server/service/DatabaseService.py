@@ -13,7 +13,10 @@ class DatabaseService(object):
 		str_request=json.dumps(req)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
-		resp=json.loads(resp)
+		if(resp):
+			resp=json.loads(resp)
+		else:
+			return False
 		if('data' in resp.keys()):
 			data=resp['data']
 			if('token' in data.keys()):
@@ -36,10 +39,15 @@ class DatabaseService(object):
 		statements['transaction_token']=token
 		req['data']=statements
 		str_request=json.dumps(req)
-		print(str_request)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
-		resp=json.loads(resp)
+		if(resp):
+			resp=json.loads(resp)
+		else:
+			res={}
+			res['Error']=[]
+			res['Error'].append('System Error')
+			return res
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
 		res['Error']=resp['data']['statement_error_messages']
@@ -61,11 +69,16 @@ class DatabaseService(object):
 		statements['transaction_token']=token
 		req['data']=statements
 		str_request=json.dumps(req)
-		print(str_request)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
+		if(resp):
+			resp=json.loads(resp)
+		else:
+			res={}
+			res['Error']=[]
+			res['Error'].append('System Error')
+			return res
 		resp=json.loads(resp)
-		print(resp)
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
 		res['Error']=resp['data']['statement_error_messages']
