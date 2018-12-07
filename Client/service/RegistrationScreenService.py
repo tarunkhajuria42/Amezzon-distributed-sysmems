@@ -51,13 +51,11 @@ class RegistrationService(object):
                     'Password and confirm password must match'
                 self.registrationViewModel.get_confirm_password().focus = True
                 self.registrationViewModel.get_confirm_password().error = True
-
         return False
 
     def validate_response(self, response):
         response_json = json.loads(response)
-        token = response_json['token']
-
+        token = response_json['data']['token']
         error_messages_list = ErrorMessageList()
         for error in response_json['data']['error_messages']:
             error_messages_list.add_error_message(
@@ -80,7 +78,9 @@ class RegistrationService(object):
             last_name=self.registrationViewModel.get_last_name().text,
             username=self.registrationViewModel.get_username().text,
             password=self.registrationViewModel.get_password().text,
-            mail=self.registrationViewModel.get_email().text)
+            mail=self.registrationViewModel.get_email().text,
+            id_code='',
+            login=False)
 
         try:
             response = self.connectionManager.send_request(body=requestDto.toJSON(), method='POST')

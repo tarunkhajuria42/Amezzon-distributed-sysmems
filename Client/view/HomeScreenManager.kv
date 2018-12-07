@@ -1,13 +1,25 @@
 <HomeScreenManager>:
     id: homeScreenManager
-    productsScreen: productsScreen
+    productListScreen: productListScreen
     transactionHistoryScreen: transactionHistoryScreen
     personalInformationScreen: personalInformationScreen
     appInformationScreen: appInformationScreen
 
-    ProductsScreen:
-        id: productsScreen
-        name: 'ProductsScreen'
+
+    Screen:
+        name: 'LoadingScreen'
+        manager: homeScreenManager
+
+        MDSpinner:
+            id: spinner
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            active: True
+
+    ProductListScreen:
+        id: productListScreen
+        name: 'ProductListScreen'
         manager: homeScreenManager
 
     TransactionHistoryScreen:

@@ -2,6 +2,7 @@
 ACTION_LOGIN = 'login'
 ACTION_REGISTRATION = 'registration'
 ACTION_USER_INFORMATION = 'user_information'
+ACTION_PRODUCTS = 'products'
 
 
 # SERVER <---> DATABASE

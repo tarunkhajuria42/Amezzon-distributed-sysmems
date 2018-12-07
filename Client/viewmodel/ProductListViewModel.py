@@ -1,4 +1,4 @@
-class ProductsViewModel(object):
+class ProductListViewModel(object):
     def __init__(self, product_list=None):
         if product_list is None:
             product_list = []

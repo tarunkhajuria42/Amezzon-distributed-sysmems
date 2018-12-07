@@ -15,7 +15,6 @@ class ConnectionManager(object):
             'Accept': 'application/json'
         }
 
-    # TODO: VALIDATE IF CONNECTION EXIST
     def validate_connection(self):
         self.set_connection()
 
@@ -26,4 +25,4 @@ class ConnectionManager(object):
     def send_request(self, body, method):
         self.validate_connection()
         self.connection.request(method, '', body, self.header)
-        return self.connection.getresponse()
+        return self.connection.getresponse().read()
