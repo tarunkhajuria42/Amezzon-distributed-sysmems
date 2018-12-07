@@ -13,4 +13,4 @@ class UserService:
         return hashed_password
 
     def check_password(self, password, hash):
-        return bcrypt.checkpw(password.encode('utf-8'), hash)
+        return bcrypt.checkpw(password.encode('utf-8'), hash.encode('utf-8'))

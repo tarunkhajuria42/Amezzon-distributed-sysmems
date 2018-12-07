@@ -13,14 +13,14 @@ class DatabaseStatement(object):
 		statement='SELECT person_id,person_firstName,person_lastName,person_mail \
 		from person where person_username="{0}"'.format(username)
 		return statement
-
-
-	def transaction(self):
+	def transaction(self,username):
 		return
 	def transaction_record(self):
 		return
-	def get_products(self):
+	def get_products(self,product_id=None):
+		statement='SELECT product_id,product_name,product_type,product_description,product_quantity'
 		return
+		
 	def set_user(self):
 		return
 	def register(self,username=None,password=None,firstname=None,lastname=None,mail=None):

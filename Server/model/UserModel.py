@@ -24,10 +24,14 @@ class UserModel:
 
 	def _login(self,username=None,password=None):
 		t_token=self.db.init_transaction()	
+		resp=self.tk.check_user_session(username=username)
+		if(resp):
+			self.dto.set_response(message='already_logged_in',message_connection='login')
+			return
 		statement=self.transactionGenerator.get_password(username=username)
 		resp=self.db.make_transaction_commit(data=statement,token=t_token)
-		if(len(resp['Result']['rows'][0])==0):
-			self.dto.set_response(message='wrong_input')
+		if(len(resp['Result']['rows'])==0):
+			self.dto.set_response(message='wrong_input',message_connection='login')
 			return
 		else:
 			stored_hash=resp['Result']['rows'][0][0]
@@ -39,7 +43,7 @@ class UserModel:
 			else:
 				self.dto.set_response(message='system_error',message_connection='login')
 		else:
-			self.dto.set_response(message='wrong_input')
+			self.dto.set_response(message='wrong_input',message_connection='login')
 
 	def _get_session(self,token=None):
 		resp=self.tk.retrieve_user(token=token)
@@ -48,18 +52,21 @@ class UserModel:
 	def _logout(self,token=None):
 		uname=self._get_session(token)
 		if(uname):
-			resp=tk.delete_token(token)
+			resp=self.tk.delete_token(token)
 			if(resp>0):
 				self.dto.set_response()	
 			else:
-				return False
+				self.dto.set_response(message='system_error',message_connection='logout')
+		else:
+			self.dto.set_response(message='already_logged_out',message_connection='logout')
+
 
 	def _get_details(self,token=None):
 		uname=self._get_session(token)
 		if(uname):
 			statement=self.transactionGenerator.get_user_details(username=uname)
-			self.db.init_transaction()
-			resp=self.db.make_transaction_commit(statement)
+			db_token=self.db.init_transaction()
+			resp=self.db.make_transaction_commit(data=statement,token=db_token)
 			if(len(resp['Error'])==0):
 				id_num=int(resp['Result']['rows'][0][0])
 				firstname=resp['Result']['rows'][0][1]
@@ -97,10 +104,13 @@ class UserModel:
 				statement=self.transactionGenerator.register(username=username,
 				password=passwordHash,mail=mail,firstname=firstname,lastname=lastname)
 				resp=self.db.make_transaction_commit(data=statement,token=t_token)
-				if(login):
-					self._login(username=username,password=password)
+				if(len(resp['Error'])==0):
+					if(login):
+						self._login(username=username,password=password)
+					else:
+						self.dto.set_response()
 				else:
-					self.dto.set_response()
+					self.dto.set_response(message='System Error')
 			else:
 				self.dto.set_response(message='User Taken')	
 		else:

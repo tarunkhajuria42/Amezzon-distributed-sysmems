@@ -1,4 +1,5 @@
 
+import json
 class Login_DTO(object):
 	def __init__(self,username=None,password=None,action=None):
 		self.username=username
@@ -14,7 +15,7 @@ class Login_DTO(object):
 		error_messages['message_connection']=message_connection
 		data['error_messages']=error_messages
 		data['token']=token
-		reposne['data']=data
+		response['data']=data
 		self.response=response
 		return
 

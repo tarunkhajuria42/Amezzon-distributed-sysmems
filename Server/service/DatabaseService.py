@@ -78,7 +78,6 @@ class DatabaseService(object):
 			res['Error']=[]
 			res['Error'].append('System Error')
 			return res
-		resp=json.loads(resp)
 		res={}
 		res['Result']=resp['data']['result_list'][0]['result_message']
 		res['Error']=resp['data']['statement_error_messages']

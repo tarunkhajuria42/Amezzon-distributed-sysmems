@@ -1,3 +1,4 @@
+import json
 class Product_History_DTO():
 	def __init__(self,token=None,product_id=None,
 			start_datetime=None,action=None):
@@ -18,7 +19,7 @@ class Product_History_DTO():
 		data['product_quantity']=product_quantity
 		data['buy_price']=buy_price
 		data['time_stamp']=time_stamp
-		reposne['data']=data
+		response['data']=data
 		self.response=response
 		return
 		
