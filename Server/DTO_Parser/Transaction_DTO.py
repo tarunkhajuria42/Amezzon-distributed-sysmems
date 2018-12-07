@@ -1,3 +1,4 @@
+import json
 class Transaction_DTO(object):
 	def __init__(self,token=None,action=None,product_action=None,
 			product_id=None,product_price=None,product_quantity=None):

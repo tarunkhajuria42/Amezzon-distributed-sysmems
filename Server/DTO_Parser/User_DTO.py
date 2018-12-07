@@ -1,3 +1,4 @@
+import json
 class User_DTO(object):
 	def __init__(self,token=None,action=None,first_name=None,last_name=None,mail=None,password=None):
 		self.token=token

@@ -1,20 +1,20 @@
 class DatabaseStatement(object):
 	def __init__(self):
 		return
-	def check_session(self,token):
-		statement='SELECT COUNT(*) from session where token={0}'.format(token)
-		return statement
-	def login(self,user,token):
-		statement='INSERT INTO SESSION (username,token)VALUES({0},{1})'.format(user,token)  
-		return statement
-	def get_password(self,username):
+	def get_password(self,username=None):
 		statement='SELECT person_passwordhash from person where person_username= "{0}"'.format(username)
 		return statement
-	def get_user(self,username):
+	def get_user(self,username=None):
 		statement='SELECT COUNT(*) from person where person_username="{0}"'.format(username)
 		return statement
 	def set_user(self):
 		return
+	def get_user_details(self,username=None):
+		statement='SELECT person_id,person_firstName,person_lastName,person_mail \
+		from person where person_username="{0}"'.format(username)
+		return statement
+
+
 	def transaction(self):
 		return
 	def transaction_record(self):

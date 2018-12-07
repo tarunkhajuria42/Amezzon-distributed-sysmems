@@ -15,8 +15,8 @@ class UserModel:
 		elif(dto.action=='user_information'):
 			reponse=self._get_details(token=dto.token)
 		elif(dto.action=='user'):
-			response=self._set_details(token=dto.token,first_name=first_name,
-				last_name=last_name,mail=mail,password=password)
+			response=self._set_details(token=dto.token,firstname=dto.first_name,
+				lastname=dto.last_name,mail=dto.mail,password=dto.password)
 		elif(dto.action=='registration'):
 			reponse=self._register(username=dto.username,password=dto.password,
 				mail=dto.mail,firstname=dto.firstname,lastname=dto.lastname,login=dto.login)
@@ -24,7 +24,7 @@ class UserModel:
 
 	def _login(self,username=None,password=None):
 		t_token=self.db.init_transaction()	
-		statement=self.transactionGenerator.get_password(username)
+		statement=self.transactionGenerator.get_password(username=username)
 		resp=self.db.make_transaction_commit(data=statement,token=t_token)
 		if(len(resp['Result']['rows'][0])==0):
 			self.dto.set_response(message='wrong_input')
@@ -42,7 +42,7 @@ class UserModel:
 			self.dto.set_response(message='wrong_input')
 
 	def _get_session(self,token=None):
-		resp=self.tk.make_transaction(token=token)
+		resp=self.tk.retrieve_user(token=token)
 		return resp
 
 	def _logout(self,token=None):
@@ -57,22 +57,35 @@ class UserModel:
 	def _get_details(self,token=None):
 		uname=self._get_session(token)
 		if(uname):
-			statement=self.transactionGenerator.get_details(username=uname)
+			statement=self.transactionGenerator.get_user_details(username=uname)
 			self.db.init_transaction()
 			resp=self.db.make_transaction_commit(statement)
 			if(len(resp['Error'])==0):
-				dto.set_response()
+				id_num=int(resp['Result']['rows'][0][0])
+				firstname=resp['Result']['rows'][0][1]
+				lastname=resp['Result']['rows'][0][2]
+				mail=resp['Result']['rows'][0][3]
+				self.dto.set_response(first_name=firstname,
+							last_name=lastname,mail=mail,username=uname,id_number=id_num)
 			else:
-				dto.set_response(message='system_error',message_connection='user_information')
+				self.dto.set_response(message='system_error',message_connection='user_information')
 				return True
 		return result
 
-	def _set_details(self,token=None):
+	def _set_details(self,token=None,mail=None,firstname=None,lastname=None,):
 		uname=self._get_session(token)
 		if(uname):
-			statement=statement=self.transactionGenerator.set_details(username=uname, )
+			passwordHash=self.us.hash_password(password)
+			statement=statement=self.transactionGenerator.set_details(username=uname,password=passwordHash,mail=mail,
+			firstname=firstname,lastname=lastname)
+			db_token=self.db.init_transaction()
+			resp=self.db.make_transaction_commit(data=statement,token=db_token)
+			if(len(resp['Error']) == 0):
+				self.dto.set_response()
+			else:
+				self.dto.set_response(message='system_error',message_connection='user')
 		else:
-			dto.set_response(message='session_expired',message_connection='session')
+			self.dto.set_response(message='session_expired',message_connection='session')
 
 	def _register(self,username=None, password=None, mail=None,login=False,firstname=None,lastname=None):
 		t_token=self.db.init_transaction()

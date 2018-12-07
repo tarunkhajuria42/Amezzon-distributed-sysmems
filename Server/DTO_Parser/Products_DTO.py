@@ -1,3 +1,4 @@
+import json
 class Products_DTO(object):
 	def __init__(self,action=None,token=None):
 		self.action=action
