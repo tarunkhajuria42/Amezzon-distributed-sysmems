@@ -23,20 +23,21 @@ public class DataSourceWrapper {
     }
 
     private void initialize() {
-
         try {
             InputStream is;
             Properties properties;
-            for (int i = 1; ; i++) {
+            boolean valid = true;
+            for (int i = 1; valid; i++) {
                 is = getClass().getResourceAsStream("/db" + i + ".properties");
                 if (is == null) {
-                    break;
-                }
-                properties = new Properties();
-                properties.load(is);
-                DataSource ds = DataSourceFactory.getMySQLDataSource(properties);
-                if (ds != null) {
-                    dataSources.add(ds);
+                    valid = false;
+                } else {
+                    properties = new Properties();
+                    properties.load(is);
+                    DataSource ds = DataSourceFactory.getMySQLDataSource(properties);
+                    if (ds != null) {
+                        dataSources.add(ds);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -53,6 +54,7 @@ public class DataSourceWrapper {
                 LOGGER.info("Connection invalid, trying another ...");
             }
         }
+        dataSources.revalidateAll();
         throw new IllegalStateException("No connections available!"); //DEBUG
     }
 }

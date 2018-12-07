@@ -91,6 +91,7 @@ public class MessageParser {
             List<DatabaseStatementResponse.ErrorMessageWrapper> errors = new ArrayList<>();
             if (request.getStatementList() != null) {
                 for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatementList()) {
+                    LOGGER.info(wrapper.getStatement());
                     QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransactionToken(), wrapper.getStatement());
 
                     DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
@@ -118,6 +119,7 @@ public class MessageParser {
             try {
                 message.setResponseBody(wrapInData(objectMapper.writeValueAsString(response)));
             } catch (JsonProcessingException f) {
+                response.getStatementErrorMessages().add(f.getMessage());
                 LOGGER.severe(f.getMessage());
             }
         }

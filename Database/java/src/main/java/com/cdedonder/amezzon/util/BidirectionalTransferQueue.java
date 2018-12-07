@@ -43,7 +43,7 @@ public class BidirectionalTransferQueue<A,B> {
         return responseQueue.take();
     }
 
-    public B receivedResponse(long ms) throws InterruptedException{
+    public B receiveResponse(long ms) throws InterruptedException {
         return responseQueue.poll(ms, TimeUnit.MILLISECONDS);
     }
 }

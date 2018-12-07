@@ -9,7 +9,6 @@ class User_DTO(object):
 		self.password=password
 
 	def set_response(self,message=None,message_connection=None):
-		self.token=token
 		response={}
 		data={}
 		error_messages={}

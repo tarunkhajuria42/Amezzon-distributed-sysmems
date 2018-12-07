@@ -71,6 +71,7 @@ class DatabaseService(object):
 		str_request=json.dumps(req)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
+		print(resp)
 		if(resp):
 			resp=json.loads(resp)
 		else:

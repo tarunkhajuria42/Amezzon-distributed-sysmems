@@ -5,7 +5,6 @@ class Products_DTO(object):
 		self.token=token
 
 	def set_response(self,token=None,message=None,message_connection=None,product_list=None,response_date_time=None):
-		self.token=token
 		response={}
 		data={}
 		error_messages={}

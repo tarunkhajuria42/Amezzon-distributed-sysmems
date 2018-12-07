@@ -39,6 +39,16 @@ class TokenService(object):
 		else:
 			return False
 
+	def check_user_session(self,username=None):
+		statement='SELECT token from tokens where username="{0}"'.format(username)
+		self.cursor.execute(statement)
+		users=self.cursor.fetchall()
+		self.db.commit()
+		if(len(users)>0):
+			return users[0][0]
+		else:
+			return False
+
 
 
 

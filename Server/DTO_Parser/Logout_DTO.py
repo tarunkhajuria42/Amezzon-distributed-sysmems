@@ -1,8 +1,9 @@
+import json
 class Logout_DTO(object):
-	def __init__(self,username=None,password=None,action=None):
-		self.username=username
-		self.password=password
+	def __init__(self,token=None,action=None):
+		self.token=token
 		self.action=action
+		
 	def set_response(self,message=None,message_connection=None):
 		response={}
 		data={}
