@@ -35,10 +35,14 @@ class ProductListScreenService(object):
     def set_mdList(self):
         if len(self.mdList.children) is 0:
             for product in self.productListViewModel.get_product_list():
+                print product.id
+                print product.name
+                print product.buy
+                print product.sell
                 item = TwoLineListItem(
-                    id=product.id,
-                    text=product.name,
-                    secondary_text='Buy price:{0} Sell price:{1}'.format(product.buy, product.sell),
+                    id=str(product.id),
+                    text=str(product.name),
+                    secondary_text='Buy price:{0} Sell price:{1}'.format(str(product.buy), str(product.sell)),
                     on_release=self.productListScreen.on_product_select
                 )
                 self.mdList.add_widget(item)
@@ -58,8 +62,8 @@ class ProductListScreenService(object):
         requestDto = ProductDto.GetRequest(token=self.productListScreen.parent.token)
 
         try:
-            # response = self.connectionManager.send_request(body=requestDto.toJSON(), method='GET')
-            response = json.loads(self.mock_response())
+            response = json.loads(self.connectionManager.send_request(body=requestDto.toJSON(), method='GET'))
+            # response = json.loads(self.mock_response())
             product_list = response['data']['product_list']
             temp_list = []
             for product_json in product_list:
@@ -70,7 +74,7 @@ class ProductListScreenService(object):
                     buy=product_json['buy_price'],
                     sell=product_json['sell_price'],
                     quantity=product_json['product_quantity'],
-                    product_type=product_json['product_type']
+                    product_type=product_json['type']
                 )
                 temp_list.append(product)
             self.productListViewModel.set_product_list(product_list=temp_list)

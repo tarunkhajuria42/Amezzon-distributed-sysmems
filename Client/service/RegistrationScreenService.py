@@ -81,9 +81,9 @@ class RegistrationService(object):
             mail=self.registrationViewModel.get_email().text,
             id_code='',
             login=False)
-
         try:
             response = self.connectionManager.send_request(body=requestDto.toJSON(), method='POST')
+            print response
             self.validate_response(response=response)
         except (httplib.HTTPException, socket.error) as ex:
             self.registrationViewModel.get_error_message().text = 'Can not connect to server'

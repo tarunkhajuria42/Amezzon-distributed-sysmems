@@ -29,9 +29,9 @@ class LoginService(object):
 
     def validate_response(self, response):
         response_json = json.loads(response)
-        token = response_json['token']
+        token = response_json['data']['token']
         error_messages = response_json['data']['error_messages']
-        if len(error_messages) == 0:
+        if token is not None:
             self.loginScreen.parent.token = token
             self.loginScreen.parent.transition.direction = 'down'
             self.loginScreen.parent.current = HOME_SCREEN
@@ -47,8 +47,9 @@ class LoginService(object):
             username=self.loginViewModel.get_username().text,
             password=self.loginViewModel.get_password().text)
         try:
-            # response = self.connectionManager.send_request(body=requestDto.toJSON(), method='POST')
-            response = self.mock_data_ok()
+            response = self.connectionManager.send_request(body=requestDto.toJSON(), method='POST')
+            print response
+            # response = self.mock_data_ok()
             self.validate_response(response=response)
         except (httplib.HTTPException, socket.error) as ex:
             self.loginViewModel.get_error_message().text = 'Can not connect to server'

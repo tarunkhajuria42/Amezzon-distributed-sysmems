@@ -104,6 +104,7 @@ class UserModel:
 				statement=self.transactionGenerator.register(username=username,
 				password=passwordHash,mail=mail,firstname=firstname,lastname=lastname)
 				resp=self.db.make_transaction_commit(data=statement,token=t_token)
+
 				if(len(resp['Error'])==0):
 					if(login):
 						self._login(username=username,password=password)
