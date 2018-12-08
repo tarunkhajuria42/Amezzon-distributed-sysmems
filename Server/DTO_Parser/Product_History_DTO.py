@@ -14,7 +14,7 @@ class Product_History_DTO():
 		error_messages={}
 		error_messages['message']=message
 		error_messages['message_connection']=message_connection
-		data['error_messages']=error_messages
+		data['error_messages']=[error_messages]
 		data['transaction_price_history']=transaction_price_history
 		data['product_quantity']=product_quantity
 		response['data']=data

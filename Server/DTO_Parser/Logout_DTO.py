@@ -10,7 +10,7 @@ class Logout_DTO(object):
 		error_messages={}
 		error_messages['message']=message
 		error_messages['message_connection']=message_connection
-		data['error_messages']=error_messages
+		data['error_messages']=[error_messages]
 		response['data']=data
 		self.response=response
 		return

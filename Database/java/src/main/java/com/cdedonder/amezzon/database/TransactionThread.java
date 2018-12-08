@@ -56,7 +56,9 @@ public class TransactionThread extends Thread {
                             while (resultSet.next()) {
                                 List<String> row = new ArrayList<>(count);
                                 for (int i = 1; i <= count; i++) {
-                                    row.add(resultSet.getObject(i).toString());
+                                    if (resultSet.getObject(i) != null) {
+                                        row.add(resultSet.getObject(i).toString());
+                                    }
                                 }
                                 rows.add(row);
                             }
@@ -71,7 +73,8 @@ public class TransactionThread extends Thread {
                 } catch (SQLException e1) {
                     LOGGER.info("Rolling back ...");
                     connection.rollback();
-                    queryResultErrorMessageWrapper.setError_message(e1.getMessage());
+                    queryResultErrorMessageWrapper.
+                            queryResultErrorMessageWrapper.setError_message(e1.getMessage());
                 } finally {
                     transferQueue.offerResponse(queryResultErrorMessageWrapper);
                 }

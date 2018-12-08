@@ -49,8 +49,11 @@ class DatabaseService(object):
 			res['Error'].append('System Error')
 			return res
 		res={}
+		res['Error']=[]
+		for statement in resp['data']['error_messages']:
+			if(statement['error_message']):
+				res['Error'].append(statement['error_message'])
 		res['Result']=resp['data']['result_list'][0]['result_message']
-		res['Error']=resp['data']['statement_error_messages']
 		return res
 
 
@@ -80,6 +83,10 @@ class DatabaseService(object):
 			res['Error'].append('System Error')
 			return res
 		res={}
+		res['Error']=[]
+		for statement in resp['data']['error_messages']:
+			if(statement['error_message']):
+				res['Error'].append(statement['error_message'])
 		res['Result']=resp['data']['result_list'][0]['result_message']
 		res['Error']=resp['data']['statement_error_messages']
 		return res

@@ -23,7 +23,7 @@ public class DatabaseStatementResponse {
         statementErrorMessages = new ArrayList<>();
     }
 
-    @JsonProperty("errorMessage")
+    @JsonProperty("error_messages")
     public List<ErrorMessageWrapper> getErrorMessages() {
         return errorMessages;
     }
