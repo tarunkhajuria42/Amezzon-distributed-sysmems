@@ -39,14 +39,12 @@ public class MessageParser {
         parserMap = new HashMap<>();
         parserMap.put("initialize transaction", this::initializeTransaction);
         parserMap.put("database statement", this::databaseStatement);
-        //parserMap.put("debug message", this::debugMessage);
 
         socketProducer = new SocketProducer();
     }
 
     public Message parse(Message message) {
         LOGGER.info("Received message");
-        //TODO PLUG IN GUI DEBUGGER
         try {
             String body = message.getBody();
             JsonNode node = objectMapper.readTree(new StringReader(body));
@@ -61,7 +59,8 @@ public class MessageParser {
         return message;
     }
 
-    private void initializeTransaction(Message message, JsonNode data) {
+    @SuppressWarnings("unused")
+    private void initializeTransaction(Message message, JsonNode _data) {
         try {
             LOGGER.info("Initialize new Transaction");
             String token = transactionPool.newTransactionInstance();
@@ -112,9 +111,9 @@ public class MessageParser {
 
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
-            response.setStatementErrorMessages(new ArrayList<String>(1) {{
-                add(e.getMessage());
-            }});
+            ArrayList<String> errorMessages = new ArrayList<>(1);
+            errorMessages.add(e.getMessage());
+            response.setStatementErrorMessages(errorMessages);
         } finally {
             try {
                 message.setResponseBody(wrapInData(objectMapper.writeValueAsString(response)));
@@ -124,15 +123,6 @@ public class MessageParser {
             }
         }
     }
-
-    /*
-    private void debugMessage(Message message, JsonNode data) {
-        LOGGER.info("Received message");
-        String text = data.asText();
-        LOGGER.info("Message reads: " + text);
-        message.setResponseCode(200);
-        message.setResponseBody("Well received: " + text);
-    }*/
 
     private static String wrapInData(String json) {
         return "{\"data\": " + json + "}";

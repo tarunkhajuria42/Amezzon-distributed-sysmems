@@ -24,7 +24,6 @@ public class TransactionPool {
     public String newTransactionInstance() {
         BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = new BidirectionalTransferQueue<>();
         String uuid = UUID.randomUUID().toString();
-        LOGGER.severe(uuid);
         try {
             new TransactionThread(transferQueue, ds.getConnection(), this, uuid);
             map.put(uuid, transferQueue);
@@ -41,19 +40,23 @@ public class TransactionPool {
             BidirectionalTransferQueue<String, QueryResultErrorMessageWrapper> transferQueue = map.get(token);
             try {
                 transferQueue.offerRequest(statement, 300);
-                return transferQueue.receiveResponse(300);
+                response = transferQueue.receiveResponse(300);
+                if (response == null) {
+                    response = new QueryResultErrorMessageWrapper();
+                    response.setError_message("Statement execution timed out");
+                    LOGGER.severe("timed out");
+                }
             } catch (InterruptedException e) {
                 LOGGER.severe(e.getMessage());
                 response = new QueryResultErrorMessageWrapper();
                 response.setError_message(e.getMessage());
-                return response;
             }
         } else {
             response = new QueryResultErrorMessageWrapper();
             response.setError_message("Token not valid");
             LOGGER.info("Invalid token");
-            return response;
         }
+        return response;
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -62,7 +65,8 @@ public class TransactionPool {
             connection.close();
         } catch (SQLException e) {
             LOGGER.severe(e.getMessage());
+        } finally {
+            map.remove(uuid);
         }
-        map.remove(uuid);
     }
 }

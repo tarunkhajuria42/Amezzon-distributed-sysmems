@@ -1,0 +1,31 @@
+{
+  "data": {
+    "error_messages": [
+      {
+        "error_message": "___STRING___",
+        "statement_id": "___STRING___"
+      }
+    ],
+    "result_list": [
+      {
+        "statement_id": "___STRING___",
+        "result_message": {
+          "column_names": [
+            "___STRING___"
+          ],
+          "column_types": [
+            "___STRING___"
+          ],
+          "rows": [
+            [
+              "___STRING___"
+            ]
+          ]
+        }
+      }
+    ],
+    "statement_error_messages": [
+      "___STRING___"
+    ]
+  }
+}

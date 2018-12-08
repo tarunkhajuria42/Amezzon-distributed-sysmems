@@ -16,11 +16,11 @@ public class BidirectionalTransferQueue<A,B> {
     }
 
     public boolean offerRequest(A a){
-        return requestQueue.tryTransfer(a);
+        return requestQueue.offer(a);
     }
 
     public void offerRequest(A a, long ms) throws InterruptedException{
-        requestQueue.tryTransfer(a, ms, TimeUnit.MILLISECONDS);
+        requestQueue.offer(a, ms, TimeUnit.MILLISECONDS);
     }
 
     public A receiveRequest() throws InterruptedException{
@@ -32,11 +32,11 @@ public class BidirectionalTransferQueue<A,B> {
     }
 
     public boolean offerResponse(B b){
-        return responseQueue.tryTransfer(b);
+        return responseQueue.offer(b);
     }
 
     public void offerResponse(B b, long ms) throws InterruptedException{
-        responseQueue.tryTransfer(b, ms, TimeUnit.MILLISECONDS);
+        responseQueue.offer(b, ms, TimeUnit.MILLISECONDS);
     }
 
     public B receiveResponse() throws InterruptedException{
