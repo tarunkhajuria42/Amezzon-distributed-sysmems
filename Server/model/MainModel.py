@@ -21,6 +21,8 @@ class MainModel(object):
 			model=ProductModel(self.transaction_service,self.db,dto,self.tk)
 		elif(action=='products'):
 			model=ProductModel(self.transaction_service,self.db,dto,self.tk)
+		elif(action=='product_by_id'):
+			model=ProductModel(self.transaction_service,self.db,dto,self.tk)
 		elif(action=='registration'):
 			model=UserModel(self.transaction_service,self.db,dto,self.tk)
 		elif(action=='user_information'):

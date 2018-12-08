@@ -24,6 +24,8 @@ class DTO_Parser(object):
 				self._transaction()
 			elif(action=='products'):
 				self._products()
+			elif(action=='product_by_id'):
+				self._products()
 			elif(action=='registration'):
 				self._registration()
 			elif(action=='user_information'):
@@ -55,13 +57,17 @@ class DTO_Parser(object):
 		token=self.req['token']
 		action=self.req['action']		
 		self.DTO=Transaction_DTO(token=token,action=action,product_action=data['action'],
-			product_id=data["product_id"],product_price=data["product_price"],product_quantity=data["product_quantity"])
+			product_id=data["product_id"],buy_price=data["buy_price"],sell_price=data['sell_price'],
+			product_quantity=data["product_quantity"])
 		return
 	def _products(self):
 		data=self.req['data']
 		action=self.req['action']
-		token=self.req['token']	
-		self.DTO=Products_DTO(token=token,action=action)
+		token=self.req['token']
+		if(action=='products'):	
+			self.DTO=Products_DTO(token=token,action=action)
+		else:
+			self.DTO=Products_DTO(token=token,action=action,product_id=data['product_id'])
 		return
 	def _registration(self):
 		data=self.req['data']

@@ -11,7 +11,7 @@ class User_Information_DTO(object):
 		error_messages={}
 		error_messages['message']=message
 		error_messages['message_connection']=message_connection
-		data['error_messages']=error_messages
+		data['error_messages']=[error_messages]
 		data['username']=username
 		data['first_name']=first_name
 		data['last_name']=last_name
