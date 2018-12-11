@@ -26,4 +26,5 @@ class ConnectionManager(object):
 
     def run(self):
         print 'Starting server, Accepting Clients'
+        print' Server running at :'+ str(self.server_config['host'])+':'+ str(self.server_config['port'])
         self.server.serve_forever()

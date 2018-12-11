@@ -16,4 +16,8 @@ class TransactionService(object):
 		self.S=1-(amount/previous_quantity)
 		sp=max(sellPrice*exp(-self.S),base_sell)
 		bp=min(sp*uniform(0.75,0.99),base_buy)
+		print(sellPrice)
+		print(buyPrice)
+		print(bp)
+		print(sp)
 		return [bp,sp]
