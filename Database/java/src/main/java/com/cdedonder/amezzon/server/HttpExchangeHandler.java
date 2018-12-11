@@ -32,6 +32,7 @@ public class HttpExchangeHandler implements HttpHandler {
             sb.append(line);
         }
         String body = sb.toString();
+        System.out.println(body);
         try {
             Message message = messageParser.parse(new Message(method, body));
             exchange.sendResponseHeaders(message.getResponseCode(), 0);
