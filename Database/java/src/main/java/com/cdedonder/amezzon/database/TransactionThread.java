@@ -23,18 +23,23 @@ public class TransactionThread extends Thread {
         this.connection = connection;
         this.pool = pool;
         this.uuid = uuid;
+        LOGGER.info("Transaction thread started: " + Thread.currentThread().getName());
         start();
     }
 
     @Override
     public void run() {
         String statement;
+        QueryResultErrorMessageWrapper outerWrapper = new QueryResultErrorMessageWrapper();
         try {
             connection.setAutoCommit(false);
-            while (!"COMMIT TRANSACTION".equals(statement = transferQueue.receiveRequest().toUpperCase())) {
+            LOGGER.info("Waiting for statements ... " + Thread.currentThread().getName());
+            while (!"commit transaction".equals(statement = transferQueue.receiveRequest())) {
+                LOGGER.info("Statement received");
                 QueryResultErrorMessageWrapper queryResultErrorMessageWrapper = new QueryResultErrorMessageWrapper();
                 try (PreparedStatement stmt = connection.prepareStatement(statement)) {
                     if (stmt.execute()) {
+                        LOGGER.info("Query received " + Thread.currentThread().getName());
                         QueryResult queryResult = new QueryResult();
                         try (ResultSet resultSet = stmt.getResultSet()) {
                             ResultSetMetaData metaData = resultSet.getMetaData();
@@ -51,27 +56,49 @@ public class TransactionThread extends Thread {
                             while (resultSet.next()) {
                                 List<String> row = new ArrayList<>(count);
                                 for (int i = 1; i <= count; i++) {
-                                    row.add(resultSet.getObject(i).toString());
+                                    if (resultSet.getObject(i) != null) {
+                                        row.add(resultSet.getObject(i).toString());
+                                    }
                                 }
                                 rows.add(row);
                             }
                             queryResult.setRows(rows);
+                            LOGGER.info("Query gathered " + Thread.currentThread().getName());
                         } finally {
+                            LOGGER.info("Query result sent");
                             queryResultErrorMessageWrapper.setQueryResult(queryResult);
                             transferQueue.offerResponse(queryResultErrorMessageWrapper);
                         }
                     }
                 } catch (SQLException e1) {
+                    LOGGER.info("Rolling back ...");
                     connection.rollback();
+                    queryResultErrorMessageWrapper.setError_message(e1.getMessage());
+                } finally {
+                    transferQueue.offerResponse(queryResultErrorMessageWrapper);
                 }
             }
+            LOGGER.info("Committing" + Thread.currentThread().getName());
             connection.commit();
             connection.setAutoCommit(true);
             pool.remove(uuid, connection);
         } catch (InterruptedException e2) {
             LOGGER.severe(e2.getMessage());
+            outerWrapper.setError_message(e2.getMessage());
         } catch (SQLException e3) {
             LOGGER.severe(e3.getMessage() + "\nSQL state: " + e3.getSQLState());
+            outerWrapper.setError_message(e3.getMessage());
+        } finally {
+            LOGGER.info("Committed " + Thread.currentThread().getName());
+            transferQueue.offerResponse(outerWrapper);
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if (connection != null && !connection.isClosed()) {
+            connection.rollback();
+            connection.close();
         }
     }
 }

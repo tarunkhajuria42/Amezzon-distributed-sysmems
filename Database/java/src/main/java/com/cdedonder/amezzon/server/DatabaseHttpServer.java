@@ -1,5 +1,6 @@
 package com.cdedonder.amezzon.server;
 
+import com.cdedonder.amezzon.util.IpFinder;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -15,7 +16,8 @@ public class DatabaseHttpServer implements Server {
     private final HttpServer server;
 
     public DatabaseHttpServer(Properties properties) throws IOException {
-        String host = properties.getProperty("host");
+        String ip = IpFinder.getCurrentIp();
+        String host = (ip == null) ? properties.getProperty("host") : ip;
         int port = Integer.parseInt(properties.getProperty("port"));
         server = HttpServer.create(new InetSocketAddress(host, port), 0);
         LOGGER.info("Created HTTP server at " + host + ":" + port);

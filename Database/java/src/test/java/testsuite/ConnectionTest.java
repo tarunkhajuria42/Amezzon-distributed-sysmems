@@ -11,6 +11,7 @@ public class ConnectionTest {
 
     public static void main(String[] args) {
         DataSourceWrapper ds = new DataSourceWrapper();
+        //try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3331/amezzon", "databaseuser", "userpassword");
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement("SHOW TABLES");
              ResultSet set = ps.executeQuery()) {

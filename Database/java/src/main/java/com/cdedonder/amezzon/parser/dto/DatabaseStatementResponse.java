@@ -23,7 +23,7 @@ public class DatabaseStatementResponse {
         statementErrorMessages = new ArrayList<>();
     }
 
-    @JsonProperty("errorMessage")
+    @JsonProperty("error_messages")
     public List<ErrorMessageWrapper> getErrorMessages() {
         return errorMessages;
     }
@@ -59,7 +59,7 @@ public class DatabaseStatementResponse {
         @JsonProperty("error_message")
         private String errorMessage;
         @JsonProperty("statement_id")
-        private int statementId;
+        private String statementId;
 
         @JsonProperty("error_message")
         public String getErrorMessage() {
@@ -72,12 +72,12 @@ public class DatabaseStatementResponse {
         }
 
         @JsonProperty("statement_id")
-        public int getStatementId() {
+        public String getStatementId() {
             return statementId;
         }
 
         @JsonProperty("statement_id")
-        public void setStatementId(int statementId) {
+        public void setStatementId(String statementId) {
             this.statementId = statementId;
         }
     }
@@ -86,17 +86,17 @@ public class DatabaseStatementResponse {
     public static class ResultWrapper {
 
         @JsonProperty("statement_id")
-        private int statementId;
+        private String statementId;
         @JsonProperty("result_message")
         private QueryResult resultMessage;
 
         @JsonProperty("statement_id")
-        public int getStatementId() {
+        public String getStatementId() {
             return statementId;
         }
 
         @JsonProperty("statement_id")
-        public void setStatementId(int statementId) {
+        public void setStatementId(String statementId) {
             this.statementId = statementId;
         }
 

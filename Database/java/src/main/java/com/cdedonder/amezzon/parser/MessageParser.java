@@ -2,6 +2,7 @@ package com.cdedonder.amezzon.parser;
 
 import com.cdedonder.amezzon.database.QueryResultErrorMessageWrapper;
 import com.cdedonder.amezzon.database.TransactionPool;
+import com.cdedonder.amezzon.debugging.SocketProducer;
 import com.cdedonder.amezzon.logging.DatabaseLogger;
 import com.cdedonder.amezzon.parser.dto.DatabaseStatementRequest;
 import com.cdedonder.amezzon.parser.dto.DatabaseStatementResponse;
@@ -28,6 +29,8 @@ public class MessageParser {
 
     private final TransactionPool transactionPool;
 
+    private final SocketProducer socketProducer;
+
     public MessageParser() {
         objectMapper = new ObjectMapper();
 
@@ -36,7 +39,8 @@ public class MessageParser {
         parserMap = new HashMap<>();
         parserMap.put("initialize transaction", this::initializeTransaction);
         parserMap.put("database statement", this::databaseStatement);
-        //parserMap.put("debug message", this::debugMessage);
+
+        socketProducer = new SocketProducer();
     }
 
     public Message parse(Message message) {
@@ -45,14 +49,18 @@ public class MessageParser {
             String body = message.getBody();
             JsonNode node = objectMapper.readTree(new StringReader(body));
             String actionString = node.get("action").asText();
-            parserMap.get(actionString).accept(message, node.get("data"));
+            JsonNode data = node.get("data");
+            String dataString = data.asText();
+            socketProducer.sendMessage(actionString, dataString);
+            parserMap.get(actionString).accept(message, data);
         } catch (IOException e) {
             LOGGER.severe(e.getMessage());
         }
         return message;
     }
 
-    private void initializeTransaction(Message message, JsonNode data) {
+    @SuppressWarnings("unused")
+    private void initializeTransaction(Message message, JsonNode _data) {
         try {
             LOGGER.info("Initialize new Transaction");
             String token = transactionPool.newTransactionInstance();
@@ -80,18 +88,21 @@ public class MessageParser {
             DatabaseStatementRequest request = objectMapper.treeToValue(data, DatabaseStatementRequest.class);
             List<DatabaseStatementResponse.ResultWrapper> results = new ArrayList<>();
             List<DatabaseStatementResponse.ErrorMessageWrapper> errors = new ArrayList<>();
-            for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatement_list()) {
-                QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransactionToken(), wrapper.getStatement());
+            if (request.getStatementList() != null) {
+                for (DatabaseStatementRequest.StatementWrapper wrapper : request.getStatementList()) {
+                    LOGGER.info(wrapper.getStatement());
+                    QueryResultErrorMessageWrapper intermediateWrapper = transactionPool.processStatement(request.getTransactionToken(), wrapper.getStatement());
 
-                DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
-                resultWrapper.setResultMessage(intermediateWrapper.getQueryResult());
-                resultWrapper.setStatementId(wrapper.getStatementId());
-                results.add(resultWrapper);
+                    DatabaseStatementResponse.ResultWrapper resultWrapper = new DatabaseStatementResponse.ResultWrapper();
+                    resultWrapper.setResultMessage(intermediateWrapper.getQueryResult());
+                    resultWrapper.setStatementId(wrapper.getStatementId());
+                    results.add(resultWrapper);
 
-                DatabaseStatementResponse.ErrorMessageWrapper errorWrapper = new DatabaseStatementResponse.ErrorMessageWrapper();
-                errorWrapper.setErrorMessage(intermediateWrapper.getError_message());
-                errorWrapper.setStatementId(wrapper.getStatementId());
-                errors.add(errorWrapper);
+                    DatabaseStatementResponse.ErrorMessageWrapper errorWrapper = new DatabaseStatementResponse.ErrorMessageWrapper();
+                    errorWrapper.setErrorMessage(intermediateWrapper.getError_message());
+                    errorWrapper.setStatementId(wrapper.getStatementId());
+                    errors.add(errorWrapper);
+                }
             }
             response.setResultList(results);
             response.setErrorMessages(errors);
@@ -100,26 +111,18 @@ public class MessageParser {
 
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
-            response.setStatementErrorMessages(new ArrayList<String>(1) {{
-                add(e.getMessage());
-            }});
+            ArrayList<String> errorMessages = new ArrayList<>(1);
+            errorMessages.add(e.getMessage());
+            response.setStatementErrorMessages(errorMessages);
         } finally {
             try {
                 message.setResponseBody(wrapInData(objectMapper.writeValueAsString(response)));
             } catch (JsonProcessingException f) {
+                response.getStatementErrorMessages().add(f.getMessage());
                 LOGGER.severe(f.getMessage());
             }
         }
     }
-
-    /*
-    private void debugMessage(Message message, JsonNode data) {
-        LOGGER.info("Received message");
-        String text = data.asText();
-        LOGGER.info("Message reads: " + text);
-        message.setResponseCode(200);
-        message.setResponseBody("Well received: " + text);
-    }*/
 
     private static String wrapInData(String json) {
         return "{\"data\": " + json + "}";

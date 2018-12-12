@@ -1,0 +1,12 @@
+{
+  "action": "database statement",
+  "data": {
+    "statement_list": [
+      {
+        "statement_id": "___STRING___",
+        "statement": "___STRING___"
+      }
+    ],
+    "transaction_token": "___STRING___"
+  }
+}

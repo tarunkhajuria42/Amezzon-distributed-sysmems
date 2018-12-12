@@ -5,15 +5,13 @@ import java.util.logging.*;
 
 public class DatabaseLogger {
 
-    private static Logger LOGGER;
+    private static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public static void setup() throws IOException {
         setup(Level.SEVERE, false);
     }
 
     public static void setup(Level level, boolean displayOnTerminal) throws IOException {
-        LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
         if (!displayOnTerminal) {
             Logger rootLogger = Logger.getLogger("");
             Handler[] handlers = rootLogger.getHandlers();
