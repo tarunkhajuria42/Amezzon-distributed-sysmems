@@ -1,10 +1,10 @@
 #Key
-/Client/key/**
-/Server/key/**
+#/Client/key/**
+#/Server/key/**
 
 #Certificates
-/Client/crl/**
-/Server/crl/**
+#/Client/crl/**
+#/Server/crl/**
 
 #Logs
 /Client/log/**
@@ -12,6 +12,9 @@
 
 #Idea
 .idea/**
+
+#Pyc
+*.pyc
 
 # User-specific stuff
 .idea/**/workspace.xml
@@ -73,3 +76,6 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+# mac folders
+.DS_Store

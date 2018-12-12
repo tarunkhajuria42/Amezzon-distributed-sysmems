@@ -1,0 +1,10 @@
+{
+  "action": "transaction",
+  "token": "__STRIN__",
+  "data": {
+    "action": "__BOOLEAN__",//TRUE==Buy, FALSE==Sell
+    "product_id": "__NUMBER__",
+    "product_price": "__NUMBER__",
+    "product_quantity": "__INTEGER__"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "action": "registration",
+  "login": "True/False", // True = login user after registration, False = DO NOT login user after registration
+  "data": {
+    "username": "__STRING__",
+    "password": "__STRING__",
+    "first_name": "__STRING__",
+    "last_name": "__STRING__",
+    "mail": "__STRING__",
+    "id_code": "__NUMBER__(11)"
+  }
+}
