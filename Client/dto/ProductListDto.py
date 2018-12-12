@@ -1,20 +1,20 @@
 from domain.Product import Product
 from dto.ErrorMessage import ErrorMessageList
 from dto.GenericDto import GenericDto
-from resource.StaticResource import ACTION_PRODUCT_BY_ID
+from resource.StaticResource import ACTION_PRODUCT_LIST
 
 
-class ProductDto(object):
+class ProductListDto(object):
     class GetRequest(GenericDto.CustomAuthRequest):
-        def __init__(self, token=None, product_id=None):
+        def __init__(self, token=None):
             GenericDto.CustomAuthRequest.__init__(
-                self, action=ACTION_PRODUCT_BY_ID, token=token,
-                data=self.Data(product_id=product_id)
+                self, action=ACTION_PRODUCT_LIST, token=token,
+                data=self.Data()
             )
 
         class Data(object):
-            def __init__(self, product_id):
-                self.product_id = product_id
+            def __init__(self):
+                pass
 
     class GetResponse(GenericDto.CustomResponse):
         def __init__(self, error_messages=None, product_list=None, response_date_time=None):
@@ -53,8 +53,3 @@ class ProductDto(object):
 
             def add_product(self, product):
                 self.product_list.append(product)
-
-
-if __name__ == '__main__':
-    p = ProductDto()
-    print p.GetRequest().toJSON()

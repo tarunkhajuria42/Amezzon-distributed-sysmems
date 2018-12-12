@@ -48,8 +48,6 @@ class LoginService(object):
             password=self.loginViewModel.get_password().text)
         try:
             response = self.connectionManager.send_request(body=requestDto.toJSON(), method='POST')
-            print response
-            # response = self.mock_data_ok()
             self.validate_response(response=response)
         except (httplib.HTTPException, socket.error) as ex:
             self.loginViewModel.get_error_message().text = 'Can not connect to server'

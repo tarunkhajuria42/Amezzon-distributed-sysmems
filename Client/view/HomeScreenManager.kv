@@ -1,6 +1,7 @@
 <HomeScreenManager>:
     id: homeScreenManager
     productListScreen: productListScreen
+    productScreen: productScreen
     transactionHistoryScreen: transactionHistoryScreen
     personalInformationScreen: personalInformationScreen
     appInformationScreen: appInformationScreen
@@ -13,6 +14,11 @@
     ProductListScreen:
         id: productListScreen
         name: 'ProductListScreen'
+        manager: homeScreenManager
+
+    ProductScreen:
+        id: productScreen
+        name: 'ProductScreen'
         manager: homeScreenManager
 
     TransactionHistoryScreen:

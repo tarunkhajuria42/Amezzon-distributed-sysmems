@@ -7,6 +7,7 @@ from handler.AppInformationScreen import AppInformationScreen
 from handler.PersonalInformationScreen import PersonalInformationScreen
 from handler.ProductListScreen import ProductListScreen
 from handler.TransactionHistoryScreen import TransactionHistoryScreen
+from handler.ProductScreen import ProductScreen
 
 Builder.load_file("view/HomeScreenManager.kv")
 
@@ -17,6 +18,7 @@ class HomeScreenManager(ScreenManager):
     def __init__(self, **kwargs):
         super(HomeScreenManager, self).__init__(**kwargs)
         self.productsScreen = ObjectProperty(None)
+        self.productScreen = ObjectProperty(None)
         self.transactionHistoryScreen = ObjectProperty(None)
         self.personalInformationScreen = ObjectProperty(None)
         self.appInformationScreen = ObjectProperty(None)

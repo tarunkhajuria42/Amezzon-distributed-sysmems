@@ -1,0 +1,109 @@
+<ProductScreen>:
+    connectionManager: app.connectionManager
+    product_name: product_name
+    description: description
+    buy_price: buy_price
+    sell_price: sell_price
+    current_quantity: current_quantity
+    input_quantity: input_quantity
+    spinner: spinner
+    scrollView: scrollView
+
+    MDSpinner:
+        id: spinner
+        size_hint: None, None
+        size: dp(46), dp(46)
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        active: True
+
+    ScrollView:
+        id: scrollView
+        opacity: 0
+        do_scroll_x: False
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: [0.1 * self.parent.width, 0.05 * self.parent.height]
+            spacing: 10
+
+            MDLabel:
+                id: product_name
+                font_style: 'Display2'
+                theme_text_color: 'Primary'
+                text: ""
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1] + dp(4)
+
+            MDLabel:
+                font_style: 'Title'
+                theme_text_color: 'Primary'
+                text: "Description:"
+                halign: 'left'
+                size_hint_y: None
+
+            BoxLayout:
+                padding: [10, 0.03 * self.parent.height]
+                MDLabel:
+                    id: description
+                    font_style: 'Body1'
+                    theme_text_color: 'Primary'
+                    text: ""
+                    halign: 'left'
+
+            BoxLayout:
+                padding: [0, -0.05 * self.parent.height]
+                size_hint_y: None
+                MDLabel:
+                    id: buy_price
+                    font_style: 'Headline'
+                    theme_text_color: 'Primary'
+                    text: ""
+                    halign: 'center'
+                    size_hint_y: None
+
+                MDLabel:
+                    id: sell_price
+                    font_style: 'Headline'
+                    theme_text_color: 'Primary'
+                    text: ""
+                    halign: 'center'
+                    size_hint_y: None
+
+                MDLabel:
+                    id: current_quantity
+                    font_style: 'Headline'
+                    theme_text_color: 'Primary'
+                    text: ""
+                    halign: 'center'
+                    size_hint_y: None
+
+            BoxLayout:
+                size_hint_y: None
+                MDTextField:
+                    id: input_quantity
+                    hint_text: "Quantity"
+                    required: True
+                    password: False
+                    font_size: self.parent.height * 0.3
+                    helper_text_mode: "on_error"
+
+            BoxLayout:
+                size_hint_y: None
+                spacing: 0.03 * self.parent.width
+                padding: [0, 0.05 * self.parent.height]
+                Widget:
+                MDRoundFlatButton:
+                    width: 0.4 * self.parent.width
+                    height: 0.45 * self.parent.height
+                    text: "Buy"
+                    on_press: root.buy()
+
+                MDRoundFlatButton:
+                    width: 0.4 * self.parent.width
+                    height: 0.45 * self.parent.height
+                    text: "Sell"
+                    on_press: root.sell()
+                Widget:

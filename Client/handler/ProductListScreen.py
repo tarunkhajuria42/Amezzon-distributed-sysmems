@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
 
+from resource.StaticResource import PRODUCT_SCREEN
 from service.ProductListScreenService import ProductListScreenService
 from viewmodel.ProductListViewModel import ProductListViewModel
 
@@ -22,9 +23,13 @@ class ProductListScreen(Screen):
     def on_enter(self, *args):
         self.bind_trigger()
 
+    def on_leave(self, *args):
+        self.productListScreenService.hide_list()
+
     def on_product_select(self, *args):
-        item = args[0]
-        print item.id
+        listItem = args[0]
+        self.parent.ids.productScreen.id = listItem.id
+        self.parent.current = PRODUCT_SCREEN
 
     def bind_model(self, *args):
         if self.parent.token is not None:

@@ -63,7 +63,7 @@ class RegistrationService(object):
                 message_connection=error['message_connection']
             )
 
-        if len(error_messages_list.get_error_messages()) == 0:
+        if token is not None:
             self.registrationScreen.parent.token = token
             self.registrationScreen.parent.transition.direction = 'down'
             self.registrationScreen.parent.current = HOME_SCREEN
@@ -80,7 +80,7 @@ class RegistrationService(object):
             password=self.registrationViewModel.get_password().text,
             mail=self.registrationViewModel.get_email().text,
             id_code='',
-            login=False)
+            login=True)
         try:
             response = self.connectionManager.send_request(body=requestDto.toJSON(), method='POST')
             print response

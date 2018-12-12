@@ -73,8 +73,7 @@ public class TransactionThread extends Thread {
                 } catch (SQLException e1) {
                     LOGGER.info("Rolling back ...");
                     connection.rollback();
-                    queryResultErrorMessageWrapper.
-                            queryResultErrorMessageWrapper.setError_message(e1.getMessage());
+                    queryResultErrorMessageWrapper.setError_message(e1.getMessage());
                 } finally {
                     transferQueue.offerResponse(queryResultErrorMessageWrapper);
                 }
