@@ -13,7 +13,7 @@ class DatabaseConnectionManager(object):
 		self.database_config=SafeConfigParser()
 		self.database_config.read(DATABASE_CONF_FILE)
 		self.config = dict(self.database_config._sections)[DATABASE_CONFIG]
-		self.conn = httplib.HTTPConnection(self.config['host'],str(self.config['port']))
+		self.conn = httplib.HTTPConnection(self.config['host'],str(self.config['port']),timeout=10)
 		self.headers = {
 					"Content-type": "application/x-www-form-urlencoded",
 					"Accept": "text/plain"
@@ -35,6 +35,7 @@ class DatabaseConnectionManager(object):
 		return True
 
 	def request_post(self, body):
+		count=0
 		try:
 			self.conn.request('POST', '/',body)
 		except:
