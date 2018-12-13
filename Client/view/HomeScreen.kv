@@ -1,2 +1,43 @@
 <HomeScreen>:
     connectionManager: app.connectionManager
+    navigationLayout: navigationLayout
+    mdNavigationDrawer: mdNavigationDrawer
+    homeScreenManager: homeScreenManager
+
+    NavigationLayout:
+        id: navigationLayout
+
+        MDNavigationDrawer:
+            id: mdNavigationDrawer
+            NavigationDrawerIconButton:
+                icon: 'store'
+                text: "Products"
+                on_release: homeScreenManager.current = 'ProductListScreen'
+            NavigationDrawerIconButton:
+                icon: 'briefcase-check'
+                text: "Transaction History"
+                on_release: homeScreenManager.current = 'TransactionHistoryScreen'
+            NavigationDrawerIconButton:
+                icon: 'face'
+                text: "Personal Information"
+                on_release: homeScreenManager.current = 'PersonalInformationScreen'
+            NavigationDrawerIconButton:
+                icon: 'settings'
+                text: "App Info"
+                on_release: homeScreenManager.current = 'AppInformationScreen'
+
+        BoxLayout:
+            orientation: 'vertical'
+            halign: "center"
+            Toolbar:
+                id: toolbar
+                title: 'App'
+                md_bg_color: app.theme_cls.primary_color
+                background_palette: 'Primary'
+                background_hue: '400'
+                elevation: 10
+                left_action_items:[['menu', lambda x: root.navigationLayout.toggle_nav_drawer()]]
+                right_action_items:[['close', lambda x: root.leave()]]
+
+            HomeScreenManager:
+                id: homeScreenManager

@@ -26,3 +26,19 @@ FIRST_NAME = 'first_name'
 LAST_NAME = 'last_name'
 MAIL = 'mail'
 ID_CODE = 'id_code'
+
+#transaction
+ACTION = 'action'
+PRODUCT_ID = 'product_id'
+PRODUCT_PRICE = 'product_price'
+PRODUCT_QUANTITY= 'product_quantity'
+
+#products
+PRODUCT_ID = "product_id"
+PRODUCT_NAME = "product_name"
+PRODUCT_TYPE = "product_type"
+PRODUCT_DESCRIPTION = "product_description"
+PRODUCT_QUANTITY = "product_quantity"
+BUY_PRICE = "buy_price"
+SELL_PRICE = "sell_price"
+

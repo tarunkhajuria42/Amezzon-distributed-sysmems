@@ -9,7 +9,19 @@
     "result_list": [
       {
         "statement_id": "__INTEGER__",
-        "result_message": "__QUERYRESULT__"
+        "result_message": {
+                            "column_names": [
+                              "__STRING__"
+                            ],
+                            "column_types": [
+                              "__STRING__"
+                            ],
+                            "rows": [
+                              [
+                                "__STRING__"
+                              ]
+                            ]
+                          }
       }
     ],
     "statement_error_messages": [

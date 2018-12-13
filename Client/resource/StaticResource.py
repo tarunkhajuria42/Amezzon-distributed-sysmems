@@ -1,7 +1,11 @@
 # CLIENT <---> SERVER
 ACTION_LOGIN = 'login'
+ACTION_LOGOUT = 'logout'
 ACTION_REGISTRATION = 'registration'
 ACTION_USER_INFORMATION = 'user_information'
+ACTION_PRODUCT_LIST = 'products'
+ACTION_PRODUCT_BY_ID = 'product_by_id'
+ACTION_TRANSACTION = 'transaction'
 
 
 # SERVER <---> DATABASE
@@ -23,6 +27,13 @@ MAIL = 'mail'
 ID_CODE = 'id_code'
 
 # SCREENS
+# GENERAL
 LOGIN_SCREEN = 'LoginScreen'
 REGISTRATION_SCREEN = 'RegistrationScreen'
 HOME_SCREEN = 'HomeScreen'
+
+# HOME
+PRODUCT_LIST_SCREEN = 'ProductListScreen'
+PRODUCT_SCREEN = 'ProductScreen'
+PERSONAL_INFORMATION_SCREEN = 'PersonalInformationScreen'
+LOADING_SCREEN = 'LoadingScreen'
