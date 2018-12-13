@@ -66,7 +66,7 @@ public class Main {
                 helpAndExit();
             }
         } catch (ParseException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             helpAndExit();
         }
     }

@@ -58,6 +58,8 @@ public class TransactionThread extends Thread {
                                 for (int i = 1; i <= count; i++) {
                                     if (resultSet.getObject(i) != null) {
                                         row.add(resultSet.getObject(i).toString());
+                                    } else {
+                                        row.add("");
                                     }
                                 }
                                 rows.add(row);
