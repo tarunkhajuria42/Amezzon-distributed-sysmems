@@ -5,19 +5,18 @@ class TransactionService(object):
 		return
 
 	def buy(self,sellPrice=None,buyPrice=None,previous_quantity=None,amount=None,base_buy=None,base_sell=None):
-		self.D=amount/previous_quantity
-		self.S=1-(amount/previous_quantity)
-		bp=min(buyPrice*(1+exp(self.D-1)),base_buy)
-		sp=max(bp*uniform(1.05,1.35),base_sell)
+		amount=float(amount)
+		previous_quantity=float(previous_quantity)
+		ratio=min(float(amount/previous_quantity),1)
+		print(ratio)
+		bp=max(buyPrice+(buyPrice*ratio),base_buy)
+		sp=min(bp*0.75,base_sell)
 		return [bp,sp]
 
 	def sell(self,sellPrice=None,buyPrice=None,previous_quantity=None,amount=None,base_buy=None,base_sell=None):
-		self.D=amount/previous_quantity
-		self.S=1-(amount/previous_quantity)
-		sp=max(sellPrice*exp(-self.S),base_sell)
-		bp=min(sp*uniform(0.75,0.99),base_buy)
-		print(sellPrice)
-		print(buyPrice)
-		print(bp)
-		print(sp)
+		amount=float(amount)
+		previous_quantity=float(previous_quantity)
+		ratio=min(amount/previous_quantity,1)
+		sp=min(sellPrice-(sellPrice*ratio),base_sell)
+		bp=max(sp*1.25,base_buy)
 		return [bp,sp]
