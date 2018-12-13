@@ -17,7 +17,7 @@ class ProductScreen(Screen):
 
         self.id = None
         self.product_name = ObjectProperty(None)
-        self.description = ObjectProperty(None)
+        self.product_description = ObjectProperty(None)
         self.buy_price = ObjectProperty(None)
         self.sell_price = ObjectProperty(None)
         self.current_quantity = ObjectProperty(None)
@@ -27,18 +27,26 @@ class ProductScreen(Screen):
         self.scrollView = ObjectProperty(None)
 
         self.bind_trigger = Clock.create_trigger(self.bind_model)
+        self.event = None
+
+    def callback(self, *args):
+        self.productScreenService.update_product()
 
     def on_enter(self, *args):
         self.bind_trigger()
+        self.event = Clock.schedule_interval(self.callback, 5)
 
     def on_leave(self, *args):
+        self.event.cancel()
         self.productScreenService.hide_product()
 
     def buy(self):
-        print 'buy'
+        if self.productScreenService.validate_input():
+            thread.start_new_thread(self.productScreenService.product_buy, ())
 
     def sell(self):
-        print 'sell'
+        if self.productScreenService.validate_input():
+            thread.start_new_thread(self.productScreenService.product_sell, ())
 
     def bind_model(self, *args):
         self.productScreenService.bind_objects(productScreen=self)

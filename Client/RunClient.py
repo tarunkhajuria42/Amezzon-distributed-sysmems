@@ -13,7 +13,7 @@ class MainApp(App):
     connectionManager = None
     theme_cls = ThemeManager()
     theme_cls.primary_palette = "Blue"
-    Config.set('graphics', 'width', '600')
+    Config.set('graphics', 'width', '590')
     Config.set('graphics', 'height', '600')
     Config.write()
 

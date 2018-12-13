@@ -5,6 +5,7 @@ ACTION_REGISTRATION = 'registration'
 ACTION_USER_INFORMATION = 'user_information'
 ACTION_PRODUCT_LIST = 'products'
 ACTION_PRODUCT_BY_ID = 'product_by_id'
+ACTION_TRANSACTION = 'transaction'
 
 
 # SERVER <---> DATABASE

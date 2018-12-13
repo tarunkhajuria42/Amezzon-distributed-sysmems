@@ -1,7 +1,7 @@
 <ProductScreen>:
     connectionManager: app.connectionManager
     product_name: product_name
-    description: description
+    product_description: product_description
     buy_price: buy_price
     sell_price: sell_price
     current_quantity: current_quantity
@@ -47,7 +47,7 @@
             BoxLayout:
                 padding: [10, 0.03 * self.parent.height]
                 MDLabel:
-                    id: description
+                    id: product_description
                     font_style: 'Body1'
                     theme_text_color: 'Primary'
                     text: ""

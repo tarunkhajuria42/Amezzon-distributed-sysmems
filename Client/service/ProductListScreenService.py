@@ -62,9 +62,9 @@ class ProductListScreenService(object):
                     id=str(product_json['product_id']),
                     name=str(product_json['product_name']),
                     description=str(product_json['product_description']),
-                    buy=str(product_json['buy_price']),
-                    sell=str(product_json['sell_price']),
-                    quantity=str(product_json['product_quantity']),
+                    buy=str(format(float(product_json['buy_price']), '.3f')),
+                    sell=str(format(float(product_json['sell_price']), '.3f')),
+                    quantity=int(product_json['product_quantity']),
                     product_type=str(product_json['type'])
                 )
                 temp_list.append(product)
@@ -74,7 +74,6 @@ class ProductListScreenService(object):
             print 'products request error {0}'.format(ex)
 
     def set_list_data(self):
-        self.hide_list()
         thread.start_new_thread(self.send_request, ())
 
     def hide_list(self):

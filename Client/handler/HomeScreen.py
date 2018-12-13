@@ -45,6 +45,7 @@ class HomeScreen(Screen):
         self.parent.token = None
         self.parent.transition.direction = 'up'
         self.parent.current = LOGIN_SCREEN
+        self.homeScreenManager.current = LOADING_SCREEN
 
     def logout(self):
         logoutDto = LogoutDto().GetRequest(token=self.token)

@@ -19,12 +19,18 @@ class ProductListScreen(Screen):
         self.productListScreenService = ProductListScreenService()
         self.spinner = ObjectProperty(None)
         self.bind_trigger = Clock.create_trigger(self.bind_model)
+        self.event = None
+
+    def callback(self, *args):
+        self.productListScreenService.set_list_data()
 
     def on_enter(self, *args):
         self.bind_trigger()
+        self.event = Clock.schedule_interval(self.callback, 5)
 
     def on_leave(self, *args):
         self.productListScreenService.hide_list()
+        self.event.cancel()
 
     def on_product_select(self, *args):
         listItem = args[0]
