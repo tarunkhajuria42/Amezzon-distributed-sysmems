@@ -15,7 +15,7 @@ public class DataSourceFactory {
         try{
             //props.load(DataSourceFactory.class.getResourceAsStream("/db1.properties"));
             mysqlDS = new MysqlDataSource();
-            mysqlDS.setURL(props.getProperty("MYSQL_DB_URL") + "?max-connections=100");
+            mysqlDS.setURL(props.getProperty("MYSQL_DB_URL") + "?max-connections=200");
             mysqlDS.setUser(props.getProperty("MYSQL_DB_USERNAME"));
             mysqlDS.setPassword(props.getProperty("MYSQL_DB_PASSWORD"));
             mysqlDS.setUseSSL(Boolean.parseBoolean(props.getProperty("MYSQL_DB_USESSL")));
