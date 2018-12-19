@@ -74,7 +74,6 @@ class DatabaseService(object):
 		str_request=json.dumps(req)
 		self.conn.request_post(str_request)
 		resp=self.conn.get_response()
-		print(resp)
 		if(resp):
 			resp=json.loads(resp)
 		else:
@@ -88,7 +87,6 @@ class DatabaseService(object):
 			if(statement['error_message']):
 				res['Error'].append(statement['error_message'])
 		res['Result']=resp['data']['result_list'][0]['result_message']
-		res['Error']=resp['data']['statement_error_messages']
 		return res
 
 

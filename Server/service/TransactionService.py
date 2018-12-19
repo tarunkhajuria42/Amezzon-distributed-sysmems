@@ -8,7 +8,6 @@ class TransactionService(object):
 		amount=float(amount)
 		previous_quantity=float(previous_quantity)
 		ratio=min(float(amount/previous_quantity),1)
-		print(ratio)
 		bp=max(buyPrice+(buyPrice*ratio),base_buy)
 		sp=min(bp*0.75,base_sell)
 		return [bp,sp]

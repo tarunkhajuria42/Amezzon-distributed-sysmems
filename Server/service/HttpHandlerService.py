@@ -23,6 +23,7 @@ class HttpHandlerService(BaseHTTPRequestHandler):
         self.end_headers()
         content_len = int(self.headers.getheader('content-length'))
         body = self.rfile.read(content_len)
+        print(body)
         model=MainModel(request=body)
         self.wfile.write(model.get_response())
         self.end_headers()
