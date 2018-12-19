@@ -1,5 +1,6 @@
 package com.cdedonder.amezzon.server;
 
+import com.cdedonder.amezzon.logging.DatabaseLogger;
 import com.cdedonder.amezzon.parser.Message;
 import com.cdedonder.amezzon.parser.MessageParser;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 public class HttpExchangeHandler implements HttpHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger LOGGER = DatabaseLogger.getLogger();
 
     private MessageParser messageParser;
 
@@ -32,7 +33,6 @@ public class HttpExchangeHandler implements HttpHandler {
             sb.append(line);
         }
         String body = sb.toString();
-        System.out.println(body);
         try {
             Message message = messageParser.parse(new Message(method, body));
             exchange.sendResponseHeaders(message.getResponseCode(), 0);

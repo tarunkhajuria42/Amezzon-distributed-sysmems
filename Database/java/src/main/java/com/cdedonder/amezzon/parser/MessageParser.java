@@ -50,7 +50,7 @@ public class MessageParser {
             JsonNode node = objectMapper.readTree(new StringReader(body));
             String actionString = node.get("action").asText();
             JsonNode data = node.get("data");
-            String dataString = data.asText();
+            String dataString = data.toString();
             socketProducer.sendMessage(actionString, dataString);
             parserMap.get(actionString).accept(message, data);
         } catch (IOException e) {
@@ -109,11 +109,12 @@ public class MessageParser {
 
             message.setResponseCode(200);
 
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             LOGGER.severe(e.getMessage());
             ArrayList<String> errorMessages = new ArrayList<>(1);
             errorMessages.add(e.getMessage());
             response.setStatementErrorMessages(errorMessages);
+        } catch (Exception ignored) {
         } finally {
             try {
                 message.setResponseBody(wrapInData(objectMapper.writeValueAsString(response)));
