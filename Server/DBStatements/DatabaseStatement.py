@@ -17,8 +17,6 @@ class DatabaseStatement(object):
 		return statement
 
 	def set_transaction(self,user_id=None,price=None,transaction_type=None,product_id=None,quantity=None,timestamp=None):
-		print(transaction_type)
-		print("Done")
 		statement='INSERT into transaction(transaction_type,transaction_client,transaction_product,transaction_price,\
 		transaction_quantity,transaction_timestamp) VALUES ("{0}","{1}","{2}","{3}","{4}","{5}")'.format(transaction_type,
 			user_id,
