@@ -2,8 +2,7 @@
 
 ## Team members ##
 * Aleksei Kopõlov
-* Cedric De Donder
-* Hitihami Koralalage Niroshima Udayangani
+* Cedric De Donder 
 * Tarun Khajuria
 * Tek Raj Chhetri
 
